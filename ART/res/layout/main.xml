@@ -6,5 +6,13 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Hello Android from NetBeans"/>
+        android:text="ArtGame Weekend project"/>
+                <Button android:id="@+id/button_draw"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:verticalSpacing="20dp"
+                android:horizontalSpacing="20dp"
+                android:text="@string/button_draw"/>
+
+
 </LinearLayout>
