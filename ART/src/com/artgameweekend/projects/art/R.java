@@ -11,8 +11,8 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int button_display=0x7f020000;
-        public static final int button_draw=0x7f020001;
+        public static final int bt_display=0x7f020000;
+        public static final int bt_draw=0x7f020001;
         public static final int icon=0x7f020002;
     }
     public static final class id {
@@ -22,6 +22,7 @@ public final class R {
     }
     public static final class layout {
         public static final int main=0x7f030000;
+        public static final int send=0x7f030001;
     }
     public static final class string {
         public static final int activity_paint=0x7f040003;
