@@ -7,12 +7,12 @@ package com.artgameweekend.projects.art;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+import java.util.List;
 import org.openintents.intents.WikitudeARIntent;
 import org.openintents.intents.WikitudePOI;
 
@@ -71,10 +71,10 @@ public class MainActivity extends Activity implements OnClickListener
             //intent.addTitleImageUri("http://www.clubtone.net/avatar/58/191139.png");
 
             intent.setPrintMarkerSubText(false);
+            
 
-            WikitudePOI poi = new WikitudePOI(48.844779, 2.326398, 0, "Icon de Test", "Description de Test", "http://google.fr", null, "http://pics.homere.jmsp.net/t_15/64x64/040119_tag41.jpg", ".MainActivity");
-            poi.setIconuri("http://pics.homere.jmsp.net/t_15/64x64/040119_tag41.jpg");
-            intent.addPOI(poi);
+            List<WikitudePOI> list = MyPOIs.getPOIs();
+            intent.addPOIs(list);
             //WikitudePOI poi = new WikitudePOI();
             try {
                 intent.startIntent(this);
