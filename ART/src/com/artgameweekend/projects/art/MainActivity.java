@@ -6,11 +6,12 @@ package com.artgameweekend.projects.art;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 /**
  *
@@ -18,8 +19,10 @@ import android.widget.Button;
  */
 public class MainActivity extends Activity implements OnClickListener
 {
+    private static final int BUTTON_SIZE = 390;
 
-    Button mButtonDraw;
+    ImageButton mButtonDraw;
+    ImageButton mButtonDisplay;
 
     /** Called when the activity is first created. */
     @Override
@@ -29,10 +32,19 @@ public class MainActivity extends Activity implements OnClickListener
 
         setContentView(R.layout.main);
 
-        mButtonDraw = (Button) findViewById(R.id.button_draw);
+        mButtonDraw = (ImageButton) findViewById(R.id.button_draw);
+        Drawable image = getResources().getDrawable(R.drawable.icon);
+        mButtonDraw.setImageDrawable( image );
+        mButtonDraw.setMinimumWidth(BUTTON_SIZE);
+        mButtonDraw.setMinimumHeight(BUTTON_SIZE);
+
         mButtonDraw.setOnClickListener(this);
 
-        // ToDo add your GUI initialization code here        
+        mButtonDisplay = (ImageButton) findViewById(R.id.button_display);
+        mButtonDisplay.setImageDrawable( getResources().getDrawable(R.drawable.icon));
+        mButtonDisplay.setOnClickListener(this);
+        mButtonDisplay.setMinimumWidth(BUTTON_SIZE);
+        mButtonDisplay.setMinimumHeight(BUTTON_SIZE);
     }
 
     public void onClick(View view)
