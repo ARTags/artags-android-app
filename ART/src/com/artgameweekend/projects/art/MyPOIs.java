@@ -24,7 +24,8 @@ public class MyPOIs {
 
     public static List<WikitudePOI> getPOIs() {
         List<WikitudePOI> list = new ArrayList<WikitudePOI>();
-        WikitudePOI poi = new WikitudePOI(48.844779, 2.326398, 0, null, "Description de Test", "http://google.fr", null, "http://pics.homere.jmsp.net/t_15/64x64/040119_tag41.jpg", ".MainActivity");
+        /*
+         WikitudePOI poi = new WikitudePOI(48.844779, 2.326398, 0, null, "Description de Test", "http://google.fr", null, "http://pics.homere.jmsp.net/t_15/64x64/040119_tag41.jpg", ".MainActivity");
         poi.setIconuri("http://pics.homere.jmsp.net/t_15/64x64/040119_tag41.jpg");
 
 
@@ -38,7 +39,7 @@ public class MyPOIs {
         poi.setDetailAction("wikitudeapi.SHOWIMAGE");
         //48.844779,2.326398
         list.add(poi);
-
+*/
 
 
         try {
@@ -69,7 +70,7 @@ public class MyPOIs {
         } catch (Exception e) {
             /* Display any Error to the GUI. */
             //tv.setText("Error: " + e.getMessage());
-            //Log.e(MY_DEBUG_TAG, "WeatherQueryError", e);
+            Log.e("OMGWTFBBQ", "WeatherQueryError", e);
         }
 
 
