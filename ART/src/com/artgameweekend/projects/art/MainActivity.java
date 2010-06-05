@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import org.openintents.intents.WikitudeARIntent;
+import org.openintents.intents.WikitudePOI;
 
 /**
  *
@@ -32,21 +33,26 @@ public class MainActivity extends Activity implements OnClickListener
     {
         super.onCreate(icicle);
 
+
         setContentView(R.layout.main);
 
         mButtonDraw = (ImageButton) findViewById(R.id.button_draw);
+        mButtonDisplay = (ImageButton) findViewById(R.id.button_display);
+
+        /*
         Drawable image = getResources().getDrawable(R.drawable.bt_draw);
         mButtonDraw.setImageDrawable( image );
         mButtonDraw.setMaxWidth(BUTTON_SIZE);
         mButtonDraw.setMaxHeight(BUTTON_SIZE);
 
-        mButtonDraw.setOnClickListener(this);
 
-        mButtonDisplay = (ImageButton) findViewById(R.id.button_display);
         mButtonDisplay.setImageDrawable( getResources().getDrawable(R.drawable.bt_display));
-        mButtonDisplay.setOnClickListener(this);
        mButtonDisplay.setMaxWidth(BUTTON_SIZE);
        mButtonDisplay.setMaxHeight(BUTTON_SIZE);
+*/
+
+        mButtonDraw.setOnClickListener(this);
+        mButtonDisplay.setOnClickListener(this);
     }
 
     public void onClick(View view)
@@ -66,8 +72,9 @@ public class MainActivity extends Activity implements OnClickListener
 
             intent.setPrintMarkerSubText(false);
 
-            //WikitudePOI poi;
-
+            WikitudePOI poi = new WikitudePOI(48.844779, 2.326398, 0, "Icon de Test", "Description de Test", "http://google.fr", null, "http://pics.homere.jmsp.net/t_15/64x64/040119_tag41.jpg", ".MainActivity");
+            poi.setIconuri("http://pics.homere.jmsp.net/t_15/64x64/040119_tag41.jpg");
+            intent.addPOI(poi);
             //WikitudePOI poi = new WikitudePOI();
             try {
                 intent.startIntent(this);
