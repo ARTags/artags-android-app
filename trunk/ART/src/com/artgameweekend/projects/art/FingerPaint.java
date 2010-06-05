@@ -63,6 +63,7 @@ public class FingerPaint extends GraphicsActivity
     {
         mBrushSize = size;
         mPaint.setStrokeWidth(mBrushSize);
+        Log.d("FingerPaint", "SetBrushSize=" + size );
     }
 
     public class MyView extends View
