@@ -16,6 +16,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import java.io.OutputStream;
 
 public class FingerPaint extends GraphicsActivity
@@ -28,6 +30,11 @@ public class FingerPaint extends GraphicsActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+        WindowManager.LayoutParams.FLAG_FULLSCREEN); ;
+        
         mView = new MyView(this);
         setContentView(mView);
         mBrushSize = 12;
