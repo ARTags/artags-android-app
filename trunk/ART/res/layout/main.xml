@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">" 
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent">"
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="ArtGame Weekend project"/>
+
+    <ImageButton
+        android:id="@+id/button_draw"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        />
+<!--
+        style="@android:style/Widget.Button.Inset"
+        android:layout_marginTop="2dip"
+        android:layout_marginRight="2dip"
+        android:layout_marginBottom="2dip"
+        android:padding="10dip"
+
+-->
+    <ImageButton
+        android:id="@+id/button_display"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        />
+<!--
                 <Button android:id="@+id/button_draw"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -14,5 +34,5 @@
                 android:horizontalSpacing="20dp"
                 android:text="@string/button_draw"/>
 
-
+    -->
 </LinearLayout>

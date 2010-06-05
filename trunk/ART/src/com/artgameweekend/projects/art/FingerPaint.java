@@ -4,23 +4,30 @@
  */
 package com.artgameweekend.projects.art;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.*;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore.Audio.Media;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import java.io.OutputStream;
 
 public class FingerPaint extends GraphicsActivity
         implements ColorPickerDialog.OnColorChangedListener
 {
+    MyView mView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(new MyView(this));
+        mView = new MyView(this);
+        setContentView( mView);
 
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
@@ -66,6 +73,34 @@ public class FingerPaint extends GraphicsActivity
             mCanvas = new Canvas(mBitmap);
             mPath = new Path();
             mBitmapPaint = new Paint(Paint.DITHER_FLAG);
+        }
+
+        private void send()
+        {
+            ContentValues values = new ContentValues(3);
+            values.put(Media.DISPLAY_NAME, "My Tag");
+//            values.put(Media.DESCRIPTION, "Day 1, trip to Los Angeles");
+            values.put(Media.MIME_TYPE, "image/jpeg");
+
+            // Add a new record without the bitmap, but with the values just set.
+            // insert() returns the URI of the new record.
+            Uri uri = getContentResolver().insert(Media.EXTERNAL_CONTENT_URI, values);
+
+            // Now get a handle to the file for that record, and save the data into it.
+            // Here, sourceBitmap is a Bitmap object representing the file to save to the database.
+            try
+            {
+                OutputStream outStream = getContentResolver().openOutputStream(uri);
+                mBitmap.compress(Bitmap.CompressFormat.JPEG, 50, outStream);
+                outStream.close();
+            }
+            catch (Exception e)
+            {
+                Log.e( "Finge", "exception while writing image", e);
+            }
+
+
+            mBitmap.compress(Bitmap.CompressFormat.JPEG, 10, null);
         }
 
         @Override
@@ -151,12 +186,12 @@ public class FingerPaint extends GraphicsActivity
     {
         super.onCreateOptionsMenu(menu);
 
-        menu.add(0, COLOR_MENU_ID, 0, getString( R.string.menu_color)).setShortcut('3', 'c');
-        menu.add(0, EMBOSS_MENU_ID, 0, getString( R.string.menu_emboss) ).setShortcut('4', 's');
-        menu.add(0, BLUR_MENU_ID, 0, getString( R.string.menu_blur)).setShortcut('5', 'z');
-        menu.add(0, ERASE_MENU_ID, 0, getString( R.string.menu_erase)).setShortcut('5', 'z');
-        menu.add(0, SRCATOP_MENU_ID, 0, getString( R.string.menu_srcatop)).setShortcut('5', 'z');
-        menu.add(0, SEND_MENU_ID, 0, getString( R.string.menu_send)).setShortcut('5', 'z');
+        menu.add(0, COLOR_MENU_ID, 0, getString(R.string.menu_color)).setShortcut('3', 'c');
+        menu.add(0, EMBOSS_MENU_ID, 0, getString(R.string.menu_emboss)).setShortcut('4', 's');
+        menu.add(0, BLUR_MENU_ID, 0, getString(R.string.menu_blur)).setShortcut('5', 'z');
+        menu.add(0, ERASE_MENU_ID, 0, getString(R.string.menu_erase)).setShortcut('5', 'z');
+        menu.add(0, SRCATOP_MENU_ID, 0, getString(R.string.menu_srcatop)).setShortcut('5', 'z');
+        menu.add(0, SEND_MENU_ID, 0, getString(R.string.menu_send)).setShortcut('5', 'z');
 
         /****   Is this the mechanism to extend with filter effects?
         Intent intent = new Intent(null, getIntent().getData());
@@ -213,6 +248,10 @@ public class FingerPaint extends GraphicsActivity
                 mPaint.setXfermode(new PorterDuffXfermode(
                         PorterDuff.Mode.SRC_ATOP));
                 mPaint.setAlpha(0x80);
+                return true;
+
+            case SEND_MENU_ID:
+                mView.send();
                 return true;
         }
         return super.onOptionsItemSelected(item);
