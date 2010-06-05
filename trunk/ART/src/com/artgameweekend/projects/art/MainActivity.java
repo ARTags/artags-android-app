@@ -21,7 +21,7 @@ import org.openintents.intents.WikitudeARIntent;
  */
 public class MainActivity extends Activity implements OnClickListener
 {
-    private static final int BUTTON_SIZE = 390;
+    private static final int BUTTON_SIZE = 20;
 
     ImageButton mButtonDraw;
     ImageButton mButtonDisplay;
@@ -35,18 +35,18 @@ public class MainActivity extends Activity implements OnClickListener
         setContentView(R.layout.main);
 
         mButtonDraw = (ImageButton) findViewById(R.id.button_draw);
-        Drawable image = getResources().getDrawable(R.drawable.icon);
+        Drawable image = getResources().getDrawable(R.drawable.bt_draw);
         mButtonDraw.setImageDrawable( image );
-        mButtonDraw.setMinimumWidth(BUTTON_SIZE);
-        mButtonDraw.setMinimumHeight(BUTTON_SIZE);
+        mButtonDraw.setMaxWidth(BUTTON_SIZE);
+        mButtonDraw.setMaxHeight(BUTTON_SIZE);
 
         mButtonDraw.setOnClickListener(this);
 
         mButtonDisplay = (ImageButton) findViewById(R.id.button_display);
-        mButtonDisplay.setImageDrawable( getResources().getDrawable(R.drawable.icon));
+        mButtonDisplay.setImageDrawable( getResources().getDrawable(R.drawable.bt_display));
         mButtonDisplay.setOnClickListener(this);
-        mButtonDisplay.setMinimumWidth(BUTTON_SIZE);
-        mButtonDisplay.setMinimumHeight(BUTTON_SIZE);
+       mButtonDisplay.setMaxWidth(BUTTON_SIZE);
+       mButtonDisplay.setMaxHeight(BUTTON_SIZE);
     }
 
     public void onClick(View view)
