@@ -4,6 +4,7 @@
     <string name="button_draw">Draw</string>
     <string name="button_view">View existing ART near you</string>
     <string name="activity_paint">ART Paint</string>
+    <string name="activity_ShowImage">Show One Art</string>
     <string name="menu_color">Colors</string>
     <string name="menu_emboss">Emboss</string>
     <string name="menu_blur">Blur</string>
@@ -11,5 +12,4 @@
     <string name="menu_brush_size">Brush size</string>
     <string name="menu_srcatop">SrcATop</string>
     <string name="menu_send">Send</string>
-
 </resources>
