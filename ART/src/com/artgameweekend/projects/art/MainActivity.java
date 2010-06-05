@@ -33,9 +33,7 @@ public class MainActivity extends Activity implements OnClickListener
     {
         super.onCreate(icicle);
 
-
         setContentView(R.layout.main);
-
         mButtonDraw = (ImageButton) findViewById(R.id.button_draw);
         mButtonDisplay = (ImageButton) findViewById(R.id.button_display);
 

@@ -18,6 +18,13 @@
                 <category android:name="android.intent.category.PAINT" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ShowPicture" android:label="@string/activity_ShowImage">
+            <intent-filter>
+                <action android:name="wikitudeapi.SHOWIMAGE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         
     </application>
 </manifest>
