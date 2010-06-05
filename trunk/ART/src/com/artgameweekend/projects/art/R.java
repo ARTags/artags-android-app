@@ -20,7 +20,14 @@ public final class R {
         public static final int main=0x7f030000;
     }
     public static final class string {
+        public static final int activity_paint=0x7f040002;
         public static final int app_name=0x7f040000;
         public static final int button_draw=0x7f040001;
+        public static final int menu_blur=0x7f040005;
+        public static final int menu_color=0x7f040003;
+        public static final int menu_emboss=0x7f040004;
+        public static final int menu_erase=0x7f040006;
+        public static final int menu_send=0x7f040008;
+        public static final int menu_srcatop=0x7f040007;
     }
 }
