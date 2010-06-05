@@ -35,4 +35,11 @@
                 android:text="@string/button_draw"/>
 
     -->
+                <Button android:id="@+id/button_view"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:verticalSpacing="20dp"
+                android:horizontalSpacing="20dp"
+                android:text="@string/button_view"/>
+
 </LinearLayout>

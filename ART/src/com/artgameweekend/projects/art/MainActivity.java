@@ -5,6 +5,7 @@
 package com.artgameweekend.projects.art;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+import org.openintents.intents.WikitudeARIntent;
 
 /**
  *
@@ -55,6 +57,25 @@ public class MainActivity extends Activity implements OnClickListener
             Intent intent = new Intent();
             intent.setClassName("com.artgameweekend.projects.art", "com.artgameweekend.projects.art.FingerPaint");
             startActivity(intent);
+        }
+        else if (view == mButtonDisplay)
+        {
+            WikitudeARIntent intent = new WikitudeARIntent(this.getApplication(), null, "507419D8685F116E0AB61704F21734D0", "art");
+            //intent.addTitleText("titleText");
+            //intent.addTitleImageUri("http://www.clubtone.net/avatar/58/191139.png");
+
+            intent.setPrintMarkerSubText(false);
+
+            //WikitudePOI poi;
+
+            //WikitudePOI poi = new WikitudePOI();
+            try {
+                intent.startIntent(this);
+            }
+            catch (ActivityNotFoundException e)
+            {
+                WikitudeARIntent.handleWikitudeNotFound(this);
+            }
         }
     }
 }
