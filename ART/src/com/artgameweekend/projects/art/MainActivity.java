@@ -22,7 +22,6 @@ import org.openintents.intents.WikitudePOI;
  */
 public class MainActivity extends Activity implements OnClickListener
 {
-    private static final int BUTTON_SIZE = 20;
 
     ImageButton mButtonDraw;
     ImageButton mButtonDisplay;
@@ -39,6 +38,7 @@ public class MainActivity extends Activity implements OnClickListener
 
         mButtonDraw.setOnClickListener(this);
         mButtonDisplay.setOnClickListener(this);
+
     }
 
     public void onClick(View view)
@@ -49,23 +49,22 @@ public class MainActivity extends Activity implements OnClickListener
             Intent intent = new Intent();
             intent.setClassName("com.artgameweekend.projects.art", "com.artgameweekend.projects.art.FingerPaint");
             startActivity(intent);
-        }
-        else if (view == mButtonDisplay)
+        } else if (view == mButtonDisplay)
         {
             WikitudeARIntent intent = new WikitudeARIntent(this.getApplication(), null, "507419D8685F116E0AB61704F21734D0", "art");
             //intent.addTitleText("titleText");
             //intent.addTitleImageUri("http://www.clubtone.net/avatar/58/191139.png");
 
             intent.setPrintMarkerSubText(false);
-            
+
 
             List<WikitudePOI> list = MyPOIs.getPOIs();
             intent.addPOIs(list);
             //WikitudePOI poi = new WikitudePOI();
-            try {
+            try
+            {
                 intent.startIntent(this);
-            }
-            catch (ActivityNotFoundException e)
+            } catch (ActivityNotFoundException e)
             {
                 WikitudeARIntent.handleWikitudeNotFound(this);
             }
