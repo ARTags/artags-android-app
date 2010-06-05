@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.artgameweekend.projects.art;
 
 import android.content.Context;
@@ -15,21 +14,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
+public class PictureLayout extends ViewGroup
+{
 
-public class PictureLayout extends ViewGroup {
     private final Picture mPicture = new Picture();
 
-    public PictureLayout(Context context) {
+    public PictureLayout(Context context)
+    {
         super(context);
     }
 
-    public PictureLayout(Context context, AttributeSet attrs) {
+    public PictureLayout(Context context, AttributeSet attrs)
+    {
         super(context, attrs);
     }
 
     @Override
-    public void addView(View child) {
-        if (getChildCount() > 1) {
+    public void addView(View child)
+    {
+        if (getChildCount() > 1)
+        {
             throw new IllegalStateException("PictureLayout can host only one direct child");
         }
 
@@ -37,8 +41,10 @@ public class PictureLayout extends ViewGroup {
     }
 
     @Override
-    public void addView(View child, int index) {
-        if (getChildCount() > 1) {
+    public void addView(View child, int index)
+    {
+        if (getChildCount() > 1)
+        {
             throw new IllegalStateException("PictureLayout can host only one direct child");
         }
 
@@ -46,8 +52,10 @@ public class PictureLayout extends ViewGroup {
     }
 
     @Override
-    public void addView(View child, LayoutParams params) {
-        if (getChildCount() > 1) {
+    public void addView(View child, LayoutParams params)
+    {
+        if (getChildCount() > 1)
+        {
             throw new IllegalStateException("PictureLayout can host only one direct child");
         }
 
@@ -55,8 +63,10 @@ public class PictureLayout extends ViewGroup {
     }
 
     @Override
-    public void addView(View child, int index, LayoutParams params) {
-        if (getChildCount() > 1) {
+    public void addView(View child, int index, LayoutParams params)
+    {
+        if (getChildCount() > 1)
+        {
             throw new IllegalStateException("PictureLayout can host only one direct child");
         }
 
@@ -64,20 +74,24 @@ public class PictureLayout extends ViewGroup {
     }
 
     @Override
-    protected LayoutParams generateDefaultLayoutParams() {
+    protected LayoutParams generateDefaultLayoutParams()
+    {
         return new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+    {
         final int count = getChildCount();
 
         int maxHeight = 0;
         int maxWidth = 0;
 
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < count; i++)
+        {
             final View child = getChildAt(i);
-            if (child.getVisibility() != GONE) {
+            if (child.getVisibility() != GONE)
+            {
                 measureChild(child, widthMeasureSpec, heightMeasureSpec);
             }
         }
@@ -86,7 +100,8 @@ public class PictureLayout extends ViewGroup {
         maxHeight += getPaddingTop() + getPaddingBottom();
 
         Drawable drawable = getBackground();
-        if (drawable != null) {
+        if (drawable != null)
+        {
             maxHeight = Math.max(maxHeight, drawable.getMinimumHeight());
             maxWidth = Math.max(maxWidth, drawable.getMinimumWidth());
         }
@@ -96,7 +111,8 @@ public class PictureLayout extends ViewGroup {
     }
 
     private void drawPict(Canvas canvas, int x, int y, int w, int h,
-                          float sx, float sy) {
+            float sx, float sy)
+    {
         canvas.save();
         canvas.translate(x, y);
         canvas.clipRect(0, 0, w, h);
@@ -107,25 +123,29 @@ public class PictureLayout extends ViewGroup {
     }
 
     @Override
-    protected void dispatchDraw(Canvas canvas) {
+    protected void dispatchDraw(Canvas canvas)
+    {
         super.dispatchDraw(mPicture.beginRecording(getWidth(), getHeight()));
         mPicture.endRecording();
 
-        int x = getWidth()/2;
-        int y = getHeight()/2;
+        int x = getWidth() / 2;
+        int y = getHeight() / 2;
 
-        if (false) {
+        if (false)
+        {
             canvas.drawPicture(mPicture);
-        } else {
-            drawPict(canvas, 0, 0, x, y,  1,  1);
-            drawPict(canvas, x, 0, x, y, -1,  1);
-            drawPict(canvas, 0, y, x, y,  1, -1);
+        } else
+        {
+            drawPict(canvas, 0, 0, x, y, 1, 1);
+            drawPict(canvas, x, 0, x, y, -1, 1);
+            drawPict(canvas, 0, y, x, y, 1, -1);
             drawPict(canvas, x, y, x, y, -1, -1);
         }
     }
 
     @Override
-    public ViewParent invalidateChildInParent(int[] location, Rect dirty) {
+    public ViewParent invalidateChildInParent(int[] location, Rect dirty)
+    {
         location[0] = getLeft();
         location[1] = getTop();
         dirty.set(0, 0, getWidth(), getHeight());
@@ -133,12 +153,15 @@ public class PictureLayout extends ViewGroup {
     }
 
     @Override
-    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+    protected void onLayout(boolean changed, int l, int t, int r, int b)
+    {
         final int count = super.getChildCount();
 
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < count; i++)
+        {
             final View child = getChildAt(i);
-            if (child.getVisibility() != GONE) {
+            if (child.getVisibility() != GONE)
+            {
                 final int childLeft = getPaddingLeft();
                 final int childTop = getPaddingTop();
                 child.layout(childLeft, childTop,
