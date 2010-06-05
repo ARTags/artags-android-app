@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">ART</string>
     <string name="button_draw">Draw</string>
+    <string name="button_view">View existing ART near you</string>
     <string name="activity_paint">ART Paint</string>
     <string name="menu_color">Couleurs</string>
     <string name="menu_emboss">Ombrage</string>
