@@ -4,13 +4,10 @@
  */
 package com.artgameweekend.projects.art;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.*;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore.Audio.Media;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,7 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import java.io.OutputStream;
+import java.io.FileOutputStream;
 
 public class FingerPaint extends GraphicsActivity
         implements ColorPickerDialog.OnColorChangedListener, BrushSizeDialog.OnBrushSizeListener
@@ -33,8 +30,9 @@ public class FingerPaint extends GraphicsActivity
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-        WindowManager.LayoutParams.FLAG_FULLSCREEN); ;
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         
+
         mView = new MyView(this);
         setContentView(mView);
         mBrushSize = 12;
@@ -70,7 +68,7 @@ public class FingerPaint extends GraphicsActivity
     {
         mBrushSize = size;
         mPaint.setStrokeWidth(mBrushSize);
-        Log.d("FingerPaint", "SetBrushSize=" + size );
+        Log.d("FingerPaint", "SetBrushSize=" + size);
     }
 
     public class MyView extends View
@@ -95,22 +93,11 @@ public class FingerPaint extends GraphicsActivity
 
         private void send()
         {
-            ContentValues values = new ContentValues(3);
-            values.put(Media.DISPLAY_NAME, "My Tag");
-//            values.put(Media.DESCRIPTION, "Day 1, trip to Los Angeles");
-            values.put(Media.MIME_TYPE, "image/jpeg");
-
-            // Add a new record without the bitmap, but with the values just set.
-            // insert() returns the URI of the new record.
-            Uri uri = getContentResolver().insert(Media.EXTERNAL_CONTENT_URI, values);
-
-            // Now get a handle to the file for that record, and save the data into it.
-            // Here, sourceBitmap is a Bitmap object representing the file to save to the database.
             try
             {
-                OutputStream outStream = getContentResolver().openOutputStream(uri);
-                mBitmap.compress(Bitmap.CompressFormat.JPEG, 50, outStream);
-                outStream.close();
+                FileOutputStream fos = openFileOutput("art.jpeg", Context.MODE_PRIVATE);
+                mBitmap.compress(Bitmap.CompressFormat.JPEG, 50, fos);
+                fos.close();
             } catch (Exception e)
             {
                 Log.e("Finge", "exception while writing image", e);

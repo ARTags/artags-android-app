@@ -30,12 +30,11 @@ public class SplashActivity extends Activity implements OnClickListener
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-        WindowManager.LayoutParams.FLAG_FULLSCREEN); ;
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.splash);
 
         mImageView = (ImageView) findViewById(R.id.splash);
-        mImageView.setImageResource(R.drawable.splash);
         mImageView.setOnClickListener(this);
 
 
@@ -50,4 +49,5 @@ public class SplashActivity extends Activity implements OnClickListener
             startActivity(intent);
         }
     }
+
 }
