@@ -9,6 +9,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -35,7 +36,8 @@ public class MainActivity extends Activity implements OnClickListener
         super.onCreate(icicle);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-        WindowManager.LayoutParams.FLAG_FULLSCREEN); ;
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        ;
 
         setContentView(R.layout.main);
         mButtonDraw = (ImageButton) findViewById(R.id.button_draw);
@@ -75,4 +77,5 @@ public class MainActivity extends Activity implements OnClickListener
             }
         }
     }
+
 }
