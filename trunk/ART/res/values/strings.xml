@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <string name="app_name">ART</string>
+    <string name="app_name">ARt</string>
     <string name="button_draw">Draw</string>
     <string name="button_view">View existing ART near you</string>
     <string name="activity_paint">ART Paint</string>
-    <string name="menu_color">Couleurs</string>
-    <string name="menu_emboss">Ombrage</string>
-    <string name="menu_blur">Flou</string>
-    <string name="menu_erase">Gomme</string>
+    <string name="menu_color">Colors</string>
+    <string name="menu_emboss">Emboss</string>
+    <string name="menu_blur">Blur</string>
+    <string name="menu_erase">Erase</string>
+    <string name="menu_brush_size">Brush size</string>
     <string name="menu_srcatop">SrcATop</string>
-    <string name="menu_send">Envoyer</string>
+    <string name="menu_send">Send</string>
 
 </resources>

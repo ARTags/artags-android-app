@@ -6,6 +6,7 @@ package com.artgameweekend.projects.art;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.*;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,8 +19,9 @@ import android.view.View;
 import java.io.OutputStream;
 
 public class FingerPaint extends GraphicsActivity
-        implements ColorPickerDialog.OnColorChangedListener
+        implements ColorPickerDialog.OnColorChangedListener, BrushSizeDialog.OnBrushSizeListener
 {
+
     MyView mView;
 
     @Override
@@ -27,7 +29,8 @@ public class FingerPaint extends GraphicsActivity
     {
         super.onCreate(savedInstanceState);
         mView = new MyView(this);
-        setContentView( mView);
+        setContentView(mView);
+        mBrushSize = 12;
 
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
@@ -36,7 +39,7 @@ public class FingerPaint extends GraphicsActivity
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStrokeCap(Paint.Cap.ROUND);
-        mPaint.setStrokeWidth(12);
+        mPaint.setStrokeWidth(mBrushSize);
 
         mEmboss = new EmbossMaskFilter(new float[]
                 {
@@ -49,10 +52,17 @@ public class FingerPaint extends GraphicsActivity
     private Paint mPaint;
     private MaskFilter mEmboss;
     private MaskFilter mBlur;
+    private int mBrushSize;
 
     public void colorChanged(int color)
     {
         mPaint.setColor(color);
+    }
+
+    public void brushSizeChanged(int size)
+    {
+        mBrushSize = size;
+        mPaint.setStrokeWidth(mBrushSize);
     }
 
     public class MyView extends View
@@ -93,14 +103,10 @@ public class FingerPaint extends GraphicsActivity
                 OutputStream outStream = getContentResolver().openOutputStream(uri);
                 mBitmap.compress(Bitmap.CompressFormat.JPEG, 50, outStream);
                 outStream.close();
-            }
-            catch (Exception e)
+            } catch (Exception e)
             {
-                Log.e( "Finge", "exception while writing image", e);
+                Log.e("Finge", "exception while writing image", e);
             }
-
-
-            mBitmap.compress(Bitmap.CompressFormat.JPEG, 10, null);
         }
 
         @Override
@@ -178,20 +184,24 @@ public class FingerPaint extends GraphicsActivity
     private static final int EMBOSS_MENU_ID = Menu.FIRST + 1;
     private static final int BLUR_MENU_ID = Menu.FIRST + 2;
     private static final int ERASE_MENU_ID = Menu.FIRST + 3;
-    private static final int SRCATOP_MENU_ID = Menu.FIRST + 4;
+//    private static final int SRCATOP_MENU_ID = Menu.FIRST + 6;
     private static final int SEND_MENU_ID = Menu.FIRST + 5;
+    private static final int BRUSH_SIZE_MENU_ID = Menu.FIRST + 4;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
         super.onCreateOptionsMenu(menu);
+        Resources res = getApplicationContext().getResources();
 
-        menu.add(0, COLOR_MENU_ID, 0, getString(R.string.menu_color)).setShortcut('3', 'c');
-        menu.add(0, EMBOSS_MENU_ID, 0, getString(R.string.menu_emboss)).setShortcut('4', 's');
-        menu.add(0, BLUR_MENU_ID, 0, getString(R.string.menu_blur)).setShortcut('5', 'z');
-        menu.add(0, ERASE_MENU_ID, 0, getString(R.string.menu_erase)).setShortcut('5', 'z');
-        menu.add(0, SRCATOP_MENU_ID, 0, getString(R.string.menu_srcatop)).setShortcut('5', 'z');
-        menu.add(0, SEND_MENU_ID, 0, getString(R.string.menu_send)).setShortcut('5', 'z');
+        menu.add(0, COLOR_MENU_ID, 0, getString(R.string.menu_color)).setShortcut('3', 'c').setIcon(res.getDrawable(R.drawable.menu_color));
+        menu.add(0, EMBOSS_MENU_ID, 0, getString(R.string.menu_emboss)).setShortcut('4', 's').setIcon(res.getDrawable(R.drawable.menu_eyedropper));
+        menu.add(0, BLUR_MENU_ID, 0, getString(R.string.menu_blur)).setShortcut('5', 'z').setIcon(res.getDrawable(R.drawable.menu_blur));
+        menu.add(0, ERASE_MENU_ID, 0, getString(R.string.menu_erase)).setShortcut('5', 'z').setIcon(res.getDrawable(R.drawable.menu_erase));
+        //       menu.add(0, SRCATOP_MENU_ID, 0, getString(R.string.menu_srcatop)).setShortcut('5', 'z');
+        menu.add(0, BRUSH_SIZE_MENU_ID, 0, getString(R.string.menu_brush_size)).setShortcut('5', 'z').setIcon(res.getDrawable(R.drawable.menu_brush));
+        menu.add(0, SEND_MENU_ID, 0, getString(R.string.menu_send)).setShortcut('5', 'z').setIcon(res.getDrawable(R.drawable.menu_save));
+
 
         /****   Is this the mechanism to extend with filter effects?
         Intent intent = new Intent(null, getIntent().getData());
@@ -222,6 +232,11 @@ public class FingerPaint extends GraphicsActivity
             case COLOR_MENU_ID:
                 new ColorPickerDialog(this, this, mPaint.getColor()).show();
                 return true;
+            case BRUSH_SIZE_MENU_ID:
+                final BrushSizeDialog dialogBrushSize = new BrushSizeDialog(this, this, mBrushSize);
+                dialogBrushSize.show();
+                return true;
+
             case EMBOSS_MENU_ID:
                 if (mPaint.getMaskFilter() != mEmboss)
                 {
@@ -244,12 +259,12 @@ public class FingerPaint extends GraphicsActivity
                 mPaint.setXfermode(new PorterDuffXfermode(
                         PorterDuff.Mode.CLEAR));
                 return true;
-            case SRCATOP_MENU_ID:
-                mPaint.setXfermode(new PorterDuffXfermode(
-                        PorterDuff.Mode.SRC_ATOP));
-                mPaint.setAlpha(0x80);
-                return true;
-
+            /*            case SRCATOP_MENU_ID:
+            mPaint.setXfermode(new PorterDuffXfermode(
+            PorterDuff.Mode.SRC_ATOP));
+            mPaint.setAlpha(0x80);
+            return true;
+             */
             case SEND_MENU_ID:
                 mView.send();
                 return true;

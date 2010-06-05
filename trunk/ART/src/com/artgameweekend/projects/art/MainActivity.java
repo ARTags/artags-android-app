@@ -39,18 +39,6 @@ public class MainActivity extends Activity implements OnClickListener
         mButtonDraw = (ImageButton) findViewById(R.id.button_draw);
         mButtonDisplay = (ImageButton) findViewById(R.id.button_display);
 
-        /*
-        Drawable image = getResources().getDrawable(R.drawable.bt_draw);
-        mButtonDraw.setImageDrawable( image );
-        mButtonDraw.setMaxWidth(BUTTON_SIZE);
-        mButtonDraw.setMaxHeight(BUTTON_SIZE);
-
-
-        mButtonDisplay.setImageDrawable( getResources().getDrawable(R.drawable.bt_display));
-       mButtonDisplay.setMaxWidth(BUTTON_SIZE);
-       mButtonDisplay.setMaxHeight(BUTTON_SIZE);
-*/
-
         mButtonDraw.setOnClickListener(this);
         mButtonDisplay.setOnClickListener(this);
     }
