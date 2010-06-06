@@ -7,7 +7,13 @@ package com.artgameweekend.projects.art;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.*;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
+import android.location.LocationProvider;
+import android.media.ExifInterface;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +21,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
+import java.io.File;
 import java.io.FileOutputStream;
 
 public class FingerPaint extends GraphicsActivity
@@ -80,6 +88,7 @@ public class FingerPaint extends GraphicsActivity
         private Canvas mCanvas;
         private Path mPath;
         private Paint mBitmapPaint;
+        private Context mContext;
 
         public MyView(Context c)
         {
@@ -89,20 +98,72 @@ public class FingerPaint extends GraphicsActivity
             mCanvas = new Canvas(mBitmap);
             mPath = new Path();
             mBitmapPaint = new Paint(Paint.DITHER_FLAG);
+            mContext = c;
         }
 
         private void send()
         {
+            File root = Environment.getExternalStorageDirectory();
+            if( root.canWrite() )
+            {
             try
             {
-                FileOutputStream fos = openFileOutput("art.jpeg", Context.MODE_PRIVATE);
-                mBitmap.compress(Bitmap.CompressFormat.JPEG, 50, fos);
+                File directory = new File( root.getPath() + "/ARt");
+                if( !directory.exists() )
+                {
+                    directory.mkdir();
+                }
+                String filename = directory.getPath() + "/ARt.jpeg";
+                File file = new File( filename );
+//                FileOutputStream fos = openFileOutput( filename , Context.MODE_PRIVATE);
+                FileOutputStream fos = new FileOutputStream( file );
+                mBitmap.compress(Bitmap.CompressFormat.JPEG, 50, fos );
                 fos.close();
+                Toast.makeText( mContext, "Saving File : " + filename, Toast.LENGTH_SHORT).show();
+
+                Location location = getLocation();
+                double latitude = location.getLatitude();
+                double longitude = location.getLongitude();
+
+                String sLatitude = Location.convert( latitude , Location.FORMAT_DEGREES ) + "/1," +
+                        Location.convert( latitude , Location.FORMAT_MINUTES ) + "/1," +
+                        Location.convert( latitude , Location.FORMAT_SECONDS ) + "/1";
+
+                String sLongitude = Location.convert( longitude , Location.FORMAT_DEGREES ) + "/1," +
+                        Location.convert( longitude , Location.FORMAT_MINUTES ) + "/1," +
+                        Location.convert( longitude , Location.FORMAT_SECONDS ) + "/1";
+
+                String sLatitude2 = "" + (int) Math.floor(latitude) +"/1," + (int) ( latitude - Math.floor(latitude) ) + "/1, 10/100";
+                String sLongitude2 = "" +  (int) Math.floor(longitude) +"/1," + (int) ( longitude - Math.floor(longitude) ) + "/1, 10/100";
+
+//                String latitude = new Double(location.getLatitude()).toString();
+//                String longitude = new Double(location.getLongitude()).toString();
+
+                ExifInterface exif = new ExifInterface( filename );
+                exif.setAttribute( ExifInterface.TAG_GPS_LATITUDE, sLatitude );
+                exif.setAttribute( ExifInterface.TAG_GPS_LONGITUDE, sLongitude );
+                exif.saveAttributes();
+
+                Toast.makeText( mContext, "Your location is lat= : " + latitude + " long=" + longitude, Toast.LENGTH_LONG).show();
+                Toast.makeText( mContext, "Your location is lat= : " + sLatitude + " long=" + sLongitude, Toast.LENGTH_LONG).show();
+                Toast.makeText( mContext, "Your location is lat= : " + sLatitude2 + " long=" + sLongitude2, Toast.LENGTH_LONG).show();
             } catch (Exception e)
             {
                 Log.e("Finge", "exception while writing image", e);
             }
+            }
         }
+
+        Location getLocation()
+        {
+                LocationManager manager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
+            		Criteria criteria = new Criteria();
+		String bestProvider = manager.getBestProvider(criteria, false);
+		Location location = manager.getLastKnownLocation(bestProvider);
+		return location;
+
+        }
+
 
         @Override
         protected void onSizeChanged(int w, int h, int oldw, int oldh)
