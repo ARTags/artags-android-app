@@ -140,8 +140,8 @@ public class FingerPaint extends GraphicsActivity
 //                String longitude = new Double(location.getLongitude()).toString();
 
                 ExifInterface exif = new ExifInterface( filename );
-                exif.setAttribute( ExifInterface.TAG_GPS_LATITUDE, sLatitude );
-                exif.setAttribute( ExifInterface.TAG_GPS_LONGITUDE, sLongitude );
+                exif.setAttribute( ExifInterface.TAG_GPS_LATITUDE, sLatitude2 );
+                exif.setAttribute( ExifInterface.TAG_GPS_LONGITUDE, sLongitude2 );
                 exif.saveAttributes();
 
                 Toast.makeText( mContext, "Your location is lat= : " + latitude + " long=" + longitude, Toast.LENGTH_LONG).show();
