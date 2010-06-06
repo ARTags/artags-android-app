@@ -8,6 +8,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -75,6 +76,7 @@ public class BrushSizeDialog extends Dialog implements SeekBar.OnSeekBarChangeLi
 
         LinearLayout layout = new LinearLayout(mContext);
         layout.setMinimumWidth(300);
+        layout.setHorizontalGravity(Gravity.CENTER_HORIZONTAL);
 
         layout.setOrientation(LinearLayout.VERTICAL);
 
@@ -82,9 +84,12 @@ public class BrushSizeDialog extends Dialog implements SeekBar.OnSeekBarChangeLi
                 new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.FILL_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT));
-        layout.addView( mProgressText , new LinearLayout.LayoutParams(
+        LinearLayout.LayoutParams layoutText = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.FILL_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT));
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+
+
+        layout.addView( mProgressText , layoutText );
         layout.addView(mButton);
 
         setContentView(layout);
