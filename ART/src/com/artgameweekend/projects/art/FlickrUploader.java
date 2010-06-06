@@ -39,8 +39,8 @@ public class FlickrUploader {
         signature = RestClient.m_secret;
 //auth_token=9765984
 
-        String description = "coucou description";
-        String title = "Super Titre";
+        String description = "";
+        String title = "";
 
         signature += "api_key" + RestClient.m_apikey + "auth_token" + token + "description" + description + "title" + title;
 
@@ -64,9 +64,9 @@ public class FlickrUploader {
         Log.i("OMGWTFBBQAbsPath", file.getAbsolutePath());
         Log.i("OMGWTFBBQSize", Long.toString(file.length()));
 
-        MyHttpRequest req = new MyHttpRequest();
+        //MyHttpRequest req = new MyHttpRequest();
 
-        req.post("http://api.flickr.com/services/upload/", params, file);
+        MyHttpRequest.post("http://api.flickr.com/services/upload/", params, file);
 //HttpData data = req.post("http://lutece-cloud.appspot.com/art.jsp", params, file);
 
         //Log.i("OMGWTFBBQDATA", (data.content!= null?data.content:"NULLCONTENT"));

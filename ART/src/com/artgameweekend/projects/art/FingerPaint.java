@@ -13,6 +13,7 @@ import android.location.LocationManager;
 import android.media.ExifInterface;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -81,8 +82,8 @@ public class FingerPaint extends GraphicsActivity
     public class MyView extends View
     {
 
-        private static final float MINP = 0.25f;
-        private static final float MAXP = 0.75f;
+        //private static final float MINP = 0.25f;
+        //private static final float MAXP = 0.75f;
         private Bitmap mBitmap;
         private Canvas mCanvas;
         private Path mPath;
@@ -95,7 +96,14 @@ public class FingerPaint extends GraphicsActivity
 
             //int height = this.getHeight();
             //int width = this.getWidth();
-            mBitmap = Bitmap.createBitmap(480, 800, Bitmap.Config.ARGB_8888);
+
+            DisplayMetrics dm = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(dm);
+            int height = dm.heightPixels;
+            int width = dm.widthPixels;
+
+
+            mBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
             mCanvas = new Canvas(mBitmap);
             mPath = new Path();
             mBitmapPaint = new Paint(Paint.DITHER_FLAG);
@@ -118,7 +126,7 @@ public class FingerPaint extends GraphicsActivity
                 File file = new File( filename );
 //                FileOutputStream fos = openFileOutput( filename , Context.MODE_PRIVATE);
                 FileOutputStream fos = new FileOutputStream( file );
-                mBitmap.compress(Bitmap.CompressFormat.JPEG, 50, fos );
+                mBitmap.compress(Bitmap.CompressFormat.JPEG, 80, fos );
                 fos.close();
                 Toast.makeText( mContext, "Saving File : " + filename, Toast.LENGTH_SHORT).show();
 
