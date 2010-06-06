@@ -49,7 +49,7 @@ public class FlickrUploader {
         } catch (NoSuchAlgorithmException e1) {
             e1.printStackTrace();
         }
-        File file = new File(Environment.getExternalStorageDirectory(), "/ARt/ARt.jpg");
+        File file = new File(Environment.getExternalStorageDirectory(), "/ARt/ARt.jpeg");
 
 
         Hashtable<String, String> params = new Hashtable<String, String>();
@@ -73,6 +73,7 @@ public class FlickrUploader {
 
 
         //RestClient.UploadPicture(file, title, description, "");
+        RestClient.m_frob = "";
     }
 
 

@@ -8,23 +8,14 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
-import com.zmosoft.flickrfree.APICalls;
-import com.zmosoft.flickrfree.JSONParser;
-import com.zmosoft.flickrfree.JavaMD5Sum;
 import com.zmosoft.flickrfree.RestClient;
-import java.io.File;
-import java.security.NoSuchAlgorithmException;
-import java.util.Hashtable;
 import java.util.List;
-import org.apache.http.HttpResponse;
-import org.json.JSONObject;
 import org.openintents.intents.WikitudeARIntent;
 import org.openintents.intents.WikitudePOI;
 
@@ -41,6 +32,7 @@ public class MainActivity extends Activity implements OnClickListener {
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+        Log.i("OMGWTFBBQ","onCreate");
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
