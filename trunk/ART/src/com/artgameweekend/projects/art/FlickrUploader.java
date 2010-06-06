@@ -2,13 +2,20 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.artgameweekend.projects.art;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Environment;
+import android.util.Log;
+import com.zmosoft.flickrfree.APICalls;
+import com.zmosoft.flickrfree.JSONParser;
+import com.zmosoft.flickrfree.JavaMD5Sum;
+import com.zmosoft.flickrfree.RestClient;
 import java.io.File;
-import java.util.ArrayList;
+import java.security.NoSuchAlgorithmException;
 import java.util.Hashtable;
+import org.json.JSONObject;
 
 /**
  *
@@ -16,9 +23,64 @@ import java.util.Hashtable;
  */
 public class FlickrUploader {
 
-    public void uploadFile(String path)
+    public static void authentication(Activity act) {
+        Boolean bo = APICalls.setFrob();
+        Intent intent = new Intent();
+        intent.setClassName("com.artgameweekend.projects.art", "com.artgameweekend.projects.art.WebViewActivity");
+        act.startActivity(intent);
+    }
+
+    public static void uploadFile() {
+        JSONObject js = APICalls.getToken();
+        Log.i("OMHWTFBBQ", js.toString());
+        String token = JSONParser.getString(js, "auth/token/_content");
+
+        String signature = "";
+        signature = RestClient.m_secret;
+//auth_token=9765984
+
+        String description = "coucou description";
+        String title = "Super Titre";
+
+        signature += "api_key" + RestClient.m_apikey + "auth_token" + token + "description" + description + "title" + title;
+
+        try {
+            signature = JavaMD5Sum.computeSum(signature).toLowerCase();
+        } catch (NoSuchAlgorithmException e1) {
+            e1.printStackTrace();
+        }
+        File file = new File(Environment.getExternalStorageDirectory(), "art.jpg");
+
+
+        Hashtable<String, String> params = new Hashtable<String, String>();
+        params.put("api_key", RestClient.m_apikey);
+        params.put("auth_token", token);
+        params.put("description", description);
+        params.put("title", title);
+        params.put("api_sig", signature);
+
+
+        Log.i("OMGWTFBBQPath", file.getPath());
+        Log.i("OMGWTFBBQAbsPath", file.getAbsolutePath());
+        Log.i("OMGWTFBBQSize", Long.toString(file.length()));
+
+        MyHttpRequest req = new MyHttpRequest();
+
+        req.post("http://api.flickr.com/services/upload/", params, file);
+//HttpData data = req.post("http://lutece-cloud.appspot.com/art.jsp", params, file);
+
+        //Log.i("OMGWTFBBQDATA", (data.content!= null?data.content:"NULLCONTENT"));
+
+
+        //RestClient.UploadPicture(file, title, description, "");
+    }
+
+
+
+public void testAPI()
     {
-        boolean mExternalStorageAvailable = false;
+
+        /*boolean mExternalStorageAvailable = false;
         boolean mExternalStorageWriteable = false;
         String state = Environment.getExternalStorageState();
 
@@ -46,12 +108,7 @@ public class FlickrUploader {
         MyHttpRequest req = new MyHttpRequest();
 
         //HttpData data = req.post("http://api.flickr.com/services/upload/", null, null);
-    }
-
-    public void testAPI()
-    {
-
-        
+       */
 
     }
 }
