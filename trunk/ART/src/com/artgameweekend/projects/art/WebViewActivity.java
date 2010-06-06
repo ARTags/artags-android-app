@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.webkit.WebView;
+import android.widget.Toast;
 import com.zmosoft.flickrfree.JavaMD5Sum;
 import com.zmosoft.flickrfree.RestClient;
 import java.security.NoSuchAlgorithmException;
@@ -19,6 +20,8 @@ import java.security.NoSuchAlgorithmException;
  */
 public class WebViewActivity extends Activity {
 
+    Boolean hasStarted = false;
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle icicle) {
@@ -28,7 +31,6 @@ public class WebViewActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
         WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
         WebView webview = new WebView(this);
-        setContentView(webview);
 
         // Generate the signature
         String signature = "";
@@ -52,6 +54,8 @@ public class WebViewActivity extends Activity {
         url += "&api_sig=" + signature;
         webview.loadUrl(url);
 
+        setContentView(webview);
+
         //setContentView(R.layout.splash);
 
         /*mImageView = (ImageView) findViewById(R.id.splash);
@@ -62,13 +66,16 @@ public class WebViewActivity extends Activity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            Log.d(this.getClass().getName(), "back button pressed");
-            FlickrUploader.uploadFile();
-            return true;
-        } else {
-            return super.onKeyDown(keyCode, event);
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (!hasStarted) {
+                hasStarted = true;
+                Toast.makeText( this.getApplicationContext(), "Upload just started, please wait...", Toast.LENGTH_LONG).show();
+                Log.d(this.getClass().getName(), "back button pressed");
+                FlickrUploader.uploadFile();
+            }
         }
+
+        return super.onKeyDown(keyCode, event);
     }
 
     /*@Override
