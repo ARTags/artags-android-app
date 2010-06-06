@@ -124,38 +124,23 @@ public class FingerPaint extends GraphicsActivity
                 }
                 String filename = directory.getPath() + "/ARt.jpeg";
                 File file = new File( filename );
-//                FileOutputStream fos = openFileOutput( filename , Context.MODE_PRIVATE);
                 FileOutputStream fos = new FileOutputStream( file );
                 mBitmap.compress(Bitmap.CompressFormat.JPEG, 80, fos );
                 fos.close();
-                Toast.makeText( mContext, "Saving File : " + filename, Toast.LENGTH_SHORT).show();
-
+ 
                 Location location = getLocation();
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
 
-                String sLatitude = Location.convert( latitude , Location.FORMAT_DEGREES ) + "/1," +
-                        Location.convert( latitude , Location.FORMAT_MINUTES ) + "/1," +
-                        Location.convert( latitude , Location.FORMAT_SECONDS ) + "/1";
-
-                String sLongitude = Location.convert( longitude , Location.FORMAT_DEGREES ) + "/1," +
-                        Location.convert( longitude , Location.FORMAT_MINUTES ) + "/1," +
-                        Location.convert( longitude , Location.FORMAT_SECONDS ) + "/1";
-
-                String sLatitude2 = "" + (int) Math.floor(latitude) +"/1," + (int) ( latitude - Math.floor(latitude) ) + "/1, 10/100";
-                String sLongitude2 = "" +  (int) Math.floor(longitude) +"/1," + (int) ( longitude - Math.floor(longitude) ) + "/1, 10/100";
-
-//                String latitude = new Double(location.getLatitude()).toString();
-//                String longitude = new Double(location.getLongitude()).toString();
+                String sLatitude = fromDec2DMS( latitude );
+                String sLongitude = fromDec2DMS( longitude );
 
                 ExifInterface exif = new ExifInterface( filename );
-                exif.setAttribute( ExifInterface.TAG_GPS_LATITUDE, sLatitude2 );
-                exif.setAttribute( ExifInterface.TAG_GPS_LONGITUDE, sLongitude2 );
+                exif.setAttribute( ExifInterface.TAG_GPS_LATITUDE, sLatitude );
+                exif.setAttribute( ExifInterface.TAG_GPS_LONGITUDE, sLongitude );
                 exif.saveAttributes();
 
-                Toast.makeText( mContext, "Your location is lat= : " + latitude + " long=" + longitude, Toast.LENGTH_LONG).show();
                 Toast.makeText( mContext, "Your location is lat= : " + sLatitude + " long=" + sLongitude, Toast.LENGTH_LONG).show();
-                Toast.makeText( mContext, "Your location is lat= : " + sLatitude2 + " long=" + sLongitude2, Toast.LENGTH_LONG).show();
 
 
 
@@ -166,6 +151,58 @@ public class FingerPaint extends GraphicsActivity
             }
             }
         }
+
+            private String fromDec2DMS(double dfDecimal)
+    {
+        // define variables local to this method
+        double dfFrac;			// fraction after decimal
+        double dfSec;			// fraction converted to seconds
+        double dfDegree;
+        double dfMinute;
+        double dfSecond;
+
+        // Get degrees by chopping off at the decimal
+        dfDegree = Math.floor(dfDecimal);
+        // correction required since floor() is not the same as int()
+        if (dfDegree < 0)
+        {
+            dfDegree = dfDegree + 1;
+        }
+
+        // Get fraction after the decimal
+        dfFrac = Math.abs(dfDecimal - dfDegree);
+
+        // Convert this fraction to seconds (without minutes)
+        dfSec = dfFrac * 3600;
+
+        // Determine number of whole minutes in the fraction
+        dfMinute = Math.floor(dfSec / 60);
+
+        // Put the remainder in seconds
+        dfSecond = dfSec - dfMinute * 60;
+
+        // Fix rounoff errors
+        if (Math.rint(dfSecond) == 60)
+        {
+            dfMinute = dfMinute + 1;
+            dfSecond = 0;
+        }
+
+        if (Math.rint(dfMinute) == 60)
+        {
+            if (dfDegree < 0)
+            {
+                dfDegree = dfDegree - 1;
+            } else // ( dfDegree => 0 )
+            {
+                dfDegree = dfDegree + 1;
+            }
+
+            dfMinute = 0;
+        }
+
+        return "" + (int) dfDegree + "/1," + (int) dfMinute + "/1," + (int) dfSecond + "/1";
+    }
 
         Location getLocation()
         {
@@ -264,7 +301,7 @@ public class FingerPaint extends GraphicsActivity
         Resources res = getApplicationContext().getResources();
 
         menu.add(0, COLOR_MENU_ID, 0, getString(R.string.menu_color)).setShortcut('3', 'c').setIcon(res.getDrawable(R.drawable.menu_color));
-        menu.add(0, EMBOSS_MENU_ID, 0, getString(R.string.menu_emboss)).setShortcut('4', 's').setIcon(res.getDrawable(R.drawable.menu_eyedropper));
+        menu.add(0, EMBOSS_MENU_ID, 0, getString(R.string.menu_emboss)).setShortcut('4', 's').setIcon(res.getDrawable(R.drawable.menu_emboss));
         menu.add(0, BLUR_MENU_ID, 0, getString(R.string.menu_blur)).setShortcut('5', 'z').setIcon(res.getDrawable(R.drawable.menu_blur));
         menu.add(0, ERASE_MENU_ID, 0, getString(R.string.menu_erase)).setShortcut('5', 'z').setIcon(res.getDrawable(R.drawable.menu_erase));
         //       menu.add(0, SRCATOP_MENU_ID, 0, getString(R.string.menu_srcatop)).setShortcut('5', 'z');
