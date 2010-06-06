@@ -10,7 +10,6 @@ import android.graphics.*;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.media.ExifInterface;
 import android.os.Bundle;
 import android.os.Environment;
