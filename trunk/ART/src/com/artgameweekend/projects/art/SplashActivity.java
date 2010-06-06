@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import com.zmosoft.flickrfree.RestClient;
 
 /**
  *
@@ -36,7 +37,7 @@ public class SplashActivity extends Activity implements OnClickListener
 
         mImageView = (ImageView) findViewById(R.id.splash);
         mImageView.setOnClickListener(this);
-
+        RestClient.m_frob = "";
 
     }
 
