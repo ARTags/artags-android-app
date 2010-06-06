@@ -93,7 +93,9 @@ public class FingerPaint extends GraphicsActivity
         {
             super(c);
 
-            mBitmap = Bitmap.createBitmap(320, 480, Bitmap.Config.ARGB_8888);
+            //int height = this.getHeight();
+            //int width = this.getWidth();
+            mBitmap = Bitmap.createBitmap(480, 800, Bitmap.Config.ARGB_8888);
             mCanvas = new Canvas(mBitmap);
             mPath = new Path();
             mBitmapPaint = new Paint(Paint.DITHER_FLAG);
@@ -146,6 +148,10 @@ public class FingerPaint extends GraphicsActivity
                 Toast.makeText( mContext, "Your location is lat= : " + latitude + " long=" + longitude, Toast.LENGTH_LONG).show();
                 Toast.makeText( mContext, "Your location is lat= : " + sLatitude + " long=" + sLongitude, Toast.LENGTH_LONG).show();
                 Toast.makeText( mContext, "Your location is lat= : " + sLatitude2 + " long=" + sLongitude2, Toast.LENGTH_LONG).show();
+
+
+
+                FlickrUploader.authentication(this.getContext());
             } catch (Exception e)
             {
                 Log.e("Finge", "exception while writing image", e);
