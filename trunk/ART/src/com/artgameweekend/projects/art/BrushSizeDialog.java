@@ -74,6 +74,7 @@ public class BrushSizeDialog extends Dialog implements SeekBar.OnSeekBarChangeLi
         mSeekBar.setProgress( mBrushSize );
 
         LinearLayout layout = new LinearLayout(mContext);
+        layout.setMinimumWidth(300);
 
         layout.setOrientation(LinearLayout.VERTICAL);
 
