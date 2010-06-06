@@ -4,7 +4,7 @@
  */
 package com.artgameweekend.projects.art;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
 import android.util.Log;
@@ -23,11 +23,11 @@ import org.json.JSONObject;
  */
 public class FlickrUploader {
 
-    public static void authentication(Activity act) {
+    public static void authentication(Context con) {
         Boolean bo = APICalls.setFrob();
         Intent intent = new Intent();
         intent.setClassName("com.artgameweekend.projects.art", "com.artgameweekend.projects.art.WebViewActivity");
-        act.startActivity(intent);
+        con.startActivity(intent);
     }
 
     public static void uploadFile() {
@@ -49,7 +49,7 @@ public class FlickrUploader {
         } catch (NoSuchAlgorithmException e1) {
             e1.printStackTrace();
         }
-        File file = new File(Environment.getExternalStorageDirectory(), "art.jpg");
+        File file = new File(Environment.getExternalStorageDirectory(), "/ARt/ARt.jpg");
 
 
         Hashtable<String, String> params = new Hashtable<String, String>();
