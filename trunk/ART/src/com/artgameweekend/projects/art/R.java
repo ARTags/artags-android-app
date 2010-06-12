@@ -12,19 +12,16 @@ public final class R {
     }
     public static final class drawable {
         public static final int bt_display=0x7f020000;
-        public static final int bt_display_old=0x7f020001;
-        public static final int bt_draw=0x7f020002;
-        public static final int bt_draw_old=0x7f020003;
-        public static final int icon=0x7f020004;
-        public static final int icon_old=0x7f020005;
-        public static final int menu_blur=0x7f020006;
-        public static final int menu_brush=0x7f020007;
-        public static final int menu_color=0x7f020008;
-        public static final int menu_color_off=0x7f020009;
-        public static final int menu_erase=0x7f02000a;
-        public static final int menu_eyedropper=0x7f02000b;
-        public static final int menu_save=0x7f02000c;
-        public static final int splash=0x7f02000d;
+        public static final int bt_draw=0x7f020001;
+        public static final int icon=0x7f020002;
+        public static final int menu_blur=0x7f020003;
+        public static final int menu_brush=0x7f020004;
+        public static final int menu_color=0x7f020005;
+        public static final int menu_emboss=0x7f020006;
+        public static final int menu_erase=0x7f020007;
+        public static final int menu_save=0x7f020008;
+        public static final int splash=0x7f020009;
+        public static final int splash_land=0x7f02000a;
     }
     public static final class id {
         public static final int button_display=0x7f050002;
@@ -39,17 +36,18 @@ public final class R {
         public static final int splash=0x7f030003;
     }
     public static final class string {
+        public static final int activity_SaveFile=0x7f040005;
         public static final int activity_ShowImage=0x7f040004;
         public static final int activity_paint=0x7f040003;
         public static final int app_name=0x7f040000;
         public static final int button_draw=0x7f040001;
         public static final int button_view=0x7f040002;
-        public static final int menu_blur=0x7f040007;
-        public static final int menu_brush_size=0x7f040009;
-        public static final int menu_color=0x7f040005;
-        public static final int menu_emboss=0x7f040006;
-        public static final int menu_erase=0x7f040008;
-        public static final int menu_send=0x7f04000b;
-        public static final int menu_srcatop=0x7f04000a;
+        public static final int menu_blur=0x7f040008;
+        public static final int menu_brush_size=0x7f04000a;
+        public static final int menu_color=0x7f040006;
+        public static final int menu_emboss=0x7f040007;
+        public static final int menu_erase=0x7f040009;
+        public static final int menu_send=0x7f04000c;
+        public static final int menu_srcatop=0x7f04000b;
     }
 }
