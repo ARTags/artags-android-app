@@ -58,6 +58,8 @@ public class WikitudeDisplayService {
             String url = poi.getUrl();
             String iconUrl = poi.getIconUrl();
             WikitudePOI wpoi = new WikitudePOI( lat, lon, alt, name, desc, url, null, iconUrl, "wikitudeapi.SHOWIMAGE");
+            wpoi.setIconuri(iconUrl);
+            wpoi.setDetailAction("wikitudeapi.SHOWIMAGE");
             list.add(wpoi);
         }
         return list;
