@@ -1,16 +1,23 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/* Copyright (c) 2010 ARt Project owners
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.artgameweekend.projects.art;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.*;
-import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationManager;
-import android.media.ExifInterface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.DisplayMetrics;
@@ -39,7 +46,7 @@ public class FingerPaint extends GraphicsActivity
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        
+
 
         mView = new MyView(this);
         setContentView(mView);
@@ -94,9 +101,6 @@ public class FingerPaint extends GraphicsActivity
         {
             super(c);
 
-            //int height = this.getHeight();
-            //int width = this.getWidth();
-
             DisplayMetrics dm = new DisplayMetrics();
             getWindowManager().getDefaultDisplay().getMetrics(dm);
             int height = dm.heightPixels;
@@ -113,105 +117,47 @@ public class FingerPaint extends GraphicsActivity
         private void send()
         {
             File root = Environment.getExternalStorageDirectory();
-            if( root.canWrite() )
+            if (root.canWrite())
             {
-            try
-            {
-                File directory = new File( root.getPath() + "/ARt");
-                if( !directory.exists() )
+                try
                 {
-                    directory.mkdir();
+                    File directory = new File(root.getPath() + "/ARt");
+                    if (!directory.exists())
+                    {
+                        directory.mkdir();
+                    }
+                    String filename = directory.getPath() + "/ARt.jpeg";
+                    File file = new File(filename);
+                    FileOutputStream fos = new FileOutputStream(file);
+                    mBitmap.compress(Bitmap.CompressFormat.JPEG, 80, fos);
+                    fos.close();
+
+                    double latitude = 48.0; // default value
+                    double longitude = 2.0; // default value
+                    Location location = LocationService.getLocation( mContext );
+                    if( location != null )
+                    {
+                        latitude = location.getLatitude();
+                        longitude = location.getLongitude();
+                    }
+
+                    Tag tag = new Tag();
+                    tag.setTitle( "Tag" );
+                    tag.setLatitude( "" + latitude );
+                    tag.setLongitude( "" + longitude );
+                    tag.setFilename( filename );
+
+                    Toast.makeText(mContext, "Uploading tag. Please wait ...", Toast.LENGTH_LONG).show();
+
+                    UploadService.upload(tag);
+
+                    Toast.makeText(mContext, "Tag uploaded successfuly", Toast.LENGTH_LONG).show();
+
+                } catch (Exception e)
+                {
+                    Log.e("Finge", "exception while writing image", e);
                 }
-                String filename = directory.getPath() + "/ARt.jpeg";
-                File file = new File( filename );
-                FileOutputStream fos = new FileOutputStream( file );
-                mBitmap.compress(Bitmap.CompressFormat.JPEG, 80, fos );
-                fos.close();
- 
-                Location location = getLocation();
-                double latitude = location.getLatitude();
-                double longitude = location.getLongitude();
-
-                String sLatitude = fromDec2DMS( latitude );
-                String sLongitude = fromDec2DMS( longitude );
-
-                ExifInterface exif = new ExifInterface( filename );
-                exif.setAttribute( ExifInterface.TAG_GPS_LATITUDE, sLatitude );
-                exif.setAttribute( ExifInterface.TAG_GPS_LONGITUDE, sLongitude );
-                exif.saveAttributes();
-
-                Toast.makeText( mContext, "Your location is lat= : " + sLatitude + " long=" + sLongitude, Toast.LENGTH_LONG).show();
-
-
-
-                FlickrUploader.authentication(this.getContext());
-            } catch (Exception e)
-            {
-                Log.e("Finge", "exception while writing image", e);
             }
-            }
-        }
-
-            private String fromDec2DMS(double dfDecimal)
-    {
-        // define variables local to this method
-        double dfFrac;			// fraction after decimal
-        double dfSec;			// fraction converted to seconds
-        double dfDegree;
-        double dfMinute;
-        double dfSecond;
-
-        // Get degrees by chopping off at the decimal
-        dfDegree = Math.floor(dfDecimal);
-        // correction required since floor() is not the same as int()
-        if (dfDegree < 0)
-        {
-            dfDegree = dfDegree + 1;
-        }
-
-        // Get fraction after the decimal
-        dfFrac = Math.abs(dfDecimal - dfDegree);
-
-        // Convert this fraction to seconds (without minutes)
-        dfSec = dfFrac * 3600;
-
-        // Determine number of whole minutes in the fraction
-        dfMinute = Math.floor(dfSec / 60);
-
-        // Put the remainder in seconds
-        dfSecond = dfSec - dfMinute * 60;
-
-        // Fix rounoff errors
-        if (Math.rint(dfSecond) == 60)
-        {
-            dfMinute = dfMinute + 1;
-            dfSecond = 0;
-        }
-
-        if (Math.rint(dfMinute) == 60)
-        {
-            if (dfDegree < 0)
-            {
-                dfDegree = dfDegree - 1;
-            } else // ( dfDegree => 0 )
-            {
-                dfDegree = dfDegree + 1;
-            }
-
-            dfMinute = 0;
-        }
-
-        return "" + (int) dfDegree + "/1," + (int) dfMinute + "/1," + (int) dfSecond + "/1";
-    }
-
-        Location getLocation()
-        {
-                LocationManager manager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
-            		Criteria criteria = new Criteria();
-		String bestProvider = manager.getBestProvider(criteria, false);
-		Location location = manager.getLastKnownLocation(bestProvider);
-		return location;
-
         }
 
 
