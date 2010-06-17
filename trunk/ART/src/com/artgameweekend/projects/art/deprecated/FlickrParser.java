@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package com.artgameweekend.projects.art;
+package com.artgameweekend.projects.art.deprecated;
 
 import android.util.Log;
 import java.util.ArrayList;

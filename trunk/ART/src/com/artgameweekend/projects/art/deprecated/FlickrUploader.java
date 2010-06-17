@@ -2,12 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.artgameweekend.projects.art;
+package com.artgameweekend.projects.art.deprecated;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
 import android.util.Log;
+import com.artgameweekend.projects.art.MyHttpRequest;
 import com.zmosoft.flickrfree.APICalls;
 import com.zmosoft.flickrfree.JSONParser;
 import com.zmosoft.flickrfree.JavaMD5Sum;
