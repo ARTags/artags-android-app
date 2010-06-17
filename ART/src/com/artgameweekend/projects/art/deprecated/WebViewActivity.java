@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.artgameweekend.projects.art;
+package com.artgameweekend.projects.art.deprecated;
 
+import com.artgameweekend.projects.art.deprecated.FlickrUploader;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
