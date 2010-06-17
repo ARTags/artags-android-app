@@ -13,4 +13,9 @@
     <string name="menu_brush_size">Brush size</string>
     <string name="menu_srcatop">SrcATop</string>
     <string name="menu_send">Send</string>
+    <string name="ok">OK</string>
+    <string name="send">Send</string>
+    <string name="cancel">Cancel</string>
+    <string name="dialog_enter_title">Enter a title for the tag : </string>
+    <string name="dialog_send">Send your tag</string>
 </resources>
