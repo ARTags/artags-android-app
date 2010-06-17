@@ -14,7 +14,10 @@
  */
 package com.artgameweekend.projects.art;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.*;
 import android.location.Location;
@@ -22,12 +25,14 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.Toast;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -36,6 +41,7 @@ public class FingerPaint extends GraphicsActivity
         implements ColorPickerDialog.OnColorChangedListener, BrushSizeDialog.OnBrushSizeListener
 {
 
+    private static final int DIALOG_SEND = 1;
     MyView mView;
 
     @Override
@@ -73,6 +79,7 @@ public class FingerPaint extends GraphicsActivity
     private MaskFilter mEmboss;
     private MaskFilter mBlur;
     private int mBrushSize;
+    private EditText mEditTitle;
 
     public void colorChanged(int color)
     {
@@ -86,11 +93,42 @@ public class FingerPaint extends GraphicsActivity
         Log.d("FingerPaint", "SetBrushSize=" + size);
     }
 
+    @Override
+    protected Dialog onCreateDialog(int id)
+    {
+        LayoutInflater factory = LayoutInflater.from(this);
+        final View textEntryView = factory.inflate(R.layout.dialog_send, null);
+        mEditTitle = (EditText) textEntryView.findViewById(R.id.edit_title);
+        AlertDialog.Builder builder = new AlertDialog.Builder(FingerPaint.this);
+        builder.setIcon(R.drawable.icon);
+        builder.setTitle(R.string.dialog_send);
+        builder.setView(textEntryView);
+        builder.setPositiveButton(R.string.send, new DialogInterface.OnClickListener()
+        {
+
+            public void onClick(DialogInterface dialog, int whichButton)
+            {
+                String title = mEditTitle.getText().toString();
+                mView.send(title);
+
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
+        {
+
+            public void onClick(DialogInterface dialog, int whichButton)
+            {
+
+                /* User clicked cancel so do some stuff */
+            }
+        });
+        return builder.create();
+
+    }
+
     public class MyView extends View
     {
 
-        //private static final float MINP = 0.25f;
-        //private static final float MAXP = 0.75f;
         private Bitmap mBitmap;
         private Canvas mCanvas;
         private Path mPath;
@@ -114,7 +152,7 @@ public class FingerPaint extends GraphicsActivity
             mContext = c;
         }
 
-        private void send()
+        private void send(String title)
         {
             File root = Environment.getExternalStorageDirectory();
             if (root.canWrite())
@@ -134,18 +172,18 @@ public class FingerPaint extends GraphicsActivity
 
                     double latitude = 48.0; // default value
                     double longitude = 2.0; // default value
-                    Location location = LocationService.getLocation( mContext );
-                    if( location != null )
+                    Location location = LocationService.getLocation(mContext);
+                    if (location != null)
                     {
                         latitude = location.getLatitude();
                         longitude = location.getLongitude();
                     }
 
                     Tag tag = new Tag();
-                    tag.setTitle( "Tag" );
-                    tag.setLatitude( "" + latitude );
-                    tag.setLongitude( "" + longitude );
-                    tag.setFilename( filename );
+                    tag.setTitle(title);
+                    tag.setLatitude("" + latitude);
+                    tag.setLongitude("" + longitude);
+                    tag.setFilename(filename);
 
                     Toast.makeText(mContext, "Uploading tag. Please wait ...", Toast.LENGTH_LONG).show();
 
@@ -160,6 +198,9 @@ public class FingerPaint extends GraphicsActivity
             }
         }
 
+        void showDialog()
+        {
+        }
 
         @Override
         protected void onSizeChanged(int w, int h, int oldw, int oldh)
@@ -318,7 +359,7 @@ public class FingerPaint extends GraphicsActivity
             return true;
              */
             case SEND_MENU_ID:
-                mView.send();
+                showDialog(DIALOG_SEND);
                 return true;
         }
         return super.onOptionsItemSelected(item);
