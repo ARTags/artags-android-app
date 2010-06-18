@@ -12,8 +12,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.artgameweekend.projects.art;
+package com.artgameweekend.projects.art.ar;
 
+import com.artgameweekend.projects.art.tag.TagParser;
 import android.util.Log;
 import java.net.URL;
 import java.util.List;

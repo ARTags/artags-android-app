@@ -12,16 +12,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.artgameweekend.projects.art;
+package com.artgameweekend.projects.art.tag;
 
+import com.artgameweekend.projects.art.util.http.MyHttpRequest;
 import java.io.File;
-import java.util.Hashtable;
+import java.util.HashMap;
 
 /**
  *
  * @author pierre
  */
-public class UploadService
+public class TagUploadService
 {
     private static final String PARAMETER_TITLE = "name";
     private static final String PARAMETER_LATITUDE = "lat";
@@ -30,7 +31,7 @@ public class UploadService
 
     public static void upload( Tag tag )
     {
-            Hashtable map = new Hashtable();
+            HashMap map = new HashMap();
             map.put( PARAMETER_TITLE , tag.getTitle());
             map.put( PARAMETER_LATITUDE , tag.getLatitude());
             map.put( PARAMETER_LONGITUDE , tag.getLongitude() );
