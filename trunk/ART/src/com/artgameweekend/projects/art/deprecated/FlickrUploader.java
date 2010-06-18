@@ -8,14 +8,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
 import android.util.Log;
-import com.artgameweekend.projects.art.MyHttpRequest;
+import com.artgameweekend.projects.art.util.http.MyHttpRequest;
 import com.zmosoft.flickrfree.APICalls;
 import com.zmosoft.flickrfree.JSONParser;
 import com.zmosoft.flickrfree.JavaMD5Sum;
 import com.zmosoft.flickrfree.RestClient;
 import java.io.File;
 import java.security.NoSuchAlgorithmException;
-import java.util.Hashtable;
+import java.util.HashMap;
 import org.json.JSONObject;
 
 /**
@@ -53,7 +53,7 @@ public class FlickrUploader {
         File file = new File(Environment.getExternalStorageDirectory(), "/ARt/ARt.jpeg");
 
 
-        Hashtable<String, String> params = new Hashtable<String, String>();
+        HashMap<String, String> params = new HashMap<String, String>();
         params.put("api_key", RestClient.m_apikey);
         params.put("auth_token", token);
         params.put("description", description);
@@ -102,7 +102,7 @@ public void testAPI()
         ArrayList<File> files = new ArrayList<File>();
         files.add(new File(Environment.getExternalStorageDirectory(), "art.jpg"));
 
-        Hashtable<String, String> params = new Hashtable<String, String>();
+        HashMap<String, String> params = new HashMap<String, String>();
         params.put("api_key", "1e3327bffcb66bce29221be81bfdb559");
         params.put("perms", "write");
         //http://flickr.com/services/auth/?api_key=1e3327bffcb66bce29221be81bfdb559&perms=write&frob=72157624211614412-9c23800732265494-8733&api_sig=a586c119a00e03acda7f6d5f5d1ca725

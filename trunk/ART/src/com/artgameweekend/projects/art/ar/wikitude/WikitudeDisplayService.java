@@ -12,8 +12,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.artgameweekend.projects.art;
+package com.artgameweekend.projects.art.ar.wikitude;
 
+import com.artgameweekend.projects.art.ar.GenericPOI;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ import org.openintents.intents.WikitudePOI;
  */
 public class WikitudeDisplayService {
     
-    static void display( List<GenericPOI> listGenericPOIs , Activity activity)
+    public static void display( List<GenericPOI> listGenericPOIs , Activity activity)
     {
         List<WikitudePOI> list = buildWikitudePOIs( listGenericPOIs );
 

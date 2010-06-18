@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".FingerPaint" android:label="@string/activity_paint" android:screenOrientation="portrait">
+        <activity android:name=".DrawActivity" android:label="@string/activity_paint" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.PAINT" />
@@ -27,7 +27,7 @@
 
         </activity>
 
-        <activity android:name=".ShowPicture" android:label="@string/activity_ShowImage">
+        <activity android:name=".ar.wikitude.WikitudeShowImageActivity" android:label="@string/activity_ShowImage">
             <intent-filter>
                 <action android:name="wikitudeapi.SHOWIMAGE" />
                 <category android:name="android.intent.category.DEFAULT" />

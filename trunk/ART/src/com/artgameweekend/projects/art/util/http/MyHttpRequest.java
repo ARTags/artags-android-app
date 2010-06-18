@@ -1,13 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.artgameweekend.projects.art;
+package com.artgameweekend.projects.art.util.http;
 
 import java.net.*;
 import java.io.*;
-import java.util.Enumeration;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -60,7 +55,7 @@ import org.apache.http.util.EntityUtils;
  * files.add(new File("/etc/someFile"));
  * files.add(new File("/home/user/anotherFile"));
  *
- * Hashtable<String, String> ht = new Hashtable<String, String>();
+ * HashMap<String, String> ht = new HashMap<String, String>();
  * ht.put("var1", "val1");
  *
  * HttpData data = HttpRequest.post("http://xyz.com", ht, files);
@@ -68,7 +63,8 @@ import org.apache.http.util.EntityUtils;
  *
  * @author Moazzam Khan
  */
-public class MyHttpRequest {
+public class MyHttpRequest
+{
 
     /**
      * HttpGet request
@@ -76,32 +72,38 @@ public class MyHttpRequest {
      * @param sUrl
      * @return
      */
-    public static HttpData get(String sUrl) {
+    public static HttpData get(String sUrl)
+    {
         HttpData ret = new HttpData();
         String str;
-        StringBuffer buff = new StringBuffer();
-        try {
+        StringBuilder buff = new StringBuilder();
+        try
+        {
             URL url = new URL(sUrl);
             URLConnection con = url.openConnection();
 
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            while ((str = in.readLine()) != null) {
+            while ((str = in.readLine()) != null)
+            {
                 buff.append(str);
             }
             ret.content = buff.toString();
             //get headers
             Map<String, List<String>> headers = con.getHeaderFields();
             Set<Entry<String, List<String>>> hKeys = headers.entrySet();
-            for (Iterator<Entry<String, List<String>>> i = hKeys.iterator(); i.hasNext();) {
+            for (Iterator<Entry<String, List<String>>> i = hKeys.iterator(); i.hasNext();)
+            {
                 Entry<String, List<String>> m = i.next();
 
                 Log.w("HEADER_KEY", m.getKey() + "");
                 ret.headers.put(m.getKey(), m.getValue().toString());
-                if (m.getKey().equals("set-cookie")) {
+                if (m.getKey().equals("set-cookie"))
+                {
                     ret.cookies.put(m.getKey(), m.getValue().toString());
                 }
             }
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             Log.e("HttpRequest", e.toString());
         }
         return ret;
@@ -115,12 +117,11 @@ public class MyHttpRequest {
      * @return
      * @throws Exception
      */
-    public static HttpData post(String sUrl, Hashtable<String, String> ht) throws Exception {
-        String key;
-        StringBuffer data = new StringBuffer();
-        Enumeration<String> keys = ht.keys();
-        while (keys.hasMoreElements()) {
-            key = keys.nextElement();
+    public static HttpData post(String sUrl, HashMap<String, String> ht) throws Exception
+    {
+        StringBuilder data = new StringBuilder();
+        for (String key : ht.keySet())
+        {
             data.append(URLEncoder.encode(key, "UTF-8"));
             data.append("=");
             data.append(URLEncoder.encode(ht.get(key), "UTF-8"));
@@ -136,11 +137,13 @@ public class MyHttpRequest {
      * @param data
      * @return
      */
-    public static HttpData post(String sUrl, String data) {
-        StringBuffer ret = new StringBuffer();
+    public static HttpData post(String sUrl, String data)
+    {
+        StringBuilder ret = new StringBuilder();
         HttpData dat = new HttpData();
         String header;
-        try {
+        try
+        {
             // Send data
             URL url = new URL(sUrl);
             URLConnection conn = url.openConnection();
@@ -153,24 +156,28 @@ public class MyHttpRequest {
 
             Map<String, List<String>> headers = conn.getHeaderFields();
             Set<Entry<String, List<String>>> hKeys = headers.entrySet();
-            for (Iterator<Entry<String, List<String>>> i = hKeys.iterator(); i.hasNext();) {
+            for (Iterator<Entry<String, List<String>>> i = hKeys.iterator(); i.hasNext();)
+            {
                 Entry<String, List<String>> m = i.next();
 
                 Log.w("HEADER_KEY", m.getKey() + "");
                 dat.headers.put(m.getKey(), m.getValue().toString());
-                if (m.getKey().equals("set-cookie")) {
+                if (m.getKey().equals("set-cookie"))
+                {
                     dat.cookies.put(m.getKey(), m.getValue().toString());
                 }
             }
             BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String line;
-            while ((line = rd.readLine()) != null) {
+            while ((line = rd.readLine()) != null)
+            {
                 ret.append(line);
             }
             Log.e("ERROR", line);
             wr.close();
             rd.close();
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             Log.e("ERROR", "ERROR IN CODE:" + e.getMessage());
         }
         dat.content = ret.toString();
@@ -183,8 +190,9 @@ public class MyHttpRequest {
      * @param files
      * @return HttpData
      */
-    public static HttpData post(String sUrl, File file) {
-        Hashtable<String, String> ht = new Hashtable<String, String>();
+    public static HttpData post(String sUrl, File file)
+    {
+        HashMap<String, String> ht = new HashMap<String, String>();
         return MyHttpRequest.post2(sUrl, ht, file);
     }
 
@@ -195,44 +203,48 @@ public class MyHttpRequest {
      * @param files
      * @return
      */
-    public static void post(String sUrl, Hashtable<String, String> params, File file) {
-        
-        try {
+    public static void post(String sUrl, HashMap<String, String> params, File file)
+    {
+
+        try
+        {
             HttpClient client = new DefaultHttpClient();
-            
+
             HttpPost post = new HttpPost(sUrl);
             FileBody bin = new FileBody(file);
             MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
             reqEntity.addPart("photo", bin);
 
-            Enumeration keys = params.keys();
-            String key, val;
-            while (keys.hasMoreElements()) {
-                key = keys.nextElement().toString();
-                val = params.get(key);
+            for( String key : params.keySet() )
+            {
+                String val = params.get(key);
 
                 reqEntity.addPart(key, new StringBody(val));
             }
 
-            
+
 
             post.setEntity(reqEntity);
             HttpResponse response = client.execute(post);
-            
+
             HttpEntity resEntity = response.getEntity();
-            if (resEntity != null) {
+            if (resEntity != null)
+            {
                 Log.i("RESPONSE", EntityUtils.toString(resEntity));
             }
 
             //return response;
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception e)
+        {
+            Log.e( "ART:MyHttpRequest", "Error : " + e.getMessage() );
         }
     }
 
-    public static HttpData post2(String sUrl, Hashtable<String, String> params, File file) {
+    public static HttpData post2(String sUrl, HashMap<String, String> params, File file)
+    {
         HttpData ret = new HttpData();
-        try {
+        try
+        {
             String boundary = "****$$*BoUnDaRy$$**$$*";
             String newLine = "\r\n";
             int bytesAvailable;
@@ -260,7 +272,8 @@ public class MyHttpRequest {
             bufferSize = Math.min(bytesAvailable, maxBufferSize);
             byte[] buffer = new byte[bufferSize];
             bytesRead = fis.read(buffer, 0, bufferSize);
-            while (bytesRead > 0) {
+            while (bytesRead > 0)
+            {
                 dos.write(buffer, 0, bufferSize);
                 bytesAvailable = fis.available();
                 bufferSize = Math.min(bytesAvailable, maxBufferSize);
@@ -271,11 +284,9 @@ public class MyHttpRequest {
             fis.close();
             // Now write the data
 
-            Enumeration keys = params.keys();
-            String key, val;
-            while (keys.hasMoreElements()) {
-                key = keys.nextElement().toString();
-                val = params.get(key);
+            for( String key : params.keySet() )
+            {
+                String val = params.get(key);
                 dos.writeBytes("--" + boundary + newLine);
                 dos.writeBytes("Content-Disposition: form-data;name=\""
                         + key + "\"" + newLine + newLine + val);
@@ -288,30 +299,36 @@ public class MyHttpRequest {
             BufferedReader rd = new BufferedReader(
                     new InputStreamReader(con.getInputStream()));
             String line;
-            while ((line = rd.readLine()) != null) {
+            while ((line = rd.readLine()) != null)
+            {
                 ret.content += line + "rn";
             }
             //get headers
             Map<String, List<String>> headers = con.getHeaderFields();
             Set<Entry<String, List<String>>> hKeys = headers.entrySet();
-            for (Iterator<Entry<String, List<String>>> i = hKeys.iterator(); i.hasNext();) {
+            for (Iterator<Entry<String, List<String>>> i = hKeys.iterator(); i.hasNext();)
+            {
                 Entry<String, List<String>> m = i.next();
 
                 Log.w("HEADER_KEY", m.getKey() + " = " + m.getValue());
                 ret.headers.put(m.getKey(), m.getValue().toString());
-                if (m.getKey().equals("set-cookie")) {
+                if (m.getKey().equals("set-cookie"))
+                {
                     ret.cookies.put(m.getKey(), m.getValue().toString());
                 }
             }
             dos.close();
             rd.close();
-        } catch (MalformedURLException me) {
+        } catch (MalformedURLException me)
+        {
             Log.e("HREQ", "Exception: " + me.toString());
 
-        } catch (IOException ie) {
+        } catch (IOException ie)
+        {
             Log.e("HREQ", "Exception: " + ie.toString());
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             Log.e("HREQ", "Exception: " + e.toString());
         }
         return ret;

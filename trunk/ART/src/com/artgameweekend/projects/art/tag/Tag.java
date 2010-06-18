@@ -12,13 +12,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.artgameweekend.projects.art;
+package com.artgameweekend.projects.art.tag;
 
 /**
  *
  * @author pierre
  */
-public class Tag {
+public class Tag
+{
 
     private String title;
     private String filename;
@@ -88,6 +89,4 @@ public class Tag {
     {
         this.longitude = longitude;
     }
-    
-
 }

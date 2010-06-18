@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.artgameweekend.projects.art;
+package com.artgameweekend.projects.art.util.location;
 
 import android.content.Context;
 import android.location.Criteria;
@@ -25,7 +25,7 @@ import android.location.LocationManager;
  */
 public class LocationService {
 
-    static Location getLocation( Context context )
+    public static Location getLocation( Context context )
     {
             LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
             Criteria criteria = new Criteria();
