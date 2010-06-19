@@ -48,6 +48,7 @@ import java.io.FileOutputStream;
 public class DrawActivity extends GraphicsActivity
         implements ColorPickerDialog.OnColorChangedListener, BrushSizeDialog.OnBrushSizeListener
 {
+
     private static final int COLOR_MENU_ID = Menu.FIRST;
     private static final int EMBOSS_MENU_ID = Menu.FIRST + 1;
     private static final int BLUR_MENU_ID = Menu.FIRST + 2;
@@ -55,12 +56,9 @@ public class DrawActivity extends GraphicsActivity
 //    private static final int SRCATOP_MENU_ID = Menu.FIRST + 6;
     private static final int SEND_MENU_ID = Menu.FIRST + 5;
     private static final int BRUSH_SIZE_MENU_ID = Menu.FIRST + 4;
-
     private static final int DIALOG_PROGRESS = 0;
     private static final int DIALOG_SEND = 1;
-
     private static final int DEFAULT_BRUSH_SIZE = 12;
-
     private DrawView mView;
     private ProgressThread progressThread;
     private ProgressDialog progressDialog;
@@ -68,9 +66,7 @@ public class DrawActivity extends GraphicsActivity
     private MaskFilter mBlur;
     private int mBrushSize;
     private EditText mEditTitle;
-
     private Paint mPaint;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -83,7 +79,7 @@ public class DrawActivity extends GraphicsActivity
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-        mView = new DrawView(this , dm );
+        mView = new DrawView(this, dm);
         setContentView(mView);
 
         mBrushSize = DEFAULT_BRUSH_SIZE;
@@ -161,7 +157,7 @@ public class DrawActivity extends GraphicsActivity
 
     }
 
-        @Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
         super.onCreateOptionsMenu(menu);
@@ -245,7 +241,6 @@ public class DrawActivity extends GraphicsActivity
         return super.onOptionsItemSelected(item);
     }
 
-    // Define the Handler that receives messages from the thread and update the progress
     final Handler handler = new Handler()
     {
 
@@ -265,7 +260,6 @@ public class DrawActivity extends GraphicsActivity
         }
     };
 
-    /** Nested class that performs progress calculations (counting) */
     private class ProgressThread extends Thread
     {
 
@@ -289,49 +283,49 @@ public class DrawActivity extends GraphicsActivity
         }
     }
 
-        private boolean send(String title)
+    private boolean send(String title)
+    {
+        File root = Environment.getExternalStorageDirectory();
+        if (root.canWrite())
         {
-            File root = Environment.getExternalStorageDirectory();
-            if (root.canWrite())
+            try
             {
-                try
+                File directory = new File(root.getPath() + "/ARt");
+                if (!directory.exists())
                 {
-                    File directory = new File(root.getPath() + "/ARt");
-                    if (!directory.exists())
-                    {
-                        directory.mkdir();
-                    }
-                    String filename = directory.getPath() + "/ARt.jpeg";
-                    File file = new File(filename);
-                    FileOutputStream fos = new FileOutputStream(file);
-                    Bitmap bmTag = mView.getBitmap();
-                    bmTag.compress(Bitmap.CompressFormat.JPEG, 80, fos);
-                    fos.close();
-
-                    double latitude = 48.0; // default value
-                    double longitude = 2.0; // default value
-                    Location location = LocationService.getLocation( getApplicationContext());
-                    if (location != null)
-                    {
-                        latitude = location.getLatitude();
-                        longitude = location.getLongitude();
-                    }
-
-                    Tag tag = new Tag();
-                    tag.setTitle(title);
-                    tag.setLatitude("" + latitude);
-                    tag.setLongitude("" + longitude);
-                    tag.setFilename(filename);
-
-                    TagUploadService.upload(tag);
-                    return true;
-
-
-                } catch (Exception e)
-                {
-                    Log.e("ARt:DrawActivity:send", "Exception while writing or sending the tag", e);
+                    directory.mkdir();
                 }
+                String filename = directory.getPath() + "/ARt.jpeg";
+                File file = new File(filename);
+                FileOutputStream fos = new FileOutputStream(file);
+                Bitmap bmTag = mView.getBitmap();
+                bmTag.compress(Bitmap.CompressFormat.JPEG, 80, fos);
+                fos.close();
+
+                double latitude = 48.0; // default value
+                double longitude = 2.0; // default value
+                Location location = LocationService.getLocation(getApplicationContext());
+                if (location != null)
+                {
+                    latitude = location.getLatitude();
+                    longitude = location.getLongitude();
+                }
+
+                Tag tag = new Tag();
+                tag.setTitle(title);
+                tag.setLatitude("" + latitude);
+                tag.setLongitude("" + longitude);
+                tag.setFilename(filename);
+
+                TagUploadService.upload(tag);
+                return true;
+
+
+            } catch (Exception e)
+            {
+                Log.e("ARt:DrawActivity:send", "Exception while writing or sending the tag", e);
             }
-            return false;
         }
+        return false;
+    }
 }

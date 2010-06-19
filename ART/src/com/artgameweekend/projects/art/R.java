@@ -49,6 +49,7 @@ public final class R {
         public static final int button_view=0x7f040002;
         public static final int cancel=0x7f04000f;
         public static final int dialog_enter_title=0x7f040010;
+        public static final int dialog_loading=0x7f040015;
         public static final int dialog_progress=0x7f040012;
         public static final int dialog_send=0x7f040011;
         public static final int menu_blur=0x7f040008;
