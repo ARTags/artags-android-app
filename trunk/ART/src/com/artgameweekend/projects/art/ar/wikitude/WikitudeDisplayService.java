@@ -16,6 +16,7 @@ package com.artgameweekend.projects.art.ar.wikitude;
 
 import com.artgameweekend.projects.art.ar.GenericPOI;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,30 +27,33 @@ import org.openintents.intents.WikitudePOI;
  *
  * @author pierre
  */
-public class WikitudeDisplayService {
-    
-    public static void display( List<GenericPOI> listGenericPOIs , Activity activity)
+public class WikitudeDisplayService
+{
+
+    public static void display(List<GenericPOI> listGenericPOIs, Activity activity)
     {
-        List<WikitudePOI> list = buildWikitudePOIs( listGenericPOIs );
+//        ProgressDialog dialog = ProgressDialog.show( activity, "", "Loading Augmented Reality Vieawer. Please wait...", true);
 
-                WikitudeARIntent intent = new WikitudeARIntent(activity.getApplication(), null, "507419D8685F116E0AB61704F21734D0", "art");
+        List<WikitudePOI> list = buildWikitudePOIs(listGenericPOIs);
 
-            intent.setPrintMarkerSubText(false);
+        WikitudeARIntent intent = new WikitudeARIntent(activity.getApplication(), null, "507419D8685F116E0AB61704F21734D0", "art");
 
-            intent.addPOIs(list);
-            try
-            {
-                intent.startIntent(activity);
-            } catch (ActivityNotFoundException e)
-            {
-                WikitudeARIntent.handleWikitudeNotFound(activity);
-            }
+        intent.setPrintMarkerSubText(false);
+
+        intent.addPOIs(list);
+        try
+        {
+            intent.startIntent(activity);
+        } catch (ActivityNotFoundException e)
+        {
+            WikitudeARIntent.handleWikitudeNotFound(activity);
+        }
     }
 
-    private static List<WikitudePOI> buildWikitudePOIs( List<GenericPOI> listGenericPOIs )
+    private static List<WikitudePOI> buildWikitudePOIs(List<GenericPOI> listGenericPOIs)
     {
         List<WikitudePOI> list = new ArrayList<WikitudePOI>();
-        for( GenericPOI poi : listGenericPOIs )
+        for (GenericPOI poi : listGenericPOIs)
         {
             String name = poi.getName();
             String desc = poi.getDescription();
@@ -58,7 +62,7 @@ public class WikitudeDisplayService {
             double alt = poi.getAltitude();
             String url = poi.getUrl();
             String iconUrl = poi.getIconUrl();
-            WikitudePOI wpoi = new WikitudePOI( lat, lon, alt, name, desc, url, null, iconUrl, "wikitudeapi.SHOWIMAGE");
+            WikitudePOI wpoi = new WikitudePOI(lat, lon, alt, name, desc, url, null, iconUrl, "wikitudeapi.SHOWIMAGE");
             wpoi.setIconuri(iconUrl);
             wpoi.setDetailAction("wikitudeapi.SHOWIMAGE");
             list.add(wpoi);
@@ -66,5 +70,4 @@ public class WikitudeDisplayService {
         return list;
 
     }
-
 }

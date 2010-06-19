@@ -21,4 +21,5 @@
     <string name="dialog_progress">"Upload in progress..."</string>
     <string name="upload_successful">Your tag has been uploaded successfully!</string>
     <string name="upload_failed">Sorry, upload failed!</string>
+    <string name="dialog_loading">Loading Augmented Reality Viewer. Please Wait ..."</string>
 </resources>
