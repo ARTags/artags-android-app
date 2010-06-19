@@ -22,7 +22,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -36,16 +35,16 @@ import java.util.List;
  */
 public class MainActivity extends Activity implements OnClickListener
 {
+    private static final String INTENT_DRAW_PACKAGE = "com.artgameweekend.projects.art";
+    private static final String INTENT_DRAW_CLASS = INTENT_DRAW_PACKAGE + ".DrawActivity";
 
     ImageButton mButtonDraw;
     ImageButton mButtonDisplay;
 
-    /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle icicle)
     {
         super.onCreate(icicle);
-        Log.i("OMGWTFBBQ", "onCreate");
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -65,7 +64,7 @@ public class MainActivity extends Activity implements OnClickListener
         if (view == mButtonDraw)
         {
             Intent intent = new Intent();
-            intent.setClassName("com.artgameweekend.projects.art", "com.artgameweekend.projects.art.DrawActivity");
+            intent.setClassName( INTENT_DRAW_PACKAGE , INTENT_DRAW_CLASS );
             startActivity(intent);
         } else if (view == mButtonDisplay)
         {
