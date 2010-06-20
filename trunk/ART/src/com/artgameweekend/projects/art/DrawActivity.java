@@ -14,12 +14,11 @@
  */
 package com.artgameweekend.projects.art;
 
+import com.artgameweekend.projects.art.draw.BrushParameters;
 import com.artgameweekend.projects.art.tag.TagUploadService;
 import com.artgameweekend.projects.art.util.location.LocationService;
 import com.artgameweekend.projects.art.tag.Tag;
 import com.artgameweekend.projects.art.draw.GraphicsActivity;
-import com.artgameweekend.projects.art.draw.ColorPickerDialog;
-import com.artgameweekend.projects.art.draw.BrushSizeDialog;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -41,12 +40,14 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.artgameweekend.projects.art.draw.BrushDialog;
 import com.artgameweekend.projects.art.draw.DrawView;
 import java.io.File;
 import java.io.FileOutputStream;
 
 public class DrawActivity extends GraphicsActivity
-        implements ColorPickerDialog.OnColorChangedListener, BrushSizeDialog.OnBrushSizeListener
+//        implements ColorPickerDialog.OnColorChangedListener, BrushSizeDialog.OnBrushSizeListener
+                implements BrushDialog.OnBrushParametersChangedListener
 {
 
     private static final int COLOR_MENU_ID = Menu.FIRST;
@@ -59,14 +60,17 @@ public class DrawActivity extends GraphicsActivity
     private static final int DIALOG_PROGRESS = 0;
     private static final int DIALOG_SEND = 1;
     private static final int DEFAULT_BRUSH_SIZE = 12;
+    private static final int DEFAULT_COLOR = 0xFFA5C739;
+    private static final int DEFAULT_INTENSITY = 50;
+
     private DrawView mView;
     private ProgressThread progressThread;
     private ProgressDialog progressDialog;
     private MaskFilter mEmboss;
     private MaskFilter mBlur;
-    private int mBrushSize;
     private EditText mEditTitle;
     private Paint mPaint;
+    private BrushParameters mBP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -82,15 +86,19 @@ public class DrawActivity extends GraphicsActivity
         mView = new DrawView(this, dm);
         setContentView(mView);
 
-        mBrushSize = DEFAULT_BRUSH_SIZE;
+        mBP = new BrushParameters();
+        mBP.setBrushSize(DEFAULT_BRUSH_SIZE);
+        mBP.setColor(DEFAULT_COLOR );
+        mBP.setColorBase(DEFAULT_COLOR );
+        mBP.setColorIntensity(DEFAULT_INTENSITY );
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setDither(true);
-        mPaint.setColor(0xFFA5C739);
+        mPaint.setColor( mBP.getColor() );
+        mPaint.setStrokeWidth(mBP.getBrushSize());
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStrokeCap(Paint.Cap.ROUND);
-        mPaint.setStrokeWidth(mBrushSize);
 
         mEmboss = new EmbossMaskFilter(new float[]
                 {
@@ -102,15 +110,11 @@ public class DrawActivity extends GraphicsActivity
         mView.setPaint(mPaint);
     }
 
-    public void colorChanged(int color)
+    public void setBrushParameter(BrushParameters bp)
     {
-        mPaint.setColor(color);
-    }
-
-    public void brushSizeChanged(int size)
-    {
-        mBrushSize = size;
-        mPaint.setStrokeWidth(mBrushSize);
+        mBP = bp;
+        mPaint.setColor( mBP.getColor() );
+        mPaint.setStrokeWidth(mBP.getBrushSize());
     }
 
     @Override
@@ -199,11 +203,18 @@ public class DrawActivity extends GraphicsActivity
         switch (item.getItemId())
         {
             case COLOR_MENU_ID:
-                new ColorPickerDialog(this, this, mPaint.getColor()).show();
-                return true;
-            case BRUSH_SIZE_MENU_ID:
-                final BrushSizeDialog dialogBrushSize = new BrushSizeDialog(this, this, mBrushSize);
+//                new ColorPickerDialog(this, this, mPaint.getColor()).show();
+               final BrushDialog dialogBrushSize = new BrushDialog(this, this, mBP );
                 dialogBrushSize.show();
+                return true;
+                
+            case BRUSH_SIZE_MENU_ID:
+/*               final BrushSizeDialog dialogBrushSize = new BrushSizeDialog(this, this, mBrushSize);
+                dialogBrushSize.show();
+                return true;
+*/
+               final BrushDialog dialogBrushSize2 = new BrushDialog(this, this, mBP );
+                dialogBrushSize2.show();
                 return true;
 
             case EMBOSS_MENU_ID:
@@ -259,6 +270,7 @@ public class DrawActivity extends GraphicsActivity
 
         }
     };
+
 
     private class ProgressThread extends Thread
     {
