@@ -44,11 +44,12 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
     private SeekBar mSeekBarSize;
     private Button mButtonOK;
     private ColorPickerView mColorPickerView;
-    private static BrushParameters mBP;
-    private static int mBrushSize;
-    private static int mIntensity;
-    private static int mColorBase;
-    private static boolean mEmboss;
+    private BrushParameters mBP;
+    private int mBrushSize;
+    private int mIntensity;
+    private int mColorBase;
+    private boolean mEmboss;
+    private boolean mBlur;
     private CheckBox mToggleEmboss;
     private CheckBox mToggleBlur;
 
@@ -90,12 +91,18 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
         @Override
         protected void onDraw(Canvas canvas)
         {
-            if( mEmboss )
+            if (mEmboss)
             {
-                mCenterPaint.setMaskFilter( mBP.getEmbossFilter() );
+                mCenterPaint.setMaskFilter(mBP.getEmbossFilter());
             } else
             {
-                mCenterPaint.setMaskFilter( null );
+                if (mBlur)
+                {
+                    mCenterPaint.setMaskFilter(mBP.getBlurFilter());
+                } else
+                {
+                    mCenterPaint.setMaskFilter(null);
+                }
             }
             float r = CENTER_X - mPaint.getStrokeWidth() * 0.5f;
 
@@ -285,6 +292,7 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
         mIntensity = bp.getColorIntensity();
         mColorBase = bp.getColorBase();
         mEmboss = bp.isEmboss();
+        mBlur = bp.isBlur();
         mContext = context;
         mBP = bp;
     }
@@ -298,14 +306,15 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
         LinearLayout.LayoutParams dialogParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.FILL_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
-        layout.setPadding( 15, 5, 15, 5);
+        layout.setPadding(15, 0, 15, 0);
         layout.setLayoutParams(dialogParams);
-        setTitle( mContext.getString( R.string.dialog_brush ));
+
+        setTitle(mContext.getString(R.string.dialog_brush));
 
 
         // Color picker
         TextView twColor = new TextView(mContext);
-        twColor.setText(mContext.getString( R.string.label_color ));
+        twColor.setText(mContext.getString(R.string.label_color));
         layout.addView(twColor);
 
         mColorPickerView = new ColorPickerView(getContext(), mInitialColor);
@@ -313,33 +322,36 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
                 LinearLayout.LayoutParams.FILL_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         layoutParams.gravity = Gravity.CENTER;
-        layout.addView(mColorPickerView , layoutParams );
+        layout.addView(mColorPickerView, layoutParams);
 
 
-        LayoutInflater factory = LayoutInflater.from( mContext );
+        LayoutInflater factory = LayoutInflater.from(mContext);
         final View view = factory.inflate(R.layout.dialog_brush, null);
 
-        layout.addView( view );
+        layout.addView(view);
         // Color intensity seekbar
-        mSeekBarIntensity = (SeekBar) view.findViewById( R.id.seek_intensity );
+        mSeekBarIntensity = (SeekBar) view.findViewById(R.id.seek_intensity);
         mProgressTextIntensity = (TextView) view.findViewById(R.id.color_intensity);
         mSeekBarIntensity.setOnSeekBarChangeListener(this);
         mSeekBarIntensity.setProgress(mIntensity);
 
         // Brush size seekbar
-        mSeekBarSize = (SeekBar) view.findViewById( R.id.seek_brush_size );
+        mSeekBarSize = (SeekBar) view.findViewById(R.id.seek_brush_size);
         mProgressTextSize = (TextView) view.findViewById(R.id.brush_size);
         mSeekBarSize.setOnSeekBarChangeListener(this);
         mSeekBarSize.setMax(MAX_BRUSH_SIZE);
         mSeekBarSize.setProgress(mBrushSize);
 
         // Filters
-        mToggleEmboss = (CheckBox) view.findViewById( R.id.toggleEmboss );
+        mToggleEmboss = (CheckBox) view.findViewById(R.id.toggleEmboss);
         mToggleEmboss.setOnClickListener(this);
         mToggleEmboss.setChecked(mEmboss);
+        mToggleBlur = (CheckBox) view.findViewById(R.id.toggleBlur);
+        mToggleBlur.setOnClickListener(this);
+        mToggleBlur.setChecked(mBlur);
 
         // OK button
-        mButtonOK = (Button)view.findViewById( R.id.button_ok );
+        mButtonOK = (Button) view.findViewById(R.id.button_ok);
         mButtonOK.setOnClickListener(this);
 
         setContentView(layout);
@@ -355,13 +367,17 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
             mBP.setBrushSize(mBrushSize);
             mBP.setColorIntensity(mIntensity);
             mBP.setColorBase(mColorBase);
-            mBP.setEmboss( mEmboss );
+            mBP.setEmboss(mEmboss);
+            mBP.setBlur(mBlur);
             mListener.setBrushParameter(mBP);
             dismiss();
 
         } else if (view == mToggleEmboss)
         {
             mEmboss = mToggleEmboss.isChecked();
+        } else if (view == mToggleBlur)
+        {
+            mBlur = mToggleBlur.isChecked();
         }
         mColorPickerView.invalidate();
     }
