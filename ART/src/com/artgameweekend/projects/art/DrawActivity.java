@@ -46,8 +46,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 public class DrawActivity extends GraphicsActivity
-//        implements ColorPickerDialog.OnColorChangedListener, BrushSizeDialog.OnBrushSizeListener
-                implements BrushDialog.OnBrushParametersChangedListener
+        //        implements ColorPickerDialog.OnColorChangedListener, BrushSizeDialog.OnBrushSizeListener
+        implements BrushDialog.OnBrushParametersChangedListener
 {
 
     private static final int COLOR_MENU_ID = Menu.FIRST;
@@ -62,7 +62,6 @@ public class DrawActivity extends GraphicsActivity
     private static final int DEFAULT_BRUSH_SIZE = 12;
     private static final int DEFAULT_COLOR = 0xFFA5C739;
     private static final int DEFAULT_INTENSITY = 50;
-
     private DrawView mView;
     private ProgressThread progressThread;
     private ProgressDialog progressDialog;
@@ -96,15 +95,15 @@ public class DrawActivity extends GraphicsActivity
 
         mBP = new BrushParameters();
         mBP.setBrushSize(DEFAULT_BRUSH_SIZE);
-        mBP.setColor(DEFAULT_COLOR );
-        mBP.setColorBase(DEFAULT_COLOR );
-        mBP.setColorIntensity(DEFAULT_INTENSITY );
+        mBP.setColor(DEFAULT_COLOR);
+        mBP.setColorBase(DEFAULT_COLOR);
+        mBP.setColorIntensity(DEFAULT_INTENSITY);
         mBP.setEmbossFilter(mEmboss);
-        mBP.setBlurFilter( mBlur );
+        mBP.setBlurFilter(mBlur);
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setDither(true);
-        mPaint.setColor( mBP.getColor() );
+        mPaint.setColor(mBP.getColor());
         mPaint.setStrokeWidth(mBP.getBrushSize());
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeJoin(Paint.Join.ROUND);
@@ -116,15 +115,20 @@ public class DrawActivity extends GraphicsActivity
     public void setBrushParameter(BrushParameters bp)
     {
         mBP = bp;
-        mPaint.setColor( mBP.getColor() );
+        mPaint.setColor(mBP.getColor());
         mPaint.setStrokeWidth(mBP.getBrushSize());
-        if( bp.isBlur() )
+        if (bp.isEmboss())
         {
-            mPaint.setMaskFilter( bp.getBlurFilter());
-        }
-        if( bp.isEmboss() )
+            mPaint.setMaskFilter(bp.getEmbossFilter());
+        } else
         {
-            mPaint.setMaskFilter( bp.getEmbossFilter());
+            if (bp.isBlur())
+            {
+                mPaint.setMaskFilter(bp.getBlurFilter());
+            } else
+            {
+                mPaint.setMaskFilter(null);
+            }
         }
     }
 
@@ -215,16 +219,16 @@ public class DrawActivity extends GraphicsActivity
         {
             case COLOR_MENU_ID:
 //                new ColorPickerDialog(this, this, mPaint.getColor()).show();
-               final BrushDialog dialogBrushSize = new BrushDialog(this, this, mBP );
+                final BrushDialog dialogBrushSize = new BrushDialog(this, this, mBP);
                 dialogBrushSize.show();
                 return true;
-                
+
             case BRUSH_SIZE_MENU_ID:
-/*               final BrushSizeDialog dialogBrushSize = new BrushSizeDialog(this, this, mBrushSize);
+                /*               final BrushSizeDialog dialogBrushSize = new BrushSizeDialog(this, this, mBrushSize);
                 dialogBrushSize.show();
                 return true;
-*/
-               final BrushDialog dialogBrushSize2 = new BrushDialog(this, this, mBP );
+                 */
+                final BrushDialog dialogBrushSize2 = new BrushDialog(this, this, mBP);
                 dialogBrushSize2.show();
                 return true;
 
@@ -262,7 +266,6 @@ public class DrawActivity extends GraphicsActivity
         }
         return super.onOptionsItemSelected(item);
     }
-
     final Handler handler = new Handler()
     {
 
@@ -281,7 +284,6 @@ public class DrawActivity extends GraphicsActivity
 
         }
     };
-
 
     private class ProgressThread extends Thread
     {
