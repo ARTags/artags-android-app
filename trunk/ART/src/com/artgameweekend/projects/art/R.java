@@ -26,19 +26,26 @@ public final class R {
         public static final int splash_land=0x7f02000c;
     }
     public static final class id {
-        public static final int button_display=0x7f050004;
-        public static final int button_draw=0x7f050003;
-        public static final int displayartImageView01=0x7f050002;
-        public static final int edit_title=0x7f050001;
-        public static final int label_title=0x7f050000;
-        public static final int splash=0x7f050005;
+        public static final int brush_size=0x7f050002;
+        public static final int button_display=0x7f05000a;
+        public static final int button_draw=0x7f050009;
+        public static final int button_ok=0x7f050005;
+        public static final int color_intensity=0x7f050000;
+        public static final int displayartImageView01=0x7f050008;
+        public static final int edit_title=0x7f050007;
+        public static final int label_title=0x7f050006;
+        public static final int seek_brush_size=0x7f050003;
+        public static final int seek_intensity=0x7f050001;
+        public static final int splash=0x7f05000b;
+        public static final int toggleEmboss=0x7f050004;
     }
     public static final class layout {
-        public static final int dialog_send=0x7f030000;
-        public static final int displayart=0x7f030001;
-        public static final int main=0x7f030002;
-        public static final int send=0x7f030003;
-        public static final int splash=0x7f030004;
+        public static final int dialog_brush=0x7f030000;
+        public static final int dialog_send=0x7f030001;
+        public static final int displayart=0x7f030002;
+        public static final int main=0x7f030003;
+        public static final int send=0x7f030004;
+        public static final int splash=0x7f030005;
     }
     public static final class string {
         public static final int activity_SaveFile=0x7f040005;
@@ -46,12 +53,18 @@ public final class R {
         public static final int activity_paint=0x7f040003;
         public static final int app_name=0x7f040000;
         public static final int button_draw=0x7f040001;
+        public static final int button_ok=0x7f040019;
         public static final int button_view=0x7f040002;
         public static final int cancel=0x7f04000f;
+        public static final int dialog_brush=0x7f04001a;
         public static final int dialog_enter_title=0x7f040010;
         public static final int dialog_loading=0x7f040015;
         public static final int dialog_progress=0x7f040012;
         public static final int dialog_send=0x7f040011;
+        public static final int label_brush_size=0x7f040017;
+        public static final int label_color=0x7f04001b;
+        public static final int label_color_intensity=0x7f040016;
+        public static final int label_emboss=0x7f040018;
         public static final int menu_blur=0x7f040008;
         public static final int menu_brush_size=0x7f04000a;
         public static final int menu_color=0x7f040006;

@@ -86,11 +86,21 @@ public class DrawActivity extends GraphicsActivity
         mView = new DrawView(this, dm);
         setContentView(mView);
 
+        mEmboss = new EmbossMaskFilter(new float[]
+                {
+                    1, 1, 1
+                },
+                0.4f, 6, 3.5f);
+
+        mBlur = new BlurMaskFilter(8, BlurMaskFilter.Blur.NORMAL);
+
         mBP = new BrushParameters();
         mBP.setBrushSize(DEFAULT_BRUSH_SIZE);
         mBP.setColor(DEFAULT_COLOR );
         mBP.setColorBase(DEFAULT_COLOR );
         mBP.setColorIntensity(DEFAULT_INTENSITY );
+        mBP.setEmbossFilter(mEmboss);
+        mBP.setBlurFilter( mBlur );
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setDither(true);
@@ -100,13 +110,6 @@ public class DrawActivity extends GraphicsActivity
         mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStrokeCap(Paint.Cap.ROUND);
 
-        mEmboss = new EmbossMaskFilter(new float[]
-                {
-                    1, 1, 1
-                },
-                0.4f, 6, 3.5f);
-
-        mBlur = new BlurMaskFilter(8, BlurMaskFilter.Blur.NORMAL);
         mView.setPaint(mPaint);
     }
 

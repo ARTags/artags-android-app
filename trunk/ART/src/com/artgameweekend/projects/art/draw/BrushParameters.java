@@ -14,6 +14,8 @@
  */
 package com.artgameweekend.projects.art.draw;
 
+import android.graphics.MaskFilter;
+
 /**
  *
  * @author pierre
@@ -26,6 +28,9 @@ public class BrushParameters {
     private boolean emboss;
     private int colorBase;
     private int colorIntensity;
+    private MaskFilter embossFilter;
+    private MaskFilter blurFilter;
+
 
     /**
      * @return the brushSize
@@ -121,6 +126,38 @@ public class BrushParameters {
     public void setColorIntensity(int colorIntensity)
     {
         this.colorIntensity = colorIntensity;
+    }
+
+    /**
+     * @return the embossFilter
+     */
+    public MaskFilter getEmbossFilter()
+    {
+        return embossFilter;
+    }
+
+    /**
+     * @param embossFilter the embossFilter to set
+     */
+    public void setEmbossFilter(MaskFilter embossFilter)
+    {
+        this.embossFilter = embossFilter;
+    }
+
+    /**
+     * @return the blurFilter
+     */
+    public MaskFilter getBlurFilter()
+    {
+        return blurFilter;
+    }
+
+    /**
+     * @param blurFilter the blurFilter to set
+     */
+    public void setBlurFilter(MaskFilter blurFilter)
+    {
+        this.blurFilter = blurFilter;
     }
 
     
