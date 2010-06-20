@@ -24,7 +24,8 @@
     <string name="dialog_loading">Loading Augmented Reality Viewer. Please Wait ..."</string>
     <string name="label_color_intensity">Color intensity :</string>
     <string name="label_brush_size">Brush size :</string>
-    <string name="label_emboss">Emboss :</string>
+    <string name="label_emboss">Emboss effect :</string>
+    <string name="label_blur">  Blur effect :</string>
     <string name="button_ok">OK</string>
     <string name="dialog_brush">Brush parameters</string>
     <string name="label_color">Color :</string>
