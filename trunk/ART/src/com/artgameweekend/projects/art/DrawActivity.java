@@ -118,13 +118,13 @@ public class DrawActivity extends GraphicsActivity
         mBP = bp;
         mPaint.setColor( mBP.getColor() );
         mPaint.setStrokeWidth(mBP.getBrushSize());
-        if( bp.isEmboss() )
-        {
-            mPaint.setMaskFilter( bp.getEmbossFilter());
-        }
         if( bp.isBlur() )
         {
             mPaint.setMaskFilter( bp.getBlurFilter());
+        }
+        if( bp.isEmboss() )
+        {
+            mPaint.setMaskFilter( bp.getEmbossFilter());
         }
     }
 
