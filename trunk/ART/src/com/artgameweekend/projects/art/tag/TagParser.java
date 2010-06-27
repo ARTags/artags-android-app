@@ -29,10 +29,13 @@ public class TagParser extends DefaultHandler
 {
     private static final String TAG = "tag";
     private static final String URL = "http://art-server.appspot.com/display?id=";
+    private static final String URL_ICON = "http://art-server.appspot.com/thumbnail?id=";
     private static final String ID = "id";
     private static final String TITLE = "name";
     private static final String LATITUDE = "lat";
     private static final String LONGITUDE = "lon";
+    private static final String IMAGE = "image-id";
+    private static final String THUMBNAIL = "thumbnail-id";
 
     private List<GenericPOI> GenericPOIs;
     private GenericPOI currentGenericPOI;
@@ -54,14 +57,16 @@ public class TagParser extends DefaultHandler
         super.endElement(uri, localName, name);
         if (this.currentGenericPOI != null){
             if (localName.equalsIgnoreCase(ID)){
-                currentGenericPOI.setUrl( URL + builder.toString());
-                currentGenericPOI.setIconUrl( URL + builder.toString());
             } else if (localName.equalsIgnoreCase(TITLE)){
                 currentGenericPOI.setName(builder.toString());
             } else if (localName.equalsIgnoreCase(LATITUDE)){
                 currentGenericPOI.setLatitude( Double.parseDouble(builder.toString()));
             } else if (localName.equalsIgnoreCase(LONGITUDE)){
                 currentGenericPOI.setLongitude(Double.parseDouble(builder.toString()));
+            } else if (localName.equalsIgnoreCase(IMAGE)){
+                currentGenericPOI.setUrl( URL + builder.toString());
+            } else if (localName.equalsIgnoreCase(THUMBNAIL)){
+                currentGenericPOI.setIconUrl( URL_ICON + builder.toString());
             } else if (localName.equalsIgnoreCase(TAG)){
                 GenericPOIs.add(currentGenericPOI);
             }
