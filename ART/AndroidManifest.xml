@@ -24,7 +24,13 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.PAINT" />
             </intent-filter>
+        </activity>
 
+        <activity android:name=".PreferencesActivity" android:label="@string/activity_preferences" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.PREFERENCES" />
+            </intent-filter>
         </activity>
 
         <activity android:name=".ar.wikitude.WikitudeShowImageActivity" android:label="@string/activity_ShowImage">

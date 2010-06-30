@@ -22,11 +22,15 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -41,9 +45,13 @@ import java.util.List;
 public class MainActivity extends Activity implements OnClickListener
 {
 
+    public static final String SHARED_PREFS_NAME = "art.preferences";
     private static final String INTENT_DRAW_PACKAGE = "com.artgameweekend.projects.art";
     private static final String INTENT_DRAW_CLASS = INTENT_DRAW_PACKAGE + ".DrawActivity";
+    private static final String INTENT_PREFERENCES_PACKAGE = "com.artgameweekend.projects.art";
+    private static final String INTENT_PREFERENCES_CLASS = INTENT_PREFERENCES_PACKAGE + ".PreferencesActivity";
     private static final int DIALOG_PROGRESS = 0;
+    private static final int PREFERENCES_MENU_ID = 0;
     private ImageButton mButtonDraw;
     private ImageButton mButtonDisplay;
     private ProgressThread progressThread;
@@ -96,19 +104,38 @@ public class MainActivity extends Activity implements OnClickListener
         }
     }
 
+    private String getAugmentedRealityBrowser()
+    {
+        SharedPreferences prefs = getSharedPreferences( SHARED_PREFS_NAME , MODE_PRIVATE );
+        Log.d("ARt:MainActivity:Prefs", "ar_browser = " + prefs.getString("ar_browser", "not found"));
+        return prefs.getString("ar_browser", "wikitude");
+
+    }
+
     private boolean launchAugmentedReality()
     {
-        double latitude = 48.0; // default value
-        double longitude = 2.0; // default value
-        Location location = LocationService.getLocation(getApplicationContext());
-        if (location != null)
+        String ARBrowser = getAugmentedRealityBrowser();
+
+        if ("wikitude".equals(ARBrowser))
         {
-            latitude = location.getLatitude();
-            longitude = location.getLongitude();
+            double latitude = 48.0; // default value
+            double longitude = 2.0; // default value
+            Location location = LocationService.getLocation(getApplicationContext());
+            if (location != null)
+            {
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+            }
+            List<GenericPOI> list = POIService.getPOIs(latitude, longitude);
+            WikitudeDisplayService.display(list, this);
+            return true;
+        } else if ("layar".equals(ARBrowser))
+        {
+            Intent intent = new Intent( Intent.ACTION_VIEW , Uri.parse("layar://artag2") );
+            startActivity( intent );
+
         }
-        List<GenericPOI> list = POIService.getPOIs(latitude, longitude);
-        WikitudeDisplayService.display(list, this);
-        return true;
+        return false;
     }
     final Handler handler = new Handler()
     {
@@ -144,5 +171,35 @@ public class MainActivity extends Activity implements OnClickListener
             mHandler.sendMessage(msg);
 //            Looper.myLooper().quit();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        super.onCreateOptionsMenu(menu);
+        menu.add(0, PREFERENCES_MENU_ID, 0, getString(R.string.menu_preferences));
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu)
+    {
+        super.onPrepareOptionsMenu(menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+
+        switch (item.getItemId())
+        {
+            case PREFERENCES_MENU_ID:
+                Intent intent = new Intent();
+                intent.setClassName(INTENT_PREFERENCES_PACKAGE, INTENT_PREFERENCES_CLASS);
+                startActivity(intent);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
