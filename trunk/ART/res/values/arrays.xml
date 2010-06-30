@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string-array name="ar_browsers_entries">
+        <item>Layar</item>
+        <item>Wikitude</item>
+    </string-array>
+
+    <string-array name="ar_browsers_entryvalues">
+        <item>layar</item>
+        <item>wikitude</item>
+    </string-array>
+
+</resources>

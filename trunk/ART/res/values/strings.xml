@@ -29,4 +29,12 @@
     <string name="button_ok">OK</string>
     <string name="dialog_brush">Brush parameters</string>
     <string name="label_color">Color :</string>
+
+    <!-- Preferences strings -->
+    <string name="activity_preferences">Preferences</string>
+    <string name="menu_preferences">Preferences</string>
+    <string name="ar_browser_preferences">Augmented Reality Preferences</string>
+    <string name="title_ar_browser_list">AR Browser</string>
+    <string name="summary_ar_browser_list">Choose Augmented Reality Browser</string>
+    <string name="dialog_ar_browser_list">Choose AR Browser</string>
 </resources>
