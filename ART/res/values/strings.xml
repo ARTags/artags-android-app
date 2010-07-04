@@ -17,6 +17,7 @@
     <string name="send">Send</string>
     <string name="cancel">Cancel</string>
     <string name="dialog_enter_title">Enter a title for the tag : </string>
+    <string name="landscape"> Landscape orientation</string>
     <string name="dialog_send">Send your tag</string>
     <string name="dialog_progress">"Upload in progress..."</string>
     <string name="upload_successful">Your tag has been uploaded successfully!</string>
