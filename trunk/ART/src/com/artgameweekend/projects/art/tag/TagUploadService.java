@@ -27,6 +27,7 @@ public class TagUploadService
     private static final String PARAMETER_TITLE = "name";
     private static final String PARAMETER_LATITUDE = "lat";
     private static final String PARAMETER_LONGITUDE = "lon";
+    private static final String PARAMETER_LANDSCAPE = "landscape";
     private static final String URL_UPLOAD_SERVER = "http://art-server.appspot.com/upload";
 
     public static void upload( Tag tag )
@@ -35,6 +36,10 @@ public class TagUploadService
             map.put( PARAMETER_TITLE , tag.getTitle());
             map.put( PARAMETER_LATITUDE , tag.getLatitude());
             map.put( PARAMETER_LONGITUDE , tag.getLongitude() );
+            if( tag.isLandscape() )
+            {
+                map.put( PARAMETER_LANDSCAPE , "on" );
+            }
             File file = new File( tag.getFilename() );
             MyHttpRequest.post( URL_UPLOAD_SERVER, map, file );
 

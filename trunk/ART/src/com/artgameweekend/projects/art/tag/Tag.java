@@ -25,6 +25,7 @@ public class Tag
     private String filename;
     private String latitude;
     private String longitude;
+    private boolean landscape;
 
     /**
      * @return the title
@@ -88,5 +89,15 @@ public class Tag
     public void setLongitude(String longitude)
     {
         this.longitude = longitude;
+    }
+
+    public void setOrientation(boolean landscape)
+    {
+        this.landscape = landscape;
+    }
+
+    public boolean isLandscape()
+    {
+        return landscape;
     }
 }

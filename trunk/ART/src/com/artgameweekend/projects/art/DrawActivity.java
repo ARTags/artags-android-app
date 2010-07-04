@@ -36,8 +36,10 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.artgameweekend.projects.art.draw.BrushDialog;
@@ -68,6 +70,7 @@ public class DrawActivity extends GraphicsActivity
     private MaskFilter mEmboss;
     private MaskFilter mBlur;
     private EditText mEditTitle;
+    private boolean mLandscape;
     private Paint mPaint;
     private BrushParameters mBP;
 
@@ -146,12 +149,21 @@ public class DrawActivity extends GraphicsActivity
                 return progressDialog;
             case DIALOG_SEND:
                 LayoutInflater factory = LayoutInflater.from(this);
-                final View textEntryView = factory.inflate(R.layout.dialog_send, null);
-                mEditTitle = (EditText) textEntryView.findViewById(R.id.edit_title);
+                final View viewSend = factory.inflate(R.layout.dialog_send, null);
+                mEditTitle = (EditText) viewSend.findViewById(R.id.edit_title);
+                final CheckBox checkbox = (CheckBox) viewSend.findViewById(R.id.checkbox_landscape);
+                checkbox.setOnClickListener(new OnClickListener()
+                {
+
+                    public void onClick(View v)
+                    {
+                        mLandscape = ((CheckBox) v).isChecked() ? true : false;
+                    }
+                });
                 AlertDialog.Builder builder = new AlertDialog.Builder(DrawActivity.this);
                 builder.setIcon(R.drawable.icon);
                 builder.setTitle(R.string.dialog_send);
-                builder.setView(textEntryView);
+                builder.setView(viewSend);
                 builder.setPositiveButton(R.string.send, new DialogInterface.OnClickListener()
                 {
 
@@ -299,7 +311,7 @@ public class DrawActivity extends GraphicsActivity
         public void run()
         {
             String title = mEditTitle.getText().toString();
-            boolean bSend = send(title);
+            boolean bSend = send(title , mLandscape );
             Message msg = mHandler.obtainMessage();
             Bundle b = new Bundle();
             b.putBoolean("completed", bSend);
@@ -308,7 +320,7 @@ public class DrawActivity extends GraphicsActivity
         }
     }
 
-    private boolean send(String title)
+    private boolean send(String title, boolean bLandscape)
     {
         File root = Environment.getExternalStorageDirectory();
         if (root.canWrite())
@@ -341,6 +353,7 @@ public class DrawActivity extends GraphicsActivity
                 tag.setLatitude("" + latitude);
                 tag.setLongitude("" + longitude);
                 tag.setFilename(filename);
+                tag.setOrientation(bLandscape);
 
                 TagUploadService.upload(tag);
                 return true;
