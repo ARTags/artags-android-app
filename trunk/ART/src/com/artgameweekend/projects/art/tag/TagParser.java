@@ -36,6 +36,8 @@ public class TagParser extends DefaultHandler
     private static final String LONGITUDE = "lon";
     private static final String IMAGE = "image-id";
     private static final String THUMBNAIL = "thumbnail-id";
+    private static final String DATE = "date";
+    private static final String RATING = "rating";
 
     private List<GenericPOI> GenericPOIs;
     private GenericPOI currentGenericPOI;
@@ -59,6 +61,10 @@ public class TagParser extends DefaultHandler
             if (localName.equalsIgnoreCase(ID)){
             } else if (localName.equalsIgnoreCase(TITLE)){
                 currentGenericPOI.setName(builder.toString());
+            } else if (localName.equalsIgnoreCase(DATE)){
+                currentGenericPOI.setDate(builder.toString());
+            } else if (localName.equalsIgnoreCase(RATING)){
+                currentGenericPOI.setRating(builder.toString());
             } else if (localName.equalsIgnoreCase(LATITUDE)){
                 currentGenericPOI.setLatitude( Double.parseDouble(builder.toString()));
             } else if (localName.equalsIgnoreCase(LONGITUDE)){

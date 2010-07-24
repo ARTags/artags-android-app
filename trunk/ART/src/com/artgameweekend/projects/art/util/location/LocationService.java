@@ -17,14 +17,16 @@ package com.artgameweekend.projects.art.util.location;
 import android.content.Context;
 import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Bundle;
 
 /**
  *
  * @author pierre
  */
-public class LocationService {
-
+public class LocationService
+{
     public static Location getLocation( Context context )
     {
             LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
@@ -35,4 +37,64 @@ public class LocationService {
 
     }
 
+/*
+    private static LocationManager locationManager;
+    private static String locationProvider = LocationManager.GPS_PROVIDER;
+    private static boolean init;
+    private static Location mLocation;
+
+    public static Location getLocation(Context context)
+    {
+        if( ! init )
+        {
+            init( context );
+        }
+        return mLocation;
+
+
+    }
+
+    private static void init(Context context)
+    {
+        locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        if( locationManager != null  && locationProvider != null )
+        {
+            setLocation();
+            locationManager.requestLocationUpdates(locationProvider, 6000, 100, new MyLocationListener());
+        }
+    }
+    
+    private static void setLocation()
+    {
+        Location location = locationManager.getLastKnownLocation(locationProvider);
+        if( location != null )
+        {
+            mLocation = location;
+        }
+    }
+
+    static class MyLocationListener implements LocationListener
+    {
+
+        public void onLocationChanged(Location arg0)
+        {
+            setLocation();
+
+        }
+
+        public void onStatusChanged(String arg0, int arg1, Bundle arg2)
+        {
+        }
+
+        public void onProviderEnabled(String arg0)
+        {
+        }
+
+        public void onProviderDisabled(String arg0)
+        {
+        }
+
+    }
+ *
+ */
 }
