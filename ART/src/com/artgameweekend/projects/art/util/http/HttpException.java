@@ -12,12 +12,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package com.artgameweekend.projects.art.util.http;
 
-import java.util.Hashtable;
-
-public class HttpData {
-      public String content;
-      public Hashtable cookies = new Hashtable();
-      public Hashtable headers = new Hashtable();
+/**
+ *
+ * @author pierre
+ */
+public class HttpException extends Exception
+{
+    HttpException( String msg )
+    {
+        super( msg );
+    }
 }

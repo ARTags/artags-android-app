@@ -26,6 +26,8 @@ public class GenericPOI {
     private double longitude;
     private double altitude;
     private String iconUrl;
+    private String date;
+    private String rating;
 
     /**
      * @return the name
@@ -137,6 +139,38 @@ public class GenericPOI {
     public void setAltitude(double altitude)
     {
         this.altitude = altitude;
+    }
+
+    /**
+     * @return the date
+     */
+    public String getDate()
+    {
+        return date;
+    }
+
+    /**
+     * @param date the date to set
+     */
+    public void setDate(String date)
+    {
+        this.date = date;
+    }
+
+    /**
+     * @return the rating
+     */
+    public String getRating()
+    {
+        return rating;
+    }
+
+    /**
+     * @param rating the rating to set
+     */
+    public void setRating(String rating)
+    {
+        this.rating = rating;
     }
 
 

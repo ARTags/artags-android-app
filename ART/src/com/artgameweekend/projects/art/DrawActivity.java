@@ -29,6 +29,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -286,6 +287,7 @@ public class DrawActivity extends GraphicsActivity
         {
             boolean bOk = msg.getData().getBoolean("completed");
             dismissDialog(DIALOG_PROGRESS);
+            removeDialog(DIALOG_PROGRESS);
             if (bOk)
             {
                 Toast.makeText(getApplicationContext(), getString(R.string.upload_successful), Toast.LENGTH_LONG).show();
@@ -293,6 +295,7 @@ public class DrawActivity extends GraphicsActivity
             {
                 Toast.makeText(getApplicationContext(), getString(R.string.upload_failed), Toast.LENGTH_LONG).show();
             }
+
 
         }
     };
@@ -310,60 +313,62 @@ public class DrawActivity extends GraphicsActivity
         @Override
         public void run()
         {
+            Looper.prepare();
             String title = mEditTitle.getText().toString();
-            boolean bSend = send(title , mLandscape );
+            boolean bSend = send(title, mLandscape);
             Message msg = mHandler.obtainMessage();
             Bundle b = new Bundle();
             b.putBoolean("completed", bSend);
             msg.setData(b);
             mHandler.sendMessage(msg);
+            Looper.loop();
         }
-    }
 
-    private boolean send(String title, boolean bLandscape)
-    {
-        File root = Environment.getExternalStorageDirectory();
-        if (root.canWrite())
+        private boolean send(String title, boolean bLandscape)
         {
-            try
+            File root = Environment.getExternalStorageDirectory();
+            if (root.canWrite())
             {
-                File directory = new File(root.getPath() + "/ARt");
-                if (!directory.exists())
+                try
                 {
-                    directory.mkdir();
-                }
-                String filename = directory.getPath() + "/ARt.jpeg";
-                File file = new File(filename);
-                FileOutputStream fos = new FileOutputStream(file);
-                Bitmap bmTag = mView.getBitmap();
-                bmTag.compress(Bitmap.CompressFormat.JPEG, 80, fos);
-                fos.close();
+                    File directory = new File(root.getPath() + "/ARt");
+                    if (!directory.exists())
+                    {
+                        directory.mkdir();
+                    }
+                    String filename = directory.getPath() + "/ARt.jpeg";
+                    File file = new File(filename);
+                    FileOutputStream fos = new FileOutputStream(file);
+                    Bitmap bmTag = mView.getBitmap();
+                    bmTag.compress(Bitmap.CompressFormat.JPEG, 80, fos);
+                    fos.close();
 
-                double latitude = 48.0; // default value
-                double longitude = 2.0; // default value
-                Location location = LocationService.getLocation(getApplicationContext());
-                if (location != null)
+                    double latitude = 48.0; // default value
+                    double longitude = 2.0; // default value
+                    Location location = LocationService.getLocation(getApplicationContext());
+                    if (location != null)
+                    {
+                        latitude = location.getLatitude();
+                        longitude = location.getLongitude();
+                    }
+
+                    Tag tag = new Tag();
+                    tag.setTitle(title);
+                    tag.setLatitude("" + latitude);
+                    tag.setLongitude("" + longitude);
+                    tag.setFilename(filename);
+                    tag.setOrientation(bLandscape);
+
+                    TagUploadService.upload(tag);
+                    return true;
+
+
+                } catch (Exception e)
                 {
-                    latitude = location.getLatitude();
-                    longitude = location.getLongitude();
+                    Log.e("ARt:DrawActivity:send", "Exception while writing or sending the tag", e);
                 }
-
-                Tag tag = new Tag();
-                tag.setTitle(title);
-                tag.setLatitude("" + latitude);
-                tag.setLongitude("" + longitude);
-                tag.setFilename(filename);
-                tag.setOrientation(bLandscape);
-
-                TagUploadService.upload(tag);
-                return true;
-
-
-            } catch (Exception e)
-            {
-                Log.e("ARt:DrawActivity:send", "Exception while writing or sending the tag", e);
             }
+            return false;
         }
-        return false;
     }
 }

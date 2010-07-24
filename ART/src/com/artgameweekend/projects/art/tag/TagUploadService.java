@@ -14,7 +14,8 @@
  */
 package com.artgameweekend.projects.art.tag;
 
-import com.artgameweekend.projects.art.util.http.MyHttpRequest;
+import com.artgameweekend.projects.art.util.http.HttpException;
+import com.artgameweekend.projects.art.util.http.HttpUtil;
 import java.io.File;
 import java.util.HashMap;
 
@@ -24,25 +25,25 @@ import java.util.HashMap;
  */
 public class TagUploadService
 {
+
     private static final String PARAMETER_TITLE = "name";
     private static final String PARAMETER_LATITUDE = "lat";
     private static final String PARAMETER_LONGITUDE = "lon";
     private static final String PARAMETER_LANDSCAPE = "landscape";
     private static final String URL_UPLOAD_SERVER = "http://art-server.appspot.com/upload";
 
-    public static void upload( Tag tag )
+    public static void upload(Tag tag) throws HttpException
     {
-            HashMap map = new HashMap();
-            map.put( PARAMETER_TITLE , tag.getTitle());
-            map.put( PARAMETER_LATITUDE , tag.getLatitude());
-            map.put( PARAMETER_LONGITUDE , tag.getLongitude() );
-            if( tag.isLandscape() )
-            {
-                map.put( PARAMETER_LANDSCAPE , "on" );
-            }
-            File file = new File( tag.getFilename() );
-            MyHttpRequest.post( URL_UPLOAD_SERVER, map, file );
+        HashMap map = new HashMap();
+        map.put(PARAMETER_TITLE, tag.getTitle());
+        map.put(PARAMETER_LATITUDE, tag.getLatitude());
+        map.put(PARAMETER_LONGITUDE, tag.getLongitude());
+        if (tag.isLandscape())
+        {
+            map.put(PARAMETER_LANDSCAPE, "on");
+        }
+        File file = new File(tag.getFilename());
+        HttpUtil.post(URL_UPLOAD_SERVER, map, file, "photo");
 
     }
-
 }

@@ -16,7 +16,6 @@ package com.artgameweekend.projects.art.ar.wikitude;
 
 import com.artgameweekend.projects.art.ar.GenericPOI;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +31,6 @@ public class WikitudeDisplayService
 
     public static void display(List<GenericPOI> listGenericPOIs, Activity activity)
     {
-//        ProgressDialog dialog = ProgressDialog.show( activity, "", "Loading Augmented Reality Vieawer. Please wait...", true);
-
         List<WikitudePOI> list = buildWikitudePOIs(listGenericPOIs);
 
         WikitudeARIntent intent = new WikitudeARIntent(activity.getApplication(), null, "507419D8685F116E0AB61704F21734D0", "art");
@@ -56,7 +53,7 @@ public class WikitudeDisplayService
         for (GenericPOI poi : listGenericPOIs)
         {
             String name = poi.getName();
-            String desc = poi.getDescription();
+            String desc = "Date : " + poi.getDate() + " -Rating : " + poi.getRating();
             double lat = poi.getLatitude();
             double lon = poi.getLongitude();
             double alt = poi.getAltitude();

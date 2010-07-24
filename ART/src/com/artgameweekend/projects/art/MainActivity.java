@@ -27,6 +27,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
@@ -145,6 +146,7 @@ public class MainActivity extends Activity implements OnClickListener
         {
             boolean bOk = msg.getData().getBoolean("completed");
             dismissDialog(DIALOG_PROGRESS);
+            removeDialog(DIALOG_PROGRESS);
         }
     };
 
@@ -161,15 +163,14 @@ public class MainActivity extends Activity implements OnClickListener
         @Override
         public void run()
         {
-//            Looper.prepare();
-//            Looper.loop();
+            Looper.prepare();
             boolean bLaunch = launchAugmentedReality();
             Message msg = mHandler.obtainMessage();
             Bundle b = new Bundle();
             b.putBoolean("completed", bLaunch);
             msg.setData(b);
             mHandler.sendMessage(msg);
-//            Looper.myLooper().quit();
+            Looper.loop();
         }
     }
 
