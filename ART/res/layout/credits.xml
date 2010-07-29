@@ -6,11 +6,11 @@
               android:layout_gravity="center">"
 
     <ImageView
-        android:id="@+id/splash"
+        android:id="@+id/credits"
         android:adjustViewBounds="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/splash"
+        android:src="@drawable/credits"
         android:layout_gravity="center"
         />
 

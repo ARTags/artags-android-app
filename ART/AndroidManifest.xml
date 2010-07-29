@@ -4,11 +4,19 @@
           android:versionName="1.0"
 
           package="com.artgameweekend.projects.art">
-    <application>
+              
+    <application android:name=".ARtApplication" android:icon="@drawable/icon" android:debuggable="true">
         <activity android:name=".SplashActivity" android:icon="@drawable/icon"  android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".CreditsActivity" android:icon="@drawable/icon"  android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.CREDITS"/>
             </intent-filter>
         </activity>
 
