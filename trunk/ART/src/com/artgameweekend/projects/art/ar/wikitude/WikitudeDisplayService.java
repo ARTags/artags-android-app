@@ -17,6 +17,7 @@ package com.artgameweekend.projects.art.ar.wikitude;
 import com.artgameweekend.projects.art.ar.GenericPOI;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 import org.openintents.intents.WikitudeARIntent;
@@ -38,6 +39,7 @@ public class WikitudeDisplayService
         intent.setPrintMarkerSubText(false);
 
         intent.addPOIs(list);
+//        addPois( intent );
         try
         {
             intent.startIntent(activity);
@@ -46,6 +48,18 @@ public class WikitudeDisplayService
             WikitudeARIntent.handleWikitudeNotFound(activity);
         }
     }
+/*
+    private WikitudeARIntent prepareIntent() {
+        // create the intent
+        WikitudeARIntent intent = new WikitudeARIntent(this.getApplication(), null, null);
+        // add the POIs
+        this.addPois(intent);
+        // add one menu item
+        intent.setMenuItem1("My menu item", BasicOpenARDemoActivity.CALLBACK_INTENT);
+        intent.setPrintMarkerSubText(true);
+        return intent;
+    }
+*/
 
     private static List<WikitudePOI> buildWikitudePOIs(List<GenericPOI> listGenericPOIs)
     {
@@ -59,7 +73,8 @@ public class WikitudeDisplayService
             double alt = poi.getAltitude();
             String url = poi.getUrl();
             String iconUrl = poi.getIconUrl();
-            WikitudePOI wpoi = new WikitudePOI(lat, lon, alt, name, desc, url, null, iconUrl, "wikitudeapi.SHOWIMAGE");
+            Log.d("Wikitude ", "Adding POI : " + lat + ", " + lon + ", 10, \"" + name + "\", \"" + desc +"\"" );
+            WikitudePOI wpoi = new WikitudePOI(lat, lon, 10, name, desc, url, null, iconUrl, "wikitudeapi.SHOWIMAGE");
             wpoi.setIconuri(iconUrl);
             wpoi.setDetailAction("wikitudeapi.SHOWIMAGE");
             list.add(wpoi);
@@ -67,4 +82,28 @@ public class WikitudeDisplayService
         return list;
 
     }
+ 
+    private static void addPois(WikitudeARIntent intent) {
+        WikitudePOI poi1 = new WikitudePOI(35.683333, 139.766667, 36, "Tokyo", "Tokyo is the capital of Japan.");
+        poi1.setLink("http://www.tourism.metro.tokyo.jp/");
+ //       poi1.setDetailAction(BasicOpenARDemoActivity.CALLBACK_INTENT);
+        WikitudePOI poi2 = new WikitudePOI(41.9, 12.5, 14, "Rome",
+                "Rome is the capital of Italy and the country's largest and most populous city, with over 2.7 million residents.");
+//        poi2.setDetailAction(BasicOpenARDemoActivity.CALLBACK_INTENT);
+        WikitudePOI poi3 = new WikitudePOI(40.716667, -74, 1, "New York",
+                "New York is the most populous city in the United States, and the center of the New York metropolitan area.");
+//        poi3.setDetailAction(BasicOpenARDemoActivity.CALLBACK_INTENT);
+        WikitudePOI poi4 = new WikitudePOI(48.208333, 16.373056, 220, "Vienna",
+                "Vienna is the capital of the Republic of Austria.");
+//        poi4.setDetailAction(BasicOpenARDemoActivity.CALLBACK_INTENT);
+        List<WikitudePOI> pois = new ArrayList<WikitudePOI>();
+
+        pois.add(poi1);
+        pois.add(poi2);
+        pois.add(poi3);
+        pois.add(poi4);
+        intent.addPOIs(pois);
+
+    }
+
 }

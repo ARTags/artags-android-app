@@ -34,6 +34,7 @@
     <!-- Preferences strings -->
     <string name="activity_preferences">Preferences</string>
     <string name="menu_preferences">Preferences</string>
+    <string name="menu_credits">Credits</string>
     <string name="ar_browser_preferences">Augmented Reality Preferences</string>
     <string name="title_ar_browser_list">AR Browser</string>
     <string name="summary_ar_browser_list">Choose Augmented Reality Browser</string>

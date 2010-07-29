@@ -47,12 +47,13 @@ public class MainActivity extends Activity implements OnClickListener
 {
 
     public static final String SHARED_PREFS_NAME = "art.preferences";
-    private static final String INTENT_DRAW_PACKAGE = "com.artgameweekend.projects.art";
-    private static final String INTENT_DRAW_CLASS = INTENT_DRAW_PACKAGE + ".DrawActivity";
-    private static final String INTENT_PREFERENCES_PACKAGE = "com.artgameweekend.projects.art";
-    private static final String INTENT_PREFERENCES_CLASS = INTENT_PREFERENCES_PACKAGE + ".PreferencesActivity";
+    private static final String INTENT_PACKAGE = "com.artgameweekend.projects.art";
+    private static final String INTENT_DRAW_CLASS = INTENT_PACKAGE + ".DrawActivity";
+    private static final String INTENT_PREFERENCES_CLASS = INTENT_PACKAGE + ".PreferencesActivity";
+    private static final String INTENT_CREDITS_CLASS = INTENT_PACKAGE + ".CreditsActivity";
     private static final int DIALOG_PROGRESS = 0;
     private static final int PREFERENCES_MENU_ID = 0;
+    private static final int CREDITS_MENU_ID = 1;
     private ImageButton mButtonDraw;
     private ImageButton mButtonDisplay;
     private ProgressThread progressThread;
@@ -97,7 +98,7 @@ public class MainActivity extends Activity implements OnClickListener
         if (view == mButtonDraw)
         {
             Intent intent = new Intent();
-            intent.setClassName(INTENT_DRAW_PACKAGE, INTENT_DRAW_CLASS);
+            intent.setClassName(INTENT_PACKAGE, INTENT_DRAW_CLASS);
             startActivity(intent);
         } else if (view == mButtonDisplay)
         {
@@ -107,7 +108,7 @@ public class MainActivity extends Activity implements OnClickListener
 
     private String getAugmentedRealityBrowser()
     {
-        SharedPreferences prefs = getSharedPreferences( SHARED_PREFS_NAME , MODE_PRIVATE );
+        SharedPreferences prefs = getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE);
         Log.d("ARt:MainActivity:Prefs", "ar_browser = " + prefs.getString("ar_browser", "not found"));
         return prefs.getString("ar_browser", "wikitude");
 
@@ -124,16 +125,17 @@ public class MainActivity extends Activity implements OnClickListener
             Location location = LocationService.getLocation(getApplicationContext());
             if (location != null)
             {
-                latitude = location.getLatitude();
-                longitude = location.getLongitude();
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
             }
             List<GenericPOI> list = POIService.getPOIs(latitude, longitude);
             WikitudeDisplayService.display(list, this);
+
             return true;
         } else if ("layar".equals(ARBrowser))
         {
-            Intent intent = new Intent( Intent.ACTION_VIEW , Uri.parse("layar://artag2") );
-            startActivity( intent );
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("layar://artag2"));
+            startActivity(intent);
 
         }
         return false;
@@ -179,6 +181,7 @@ public class MainActivity extends Activity implements OnClickListener
     {
         super.onCreateOptionsMenu(menu);
         menu.add(0, PREFERENCES_MENU_ID, 0, getString(R.string.menu_preferences));
+        menu.add(1, CREDITS_MENU_ID, 0, getString(R.string.menu_credits));
         return true;
     }
 
@@ -197,10 +200,17 @@ public class MainActivity extends Activity implements OnClickListener
         {
             case PREFERENCES_MENU_ID:
                 Intent intent = new Intent();
-                intent.setClassName(INTENT_PREFERENCES_PACKAGE, INTENT_PREFERENCES_CLASS);
+                intent.setClassName(INTENT_PACKAGE, INTENT_PREFERENCES_CLASS);
                 startActivity(intent);
+                return true;
+
+            case CREDITS_MENU_ID:
+                Intent intentCredits = new Intent();
+                intentCredits.setClassName(INTENT_PACKAGE, INTENT_CREDITS_CLASS);
+                startActivity(intentCredits);
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
