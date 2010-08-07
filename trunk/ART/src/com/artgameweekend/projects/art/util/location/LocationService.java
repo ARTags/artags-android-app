@@ -27,17 +27,24 @@ import android.os.Bundle;
  */
 public class LocationService
 {
-    public static Location getLocation( Context context )
+
+    public static Location getLocation(Context context)
     {
-            LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-            Criteria criteria = new Criteria();
-            String bestProvider = manager.getBestProvider(criteria, false);
-            Location location = manager.getLastKnownLocation(bestProvider);
-            return location;
+        LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+        criteria.setAltitudeRequired(false);
+        criteria.setBearingRequired(false);
+        criteria.setCostAllowed(true);
+        criteria.setPowerRequirement(Criteria.POWER_LOW);
+
+        String bestProvider = manager.getBestProvider(criteria, true);
+        Location location = manager.getLastKnownLocation(bestProvider);
+        return location;
 
     }
 
-/*
+    /*
     private static LocationManager locationManager;
     private static String locationProvider = LocationManager.GPS_PROVIDER;
     private static boolean init;
@@ -45,56 +52,56 @@ public class LocationService
 
     public static Location getLocation(Context context)
     {
-        if( ! init )
-        {
-            init( context );
-        }
-        return mLocation;
+    if( ! init )
+    {
+    init( context );
+    }
+    return mLocation;
 
 
     }
 
     private static void init(Context context)
     {
-        locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        if( locationManager != null  && locationProvider != null )
-        {
-            setLocation();
-            locationManager.requestLocationUpdates(locationProvider, 6000, 100, new MyLocationListener());
-        }
+    locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+    if( locationManager != null  && locationProvider != null )
+    {
+    setLocation();
+    locationManager.requestLocationUpdates(locationProvider, 6000, 100, new MyLocationListener());
+    }
     }
     
     private static void setLocation()
     {
-        Location location = locationManager.getLastKnownLocation(locationProvider);
-        if( location != null )
-        {
-            mLocation = location;
-        }
+    Location location = locationManager.getLastKnownLocation(locationProvider);
+    if( location != null )
+    {
+    mLocation = location;
+    }
     }
 
     static class MyLocationListener implements LocationListener
     {
 
-        public void onLocationChanged(Location arg0)
-        {
-            setLocation();
-
-        }
-
-        public void onStatusChanged(String arg0, int arg1, Bundle arg2)
-        {
-        }
-
-        public void onProviderEnabled(String arg0)
-        {
-        }
-
-        public void onProviderDisabled(String arg0)
-        {
-        }
+    public void onLocationChanged(Location arg0)
+    {
+    setLocation();
 
     }
- *
- */
+
+    public void onStatusChanged(String arg0, int arg1, Bundle arg2)
+    {
+    }
+
+    public void onProviderEnabled(String arg0)
+    {
+    }
+
+    public void onProviderDisabled(String arg0)
+    {
+    }
+
+    }
+     *
+     */
 }
