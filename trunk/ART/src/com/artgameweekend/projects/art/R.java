@@ -21,14 +21,15 @@ public final class R {
         public static final int bt_draw_down=0x7f020003;
         public static final int credits=0x7f020004;
         public static final int icon=0x7f020005;
-        public static final int menu_blur=0x7f020006;
-        public static final int menu_brush=0x7f020007;
-        public static final int menu_color=0x7f020008;
-        public static final int menu_emboss=0x7f020009;
-        public static final int menu_erase=0x7f02000a;
-        public static final int menu_save=0x7f02000b;
-        public static final int splash=0x7f02000c;
-        public static final int splash_land=0x7f02000d;
+        public static final int marker=0x7f020006;
+        public static final int menu_blur=0x7f020007;
+        public static final int menu_brush=0x7f020008;
+        public static final int menu_color=0x7f020009;
+        public static final int menu_emboss=0x7f02000a;
+        public static final int menu_erase=0x7f02000b;
+        public static final int menu_save=0x7f02000c;
+        public static final int splash=0x7f02000d;
+        public static final int splash_land=0x7f02000e;
     }
     public static final class id {
         public static final int brush_size=0x7f070003;
