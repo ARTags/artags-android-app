@@ -38,6 +38,7 @@ public class WikitudeDisplayService
 
         intent.setPrintMarkerSubText(false);
 
+
         intent.addPOIs(list);
         try
         {
@@ -63,6 +64,7 @@ public class WikitudeDisplayService
             Log.d("Wikitude ", "Adding POI : " + lat + ", " + lon + ", 10, \"" + name + "\", \"" + desc +"\"" );
             WikitudePOI wpoi = new WikitudePOI(lat, lon, 10, name, desc, url, null, iconUrl, "wikitudeapi.SHOWIMAGE");
             wpoi.setIconuri(iconUrl);
+            wpoi.setIconresource(iconUrl);
             wpoi.setDetailAction("wikitudeapi.SHOWIMAGE");
             list.add(wpoi);
         }
