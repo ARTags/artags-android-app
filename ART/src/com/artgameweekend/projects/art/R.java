@@ -46,6 +46,7 @@ public final class R {
         public static final int splash=0x7f07000e;
         public static final int toggleBlur=0x7f070006;
         public static final int toggleEmboss=0x7f070005;
+        public static final int webview=0x7f07000f;
     }
     public static final class layout {
         public static final int credits=0x7f030000;
@@ -55,6 +56,7 @@ public final class R {
         public static final int main=0x7f030004;
         public static final int send=0x7f030005;
         public static final int splash=0x7f030006;
+        public static final int webview=0x7f030007;
     }
     public static final class string {
         public static final int activity_SaveFile=0x7f060005;
