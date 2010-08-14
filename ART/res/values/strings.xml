@@ -4,7 +4,7 @@
     <string name="button_draw">Draw</string>
     <string name="button_view">View existing ART near you</string>
     <string name="activity_paint">ART Paint</string>
-    <string name="activity_ShowImage">Show One Art</string>
+    <string name="activity_ShowImage">Detail</string>
     <string name="activity_SaveFile">Save File</string>
     <string name="menu_color">Colors</string>
     <string name="menu_emboss">Emboss</string>
