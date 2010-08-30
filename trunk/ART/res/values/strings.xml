@@ -39,4 +39,20 @@
     <string name="title_ar_browser_list">AR Browser</string>
     <string name="summary_ar_browser_list">Choose Augmented Reality Browser</string>
     <string name="dialog_ar_browser_list">Choose AR Browser</string>
+
+    <!-- My Location strings -->
+    <string name="mylocation_title">My Location</string>
+    <string name="mylocation_address_title">Corresponding address</string>
+    <string name="mylocation_detect_title">Detect my location</string>
+    <string name="activity_mylocation">My location</string>
+    <string name="menu_mylocation">My location</string>
+    <string name="mylocation_latitude">Latitude</string>
+    <string name="mylocation_longitude">Longitude</string>
+    <string name="mylocation_validate">Validate this location</string>
+    <string name="mylocation_select_source">Select source</string>
+    <string name="mylocation_get_position">Get position</string>
+    <string name="mylocation_get_address">Get address</string>
+    <string name="mylocation_enter_location_title">Define my location manually</string>
+    <string name="mylocation_select_on_map">Select on map</string>
+    <string name="mylocation_enter_position">Enter address</string>
 </resources>

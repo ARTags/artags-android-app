@@ -32,7 +32,6 @@ public class CreditsActivity  extends Activity implements OnClickListener
 
     ImageView mImageView;
 
-    /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle icicle)
     {
