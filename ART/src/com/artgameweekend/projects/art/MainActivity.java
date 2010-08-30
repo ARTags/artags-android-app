@@ -51,9 +51,11 @@ public class MainActivity extends Activity implements OnClickListener
     private static final String INTENT_DRAW_CLASS = INTENT_PACKAGE + ".DrawActivity";
     private static final String INTENT_PREFERENCES_CLASS = INTENT_PACKAGE + ".PreferencesActivity";
     private static final String INTENT_CREDITS_CLASS = INTENT_PACKAGE + ".CreditsActivity";
+    private static final String INTENT_MYLOCATION_CLASS = INTENT_PACKAGE + ".MyLocationActivity";
     private static final int DIALOG_PROGRESS = 0;
     private static final int PREFERENCES_MENU_ID = 0;
     private static final int CREDITS_MENU_ID = 1;
+    private static final int MYLOCATION_MENU_ID = 2;
     private ImageButton mButtonDraw;
     private ImageButton mButtonDisplay;
     private ProgressThread progressThread;
@@ -182,6 +184,7 @@ public class MainActivity extends Activity implements OnClickListener
         super.onCreateOptionsMenu(menu);
         menu.add(0, PREFERENCES_MENU_ID, 0, getString(R.string.menu_preferences));
         menu.add(1, CREDITS_MENU_ID, 0, getString(R.string.menu_credits));
+        menu.add(2, MYLOCATION_MENU_ID, 0, getString(R.string.menu_mylocation));
         return true;
     }
 
@@ -208,6 +211,12 @@ public class MainActivity extends Activity implements OnClickListener
                 Intent intentCredits = new Intent();
                 intentCredits.setClassName(INTENT_PACKAGE, INTENT_CREDITS_CLASS);
                 startActivity(intentCredits);
+                return true;
+
+            case MYLOCATION_MENU_ID:
+                Intent intentMyLocation = new Intent();
+                intentMyLocation.setClassName(INTENT_PACKAGE, INTENT_MYLOCATION_CLASS);
+                startActivity(intentMyLocation );
                 return true;
         }
         return super.onOptionsItemSelected(item);

@@ -301,6 +301,7 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
     protected void onCreate(Bundle savedInstanceState)
     {
         LinearLayout layout = new LinearLayout(mContext);
+        layout.setBackgroundDrawable( mContext.getResources().getDrawable(R.drawable.background));
 
         layout.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams dialogParams = new LinearLayout.LayoutParams(
@@ -315,6 +316,7 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
         // Color picker
         TextView twColor = new TextView(mContext);
         twColor.setText(mContext.getString(R.string.label_color));
+
         layout.addView(twColor);
 
         mColorPickerView = new ColorPickerView(getContext(), mInitialColor);
