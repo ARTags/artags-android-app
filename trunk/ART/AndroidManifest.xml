@@ -38,7 +38,6 @@
         </activity>
 
         <activity android:name=".PreferencesActivity"
-                  android:theme="@style/tagDialogTheme"
                   android:label="@string/activity_preferences"
                   android:screenOrientation="portrait">
             <intent-filter>
@@ -48,7 +47,6 @@
         </activity>
 
         <activity android:name=".MyLocationActivity"
-                  android:theme="@style/tagDialogTheme"
                   android:label="@string/activity_mylocation"
                   android:screenOrientation="portrait">
             <intent-filter>

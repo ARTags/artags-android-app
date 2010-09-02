@@ -10,6 +10,14 @@
         <item name="android:background">@drawable/background</item>
     </style>
 
+    <style name="tagEditText" parent="@android:style/Widget.EditText">
+        <item name="android:textColor">#FF7700</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:typeface">serif</item>
+        <item name="android:background">@drawable/background</item>
+        <item name="android:layout_margin">20dip</item>
+    </style>
+
     <style name="tagTextNormal" parent="@android:style/TextAppearance.Medium">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -24,7 +32,6 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">20sp</item>
         <item name="android:typeface">serif</item>
-
     </style>
 </resources>
 

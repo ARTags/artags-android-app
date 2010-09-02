@@ -40,6 +40,12 @@
     <string name="summary_ar_browser_list">Choose Augmented Reality Browser</string>
     <string name="dialog_ar_browser_list">Choose AR Browser</string>
 
+    <string name="preferences_title">Preferences</string>
+    <string name="preferences_browser_title">Augmented Reality Browser</string>
+    <string name="preferences_browser">Selected browser</string>
+    <string name="preferences_change_browser">Change</string>
+
+
     <!-- My Location strings -->
     <string name="mylocation_title">My Location</string>
     <string name="mylocation_address_title">Corresponding address</string>
