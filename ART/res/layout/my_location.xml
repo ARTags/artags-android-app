@@ -20,7 +20,7 @@
               android:gravity="center"
               android:layout_marginLeft="10dip" />
 
-    <EditText android:text="0.0"
+    <EditText android:text="0.0"  style="@style/tagEditText"
               android:id="@+id/mylocation_latitude"
               android:layout_height="wrap_content"
               android:layout_alignParentRight="true"
@@ -40,7 +40,7 @@
               android:gravity="center"
               android:layout_marginLeft="10dip" />
 
-    <EditText android:text="0.0"
+    <EditText android:text="0.0" style="@style/tagEditText"
               android:id="@+id/mylocation_longitude"
               android:layout_height="wrap_content"
               android:layout_alignParentRight="true"
@@ -73,7 +73,7 @@
             android:text="@string/mylocation_get_address"
             android:layout_below="@id/mylocation_address_title"
             android:layout_height="wrap_content"
-            android:layout_width="100dip" />
+            android:layout_width="100dip" /> style="@style/tagEditText"
 -->
     <TextView android:id="@+id/mylocation_address"
               android:layout_below="@id/mylocation_address_title"

@@ -61,12 +61,18 @@ public final class R {
         public static final int mylocation_select_source_button=0x7f08001a;
         public static final int mylocation_title=0x7f08000f;
         public static final int mylocation_validate_button=0x7f080014;
+        public static final int preferences_browser=0x7f080024;
+        public static final int preferences_browser_label=0x7f080023;
+        public static final int preferences_browser_title=0x7f080022;
+        public static final int preferences_change_browser_button=0x7f080025;
+        public static final int preferences_layout=0x7f080020;
+        public static final int preferences_title=0x7f080021;
         public static final int seek_brush_size=0x7f080004;
         public static final int seek_intensity=0x7f080002;
-        public static final int splash=0x7f080020;
+        public static final int splash=0x7f080026;
         public static final int toggleBlur=0x7f080006;
         public static final int toggleEmboss=0x7f080005;
-        public static final int webview=0x7f080021;
+        public static final int webview=0x7f080027;
     }
     public static final class layout {
         public static final int credits=0x7f030000;
@@ -75,13 +81,14 @@ public final class R {
         public static final int displayart=0x7f030003;
         public static final int main=0x7f030004;
         public static final int my_location=0x7f030005;
-        public static final int splash=0x7f030006;
-        public static final int webview=0x7f030007;
+        public static final int preferences=0x7f030006;
+        public static final int splash=0x7f030007;
+        public static final int webview=0x7f030008;
     }
     public static final class string {
         public static final int activity_SaveFile=0x7f060005;
         public static final int activity_ShowImage=0x7f060004;
-        public static final int activity_mylocation=0x7f060028;
+        public static final int activity_mylocation=0x7f06002c;
         public static final int activity_paint=0x7f060003;
         /**  Preferences strings 
          */
@@ -110,25 +117,29 @@ public final class R {
         public static final int menu_credits=0x7f060020;
         public static final int menu_emboss=0x7f060007;
         public static final int menu_erase=0x7f060009;
-        public static final int menu_mylocation=0x7f060029;
+        public static final int menu_mylocation=0x7f06002d;
         public static final int menu_preferences=0x7f06001f;
         public static final int menu_send=0x7f06000c;
         public static final int menu_srcatop=0x7f06000b;
-        public static final int mylocation_address_title=0x7f060026;
-        public static final int mylocation_detect_title=0x7f060027;
-        public static final int mylocation_enter_location_title=0x7f060030;
-        public static final int mylocation_enter_position=0x7f060032;
-        public static final int mylocation_get_address=0x7f06002f;
-        public static final int mylocation_get_position=0x7f06002e;
-        public static final int mylocation_latitude=0x7f06002a;
-        public static final int mylocation_longitude=0x7f06002b;
-        public static final int mylocation_select_on_map=0x7f060031;
-        public static final int mylocation_select_source=0x7f06002d;
+        public static final int mylocation_address_title=0x7f06002a;
+        public static final int mylocation_detect_title=0x7f06002b;
+        public static final int mylocation_enter_location_title=0x7f060034;
+        public static final int mylocation_enter_position=0x7f060036;
+        public static final int mylocation_get_address=0x7f060033;
+        public static final int mylocation_get_position=0x7f060032;
+        public static final int mylocation_latitude=0x7f06002e;
+        public static final int mylocation_longitude=0x7f06002f;
+        public static final int mylocation_select_on_map=0x7f060035;
+        public static final int mylocation_select_source=0x7f060031;
         /**  My Location strings 
          */
-        public static final int mylocation_title=0x7f060025;
-        public static final int mylocation_validate=0x7f06002c;
+        public static final int mylocation_title=0x7f060029;
+        public static final int mylocation_validate=0x7f060030;
         public static final int ok=0x7f06000d;
+        public static final int preferences_browser=0x7f060027;
+        public static final int preferences_browser_title=0x7f060026;
+        public static final int preferences_change_browser=0x7f060028;
+        public static final int preferences_title=0x7f060025;
         public static final int send=0x7f06000e;
         public static final int summary_ar_browser_list=0x7f060023;
         public static final int title_ar_browser_list=0x7f060022;
@@ -137,9 +148,10 @@ public final class R {
     }
     public static final class style {
         public static final int tagDialogTheme=0x7f070000;
+        public static final int tagEditText=0x7f070002;
         public static final int tagLayout=0x7f070001;
-        public static final int tagTextNormal=0x7f070002;
-        public static final int tagTextTitle=0x7f070003;
+        public static final int tagTextNormal=0x7f070003;
+        public static final int tagTextTitle=0x7f070004;
     }
     public static final class xml {
         public static final int preferences=0x7f040000;

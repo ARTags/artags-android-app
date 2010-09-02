@@ -22,14 +22,12 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,6 +35,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import com.artgameweekend.projects.art.preferences.PreferencesService;
 import java.util.List;
 
 /**
@@ -46,7 +45,7 @@ import java.util.List;
 public class MainActivity extends Activity implements OnClickListener
 {
 
-    public static final String SHARED_PREFS_NAME = "art.preferences";
+
     private static final String INTENT_PACKAGE = "com.artgameweekend.projects.art";
     private static final String INTENT_DRAW_CLASS = INTENT_PACKAGE + ".DrawActivity";
     private static final String INTENT_PREFERENCES_CLASS = INTENT_PACKAGE + ".PreferencesActivity";
@@ -108,19 +107,13 @@ public class MainActivity extends Activity implements OnClickListener
         }
     }
 
-    private String getAugmentedRealityBrowser()
-    {
-        SharedPreferences prefs = getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE);
-        Log.d("ARt:MainActivity:Prefs", "ar_browser = " + prefs.getString("ar_browser", "not found"));
-        return prefs.getString("ar_browser", "wikitude");
 
-    }
 
     private boolean launchAugmentedReality()
     {
-        String ARBrowser = getAugmentedRealityBrowser();
+        String ARBrowser = PreferencesService.instance().getAugmentedRealityBrowser( this );
 
-        if ("wikitude".equals(ARBrowser))
+        if (PreferencesService.WIKITUDE.equalsIgnoreCase(ARBrowser))
         {
             double latitude = 48.0; // default value
             double longitude = 2.0; // default value
@@ -134,7 +127,7 @@ public class MainActivity extends Activity implements OnClickListener
             WikitudeDisplayService.display(list, this);
 
             return true;
-        } else if ("layar".equals(ARBrowser))
+        } else if (PreferencesService.LAYAR.equalsIgnoreCase(ARBrowser))
         {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("layar://artag2"));
             startActivity(intent);
@@ -182,9 +175,9 @@ public class MainActivity extends Activity implements OnClickListener
     public boolean onCreateOptionsMenu(Menu menu)
     {
         super.onCreateOptionsMenu(menu);
-        menu.add(0, PREFERENCES_MENU_ID, 0, getString(R.string.menu_preferences));
-        menu.add(1, CREDITS_MENU_ID, 0, getString(R.string.menu_credits));
-        menu.add(2, MYLOCATION_MENU_ID, 0, getString(R.string.menu_mylocation));
+        menu.add(0, MYLOCATION_MENU_ID, 0, getString(R.string.menu_mylocation));
+        menu.add(1, PREFERENCES_MENU_ID, 0, getString(R.string.menu_preferences));
+        menu.add(2, CREDITS_MENU_ID, 0, getString(R.string.menu_credits));
         return true;
     }
 

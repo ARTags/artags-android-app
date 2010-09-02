@@ -54,7 +54,6 @@ public class MyLocationActivity extends Activity implements OnClickListener, Loc
     private Button mValidateButton;
     private Button mSelectSourceButton;
     private Button mGetPositionButton;
-//    private Button mGetAddressButton;
     private Button mSelectOnMapButton;
     private Button mDefineAddressButton;
     private ProgressBar mProgressBar;
@@ -64,8 +63,7 @@ public class MyLocationActivity extends Activity implements OnClickListener, Loc
     {
         super.onCreate(icicle);
 
-        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -79,7 +77,6 @@ public class MyLocationActivity extends Activity implements OnClickListener, Loc
         mValidateButton = (Button) findViewById(R.id.mylocation_validate_button);
         mSelectSourceButton = (Button) findViewById(R.id.mylocation_select_source_button);
         mGetPositionButton = (Button) findViewById(R.id.mylocation_get_position_button);
-//        mGetAddressButton = (Button) findViewById(R.id.mylocation_get_address_button);
         mSelectOnMapButton = (Button) findViewById(R.id.mylocation_select_on_map_button);
         mDefineAddressButton = (Button) findViewById(R.id.mylocation_enter_position_button);
         mProgressBar = (ProgressBar) findViewById( R.id.mylocation_progress );
@@ -87,7 +84,6 @@ public class MyLocationActivity extends Activity implements OnClickListener, Loc
         mValidateButton.setOnClickListener(this);
         mSelectSourceButton.setOnClickListener(this);
         mGetPositionButton.setOnClickListener(this);
-//        mGetAddressButton.setOnClickListener(this);
         mSelectOnMapButton.setOnClickListener(this);
         mDefineAddressButton.setOnClickListener(this);
 
@@ -144,7 +140,6 @@ public class MyLocationActivity extends Activity implements OnClickListener, Loc
 
         mGetPositionButton.setEnabled(false);
         showProgress( false );
-//        mGetAddressButton.setEnabled(false);
     }
 
     private void selectSource()
@@ -167,7 +162,6 @@ public class MyLocationActivity extends Activity implements OnClickListener, Loc
             {
                 mGetPositionButton.setEnabled(true);
                 mProvider = sources[which];
-                setTitle(String.format("%s - %s", getString(R.string.activity_mylocation), mProvider));
             }
         }).create().show();
     }
@@ -218,7 +212,6 @@ public class MyLocationActivity extends Activity implements OnClickListener, Loc
         Log.i("ARt - MyLocation", "Location changed");
         showProgress(false);
 
-//        mGetAddressButton.setEnabled(true);
         this.mLocation = location;
         displayLocation();
         mLocationManager.removeUpdates(this);
@@ -247,7 +240,6 @@ public class MyLocationActivity extends Activity implements OnClickListener, Loc
 
     private void showProgress( boolean show )
     {
-        setProgressBarIndeterminateVisibility( show );
         if( show )
         {
             mProgressBar.setVisibility( View.VISIBLE );
