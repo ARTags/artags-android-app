@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/tagLayout"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+              style="@style/tagLayout"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
 
     <TextView
         android:id="@+id/label_title"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_marginLeft="20dip"
-        android:layout_marginRight="20dip"
+        android:layout_margin="10dip"
         android:text="@string/dialog_enter_title"
         android:gravity="left"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -20,8 +19,7 @@
         android:id="@+id/edit_title"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
-        android:layout_marginLeft="20dip"
-        android:layout_marginRight="20dip"
+        android:layout_margin="10dip"
         android:scrollHorizontally="true"
         android:autoText="false"
         android:capitalize="none"
@@ -29,10 +27,52 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <CheckBox android:id="@+id/checkbox_landscape"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dip"
-        android:layout_marginRight="20dip"
-        android:text="@string/landscape" />
+              style="@style/tagTextNormal"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_margin="10dip"
+              android:text="@string/landscape" />
+
+              
+
+    <LinearLayout style="@style/tagLayout"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal">
+
+        <TextView android:id="@+id/send_search_location"
+                  android:text="@string/send_search_gps"
+                  android:layout_height="wrap_content"
+                  android:layout_width="wrap_content"
+                  android:layout_margin="10dip"
+                  />
+
+        <ProgressBar android:id="@+id/send_search_location_progress"
+                     style="?android:attr/progressBarStyleSmall"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_margin="10dip"
+                     />
+
+    </LinearLayout>
+
+    <LinearLayout style="@style/tagLayout"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_centerHorizontal="true"
+                  android:layout_margin="10dip">
+
+        <Button android:layout_height="wrap_content"
+                android:id="@+id/send_send_button"
+                android:text="@string/send"
+                android:layout_width="120dip" />
+
+        <Button android:layout_height="wrap_content"
+                android:id="@+id/send_cancel_button"
+                android:text="@string/cancel"
+                android:layout_width="120dip" />
+
+    </LinearLayout>
+
 
 </LinearLayout>

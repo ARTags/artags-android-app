@@ -19,6 +19,9 @@
     <string name="dialog_enter_title">Enter a title for the tag : </string>
     <string name="landscape"> Landscape orientation</string>
     <string name="dialog_send">Send your tag</string>
+    <string name="send_search_gps">Searching location by GPS ...</string>
+    <string name="send_search_gps_found">GPS location found !</string>
+    <string name="send_search_gps_not_found">Can\'t get GPS location. Using MyLocation instead.</string>
     <string name="dialog_progress">"Upload in progress..."</string>
     <string name="upload_successful">Your tag has been uploaded successfully!</string>
     <string name="upload_failed">Sorry, upload failed!</string>
