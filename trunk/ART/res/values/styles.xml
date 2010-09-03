@@ -8,6 +8,7 @@
 
     <style name="tagLayout" >
         <item name="android:background">@drawable/background</item>
+        <item name="android:headerBackground">@drawable/background</item>
     </style>
 
     <style name="tagEditText" parent="@android:style/Widget.EditText">
@@ -16,6 +17,13 @@
         <item name="android:typeface">serif</item>
         <item name="android:background">@drawable/background</item>
         <item name="android:layout_margin">20dip</item>
+    </style>
+
+    <style name="tagCheckBox" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:textColor">#FF7700</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:typeface">serif</item>
+        <item name="android:background">@drawable/background</item>
     </style>
 
     <style name="tagTextNormal" parent="@android:style/TextAppearance.Medium">
