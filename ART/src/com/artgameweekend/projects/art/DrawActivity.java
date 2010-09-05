@@ -38,6 +38,7 @@ import android.widget.Toast;
 import com.artgameweekend.projects.art.draw.BrushDialog;
 import com.artgameweekend.projects.art.draw.DrawView;
 import com.artgameweekend.projects.art.draw.SendDialog;
+import com.artgameweekend.projects.art.preferences.PreferencesService;
 import java.io.File;
 import java.io.FileOutputStream;
 
@@ -54,9 +55,6 @@ public class DrawActivity extends GraphicsActivity
     private static final int SEND_MENU_ID = Menu.FIRST + 5;
     private static final int BRUSH_SIZE_MENU_ID = Menu.FIRST + 4;
     private static final int DIALOG_PROGRESS = 0;
-    private static final int DEFAULT_BRUSH_SIZE = 12;
-    private static final int DEFAULT_COLOR = 0xFFA5C739;
-    private static final int DEFAULT_INTENSITY = 50;
     private DrawView mView;
     private ProgressThread progressThread;
     private ProgressDialog progressDialog;
@@ -89,17 +87,11 @@ public class DrawActivity extends GraphicsActivity
         mBlur = new BlurMaskFilter(8, BlurMaskFilter.Blur.NORMAL);
 
         mBP = new BrushParameters();
-        mBP.setBrushSize(DEFAULT_BRUSH_SIZE);
-        mBP.setColor(DEFAULT_COLOR);
-        mBP.setColorBase(DEFAULT_COLOR);
-        mBP.setColorIntensity(DEFAULT_INTENSITY);
         mBP.setEmbossFilter(mEmboss);
         mBP.setBlurFilter(mBlur);
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setDither(true);
-        mPaint.setColor(mBP.getColor());
-        mPaint.setStrokeWidth(mBP.getBrushSize());
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStrokeCap(Paint.Cap.ROUND);
@@ -307,5 +299,22 @@ public class DrawActivity extends GraphicsActivity
             }
             return false;
         }
+    }
+
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        PreferencesService.instance().saveBrushParameters( this,  mBP );
+    }
+
+    @Override
+    public void onResume()
+    {
+       super.onResume();
+       PreferencesService.instance().restoreBrushParameters( this,  mBP );
+       setBrushParameter( mBP );
+
     }
 }
