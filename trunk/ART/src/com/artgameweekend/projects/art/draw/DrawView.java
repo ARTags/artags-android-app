@@ -35,16 +35,18 @@ public class DrawView extends View
     private Canvas mCanvas;
     private Path mPath;
     private Paint mBitmapPaint;
+    private int mHeight;
+    private int mWidth;
             
     public DrawView(Context c, DisplayMetrics dm )
     {
         super(c);
 
-        int height = dm.heightPixels;
-        int width = dm.widthPixels;
+        mHeight = dm.heightPixels;
+        mWidth = dm.widthPixels;
 
 
-        mBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        mBitmap = Bitmap.createBitmap( mWidth, mHeight, Bitmap.Config.ARGB_8888);
         mCanvas = new Canvas(mBitmap);
         mPath = new Path();
         mBitmapPaint = new Paint(Paint.DITHER_FLAG);
@@ -54,6 +56,8 @@ public class DrawView extends View
     protected void onSizeChanged(int w, int h, int oldw, int oldh)
     {
         super.onSizeChanged(w, h, oldw, oldh);
+        mHeight = h;
+        mWidth = w;
     }
 
     @Override
@@ -129,5 +133,12 @@ public class DrawView extends View
     public void setPaint( Paint paint )
     {
         mPaint = paint;
+    }
+
+    public void setBitmap(Bitmap bm)
+    {
+        mBitmap = bm.copy(Bitmap.Config.ARGB_8888, true);
+        mCanvas = new Canvas( mBitmap );
+
     }
 }
