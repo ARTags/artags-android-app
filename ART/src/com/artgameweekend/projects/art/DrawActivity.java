@@ -24,7 +24,6 @@ import android.app.ProgressDialog;
 import android.content.res.Resources;
 import android.graphics.*;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -39,13 +38,14 @@ import com.artgameweekend.projects.art.draw.BrushDialog;
 import com.artgameweekend.projects.art.draw.DrawView;
 import com.artgameweekend.projects.art.draw.SendDialog;
 import com.artgameweekend.projects.art.preferences.PreferencesService;
-import java.io.File;
-import java.io.FileOutputStream;
+import com.artgameweekend.projects.art.util.bitmap.BitmapUtil;
 
 public class DrawActivity extends GraphicsActivity
         //        implements ColorPickerDialog.OnColorChangedListener, BrushSizeDialog.OnBrushSizeListener
         implements BrushDialog.OnBrushParametersChangedListener, SendDialog.OnSendListener
 {
+    private static final String IMAGE_FILE_LAST_SENT = "last_sent.jpeg";
+    private static final String IMAGE_FILE_BACKUP = "backup.jpeg";
 
     private static final int COLOR_MENU_ID = Menu.FIRST;
     private static final int EMBOSS_MENU_ID = Menu.FIRST + 1;
@@ -264,40 +264,26 @@ public class DrawActivity extends GraphicsActivity
 
         private boolean send()
         {
-            File root = Environment.getExternalStorageDirectory();
-            if (root.canWrite())
+            try
             {
-                try
-                {
-                    File directory = new File(root.getPath() + "/ARt");
-                    if (!directory.exists())
-                    {
-                        directory.mkdir();
-                    }
-                    String filename = directory.getPath() + "/ARt.jpeg";
-                    File file = new File(filename);
-                    FileOutputStream fos = new FileOutputStream(file);
-                    Bitmap bmTag = mView.getBitmap();
-                    bmTag.compress(Bitmap.CompressFormat.JPEG, 80, fos);
-                    fos.close();
+                String filename = BitmapUtil.saveImage( IMAGE_FILE_LAST_SENT , mView.getBitmap() );
 
-                    Tag tag = new Tag();
-                    tag.setTitle(mSendInfos.getTitle());
-                    tag.setLatitude("" + mSendInfos.getLatitude());
-                    tag.setLongitude("" + mSendInfos.getLongitude());
-                    tag.setFilename(filename);
-                    tag.setOrientation(mSendInfos.isLandscape());
+                Tag tag = new Tag();
+                tag.setTitle(mSendInfos.getTitle());
+                tag.setLatitude("" + mSendInfos.getLatitude());
+                tag.setLongitude("" + mSendInfos.getLongitude());
+                tag.setFilename(filename);
+                tag.setOrientation(mSendInfos.isLandscape());
 
-                    TagUploadService.upload(tag);
-                    return true;
+                TagUploadService.upload(tag);
+                return true;
 
 
-                } catch (Exception e)
-                {
-                    Log.e("ARt:DrawActivity:send", "Exception while writing or sending the tag", e);
-                }
+            } catch (Exception e)
+            {
+                Log.e("ARt:DrawActivity:send", "Exception while writing or sending the tag", e);
+                return false;
             }
-            return false;
         }
     }
 
@@ -306,15 +292,22 @@ public class DrawActivity extends GraphicsActivity
     public void onPause()
     {
         super.onPause();
-        PreferencesService.instance().saveBrushParameters( this,  mBP );
+        PreferencesService.instance().saveBrushParameters(this, mBP);
+        BitmapUtil.saveImage( IMAGE_FILE_BACKUP , mView.getBitmap() );
     }
 
     @Override
     public void onResume()
     {
-       super.onResume();
-       PreferencesService.instance().restoreBrushParameters( this,  mBP );
-       setBrushParameter( mBP );
+        super.onResume();
+        PreferencesService.instance().restoreBrushParameters(this, mBP);
+        setBrushParameter(mBP);
+        Bitmap bm = BitmapUtil.loadImage(IMAGE_FILE_BACKUP);
+
+        if( bm != null )
+        {
+            mView.setBitmap( bm );
+        }
 
     }
 }

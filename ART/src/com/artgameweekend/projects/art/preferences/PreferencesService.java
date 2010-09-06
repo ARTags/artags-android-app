@@ -31,6 +31,17 @@ public class PreferencesService
 
     private static final String SHARED_PREFS_NAME = "art.preferences";
     private static final String KEY_BROWSER = "ar_browser";
+    private static final String KEY_BRUSH_SIZE = "brush.size";
+    private static final String KEY_BRUSH_COLOR = "brush.color";
+    private static final String KEY_BRUSH_COLOR_BASE = "brush.color.base";
+    private static final String KEY_BRUSH_COLOR_INTENSITY = "brush.color.intensity";
+    private static final String KEY_BLUR_EFFECT = "brush.blur";
+    private static final String KEY_EMBOSS_EFFECT = "brush.emboss";
+
+    private static final int DEFAULT_BRUSH_SIZE = 12;
+    private static final int DEFAULT_COLOR = 0xFFA5C739;
+    private static final int DEFAULT_INTENSITY = 50;
+
 
     private static PreferencesService singleton = new PreferencesService();
 
@@ -58,17 +69,6 @@ public class PreferencesService
         editor.commit();
 
     }
-
-    private static final String KEY_BRUSH_SIZE = "brush.size";
-    private static final String KEY_BRUSH_COLOR = "brush.color";
-    private static final String KEY_BRUSH_COLOR_BASE = "brush.color.base";
-    private static final String KEY_BRUSH_COLOR_INTENSITY = "brush.color.intensity";
-    private static final String KEY_BLUR_EFFECT = "brush.blur";
-    private static final String KEY_EMBOSS_EFFECT = "brush.emboss";
-
-    private static final int DEFAULT_BRUSH_SIZE = 12;
-    private static final int DEFAULT_COLOR = 0xFFA5C739;
-    private static final int DEFAULT_INTENSITY = 50;
 
     public void saveBrushParameters( Activity activity , BrushParameters bp )
     {
