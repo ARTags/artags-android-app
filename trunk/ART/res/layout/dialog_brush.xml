@@ -7,14 +7,6 @@
     android:gravity="center"
     android:orientation="vertical">
 
-
-<!--
-    <view
-    class="com.artgameweekend.projects.art.draw.BrushDialog$ColorPickerView"
-    id="@+id/color_picker"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content" />
--->
     <TableLayout
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
