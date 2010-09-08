@@ -17,6 +17,7 @@ package org.artags.android.app.tag;
 import org.artags.android.app.ar.GenericPOI;
 import java.util.ArrayList;
 import java.util.List;
+import org.artags.android.app.Constants;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -28,8 +29,8 @@ import org.xml.sax.helpers.DefaultHandler;
 public class TagParser extends DefaultHandler
 {
     private static final String TAG = "tag";
-    private static final String URL = "http://art-server.appspot.com/display?id=";
-    private static final String URL_ICON = "http://art-server.appspot.com/thumbnail?id=";
+    private static final String URL = Constants.SERVER + "/display?id=";
+    private static final String URL_ICON = Constants.SERVER + "/thumbnail?id=";
     private static final String ID = "id";
     private static final String TITLE = "name";
     private static final String LATITUDE = "lat";

@@ -1,6 +1,16 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/* Copyright (c) 2010 ARt Project owners
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.artags.android.app.ar.wikitude;
@@ -15,6 +25,7 @@ import android.webkit.WebView;
 import org.artags.android.app.ARtApplication;
 import org.artags.android.app.R;
 import java.util.List;
+import org.artags.android.app.Constants;
 import org.openintents.intents.WikitudeARIntentHelper;
 import org.openintents.intents.WikitudePOI;
 
@@ -37,7 +48,7 @@ public class WikitudeShowImageActivity  extends Activity
         mWebView = (WebView) findViewById(R.id.webview);
         mWebView.getSettings().setJavaScriptEnabled(true);
 
-        String url = "http://art-server.appspot.com/client/wikitude.jsp?id=111001";
+        String url =  Constants.SERVER + "/client/wikitude.jsp?id=111001";
         int poiId = this.getIntent().getIntExtra( WikitudeARIntentHelper.EXTRA_INDEX_SELECTED_POI, -1);
         List<WikitudePOI> list = ((ARtApplication) this.getApplication()).getPois();
         if( (poiId >= 0) && (list != null ))

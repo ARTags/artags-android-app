@@ -20,6 +20,7 @@ import java.net.URL;
 import java.util.List;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import org.artags.android.app.Constants;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
@@ -30,7 +31,7 @@ import org.xml.sax.XMLReader;
 public class POIService
 {
 
-    private static final String URL_TAGS = "http://art-server.appspot.com/tags?";
+    private static final String URL_TAGS = Constants.SERVER + "/tags?";
 
     public static List<GenericPOI> getPOIs(double lat, double lon)
     {
