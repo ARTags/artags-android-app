@@ -18,6 +18,7 @@ import org.artags.android.app.util.http.HttpException;
 import org.artags.android.app.util.http.HttpUtil;
 import java.io.File;
 import java.util.HashMap;
+import org.artags.android.app.Constants;
 
 /**
  *
@@ -30,7 +31,7 @@ public class TagUploadService
     private static final String PARAMETER_LATITUDE = "lat";
     private static final String PARAMETER_LONGITUDE = "lon";
     private static final String PARAMETER_LANDSCAPE = "landscape";
-    private static final String URL_UPLOAD_SERVER = "http://art-server.appspot.com/upload";
+    private static final String URL_UPLOAD_SERVER = Constants.SERVER + "/upload";
 
     public static void upload(Tag tag) throws HttpException
     {
