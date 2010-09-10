@@ -44,16 +44,16 @@ public class DrawActivity extends GraphicsActivity
         //        implements ColorPickerDialog.OnColorChangedListener, BrushSizeDialog.OnBrushSizeListener
         implements BrushDialog.OnBrushParametersChangedListener, SendDialog.OnSendListener
 {
+
     private static final String IMAGE_FILE_LAST_SENT = "last_sent.jpeg";
     private static final String IMAGE_FILE_BACKUP = "backup.jpeg";
-
     private static final int COLOR_MENU_ID = Menu.FIRST;
-    private static final int EMBOSS_MENU_ID = Menu.FIRST + 1;
-    private static final int BLUR_MENU_ID = Menu.FIRST + 2;
+    private static final int RESET_MENU_ID = Menu.FIRST + 1;
+    private static final int UNDO_MENU_ID = Menu.FIRST + 2;
     private static final int ERASE_MENU_ID = Menu.FIRST + 3;
 //    private static final int SRCATOP_MENU_ID = Menu.FIRST + 6;
     private static final int SEND_MENU_ID = Menu.FIRST + 5;
-    private static final int BRUSH_SIZE_MENU_ID = Menu.FIRST + 4;
+    private static final int HELP_MENU_ID = Menu.FIRST + 4;
     private static final int DIALOG_PROGRESS = 0;
     private DrawView mView;
     private ProgressThread progressThread;
@@ -142,11 +142,11 @@ public class DrawActivity extends GraphicsActivity
         Resources res = getApplicationContext().getResources();
 
         menu.add(0, COLOR_MENU_ID, 0, getString(R.string.menu_color)).setShortcut('3', 'c').setIcon(res.getDrawable(R.drawable.menu_color));
-        menu.add(0, EMBOSS_MENU_ID, 0, getString(R.string.menu_emboss)).setShortcut('4', 's').setIcon(res.getDrawable(R.drawable.menu_emboss));
-        menu.add(0, BLUR_MENU_ID, 0, getString(R.string.menu_blur)).setShortcut('5', 'z').setIcon(res.getDrawable(R.drawable.menu_blur));
         menu.add(0, ERASE_MENU_ID, 0, getString(R.string.menu_erase)).setShortcut('5', 'z').setIcon(res.getDrawable(R.drawable.menu_erase));
+        menu.add(0, RESET_MENU_ID, 0, "Reset");
+        menu.add(0, UNDO_MENU_ID, 0, "Undo");
         //       menu.add(0, SRCATOP_MENU_ID, 0, getString(R.string.menu_srcatop)).setShortcut('5', 'z');
-        menu.add(0, BRUSH_SIZE_MENU_ID, 0, getString(R.string.menu_brush_size)).setShortcut('5', 'z').setIcon(res.getDrawable(R.drawable.menu_brush));
+        menu.add(0, HELP_MENU_ID, 0, "Help");
         menu.add(0, SEND_MENU_ID, 0, getString(R.string.menu_send)).setShortcut('5', 'z').setIcon(res.getDrawable(R.drawable.menu_save));
 
         return true;
@@ -168,34 +168,28 @@ public class DrawActivity extends GraphicsActivity
         switch (item.getItemId())
         {
             case COLOR_MENU_ID:
+                Log.i("ARtags", "Menu Brush Parameters selected");
                 final BrushDialog dialogBrushSize = new BrushDialog(this, this, mBP);
                 dialogBrushSize.show();
                 return true;
 
-            case BRUSH_SIZE_MENU_ID:
-                final BrushDialog dialogBrushSize2 = new BrushDialog(this, this, mBP);
-                dialogBrushSize2.show();
+            case HELP_MENU_ID:
+                Log.i("ARtags", "Menu Help selected");
+                help();
                 return true;
 
-            case EMBOSS_MENU_ID:
-                if (mPaint.getMaskFilter() != mEmboss)
-                {
-                    mPaint.setMaskFilter(mEmboss);
-                } else
-                {
-                    mPaint.setMaskFilter(null);
-                }
+            case RESET_MENU_ID:
+                Log.i("ARtags", "Menu Reset selected");
+                reset();
                 return true;
-            case BLUR_MENU_ID:
-                if (mPaint.getMaskFilter() != mBlur)
-                {
-                    mPaint.setMaskFilter(mBlur);
-                } else
-                {
-                    mPaint.setMaskFilter(null);
-                }
+
+            case UNDO_MENU_ID:
+                Log.i("ARtags", "Menu Undo selected");
+                undo();
                 return true;
+
             case ERASE_MENU_ID:
+                Log.i("ARtags", "Menu Erase selected");
                 mPaint.setXfermode(new PorterDuffXfermode(
                         PorterDuff.Mode.CLEAR));
                 return true;
@@ -205,9 +199,10 @@ public class DrawActivity extends GraphicsActivity
             mPaint.setAlpha(0x80);
             return true;
              */
+
             case SEND_MENU_ID:
-                final SendDialog dialog = new SendDialog(this, this);
-                dialog.show();
+                Log.i("ARtags", "Menu Send selected");
+                send();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -239,6 +234,26 @@ public class DrawActivity extends GraphicsActivity
         showDialog(DIALOG_PROGRESS);
     }
 
+    private void undo()
+    {
+        mView.restore();
+    }
+
+    private void reset()
+    {
+        mView.reset();
+    }
+
+    private void help()
+    {
+    }
+
+    private void send()
+    {
+        final SendDialog dialog = new SendDialog(this, this);
+        dialog.show();
+    }
+
     private class ProgressThread extends Thread
     {
 
@@ -266,7 +281,7 @@ public class DrawActivity extends GraphicsActivity
         {
             try
             {
-                String filename = BitmapUtil.saveImage( IMAGE_FILE_LAST_SENT , mView.getBitmap() );
+                String filename = BitmapUtil.saveImage(IMAGE_FILE_LAST_SENT, mView.getBitmap());
 
                 Tag tag = new Tag();
                 tag.setTitle(mSendInfos.getTitle());
@@ -274,8 +289,12 @@ public class DrawActivity extends GraphicsActivity
                 tag.setLongitude("" + mSendInfos.getLongitude());
                 tag.setFilename(filename);
                 tag.setOrientation(mSendInfos.isLandscape());
+                Log.i("ARtags:DrawActivity:send", "Prepare tag post - Tag name : " + tag.getTitle());
+                Log.i("ARtags:DrawActivity:send", "Prepare tag post - geoloc (" + tag.getLatitude() + "," + tag.getLongitude() + ")");
 
+                Log.i("ARtags:DrawActivity:send", "Post tag");
                 TagUploadService.upload(tag);
+                Log.i("ARtags:DrawActivity:send", "Tag posted successfully");
                 return true;
 
 
@@ -287,13 +306,12 @@ public class DrawActivity extends GraphicsActivity
         }
     }
 
-
     @Override
     public void onPause()
     {
         super.onPause();
         PreferencesService.instance().saveBrushParameters(this, mBP);
-        BitmapUtil.saveImage( IMAGE_FILE_BACKUP , mView.getBitmap() );
+        BitmapUtil.saveImage(IMAGE_FILE_BACKUP, mView.getBitmap());
     }
 
     @Override
@@ -304,9 +322,9 @@ public class DrawActivity extends GraphicsActivity
         setBrushParameter(mBP);
         Bitmap bm = BitmapUtil.loadImage(IMAGE_FILE_BACKUP);
 
-        if( bm != null )
+        if (bm != null)
         {
-            mView.setBitmap( bm );
+            mView.setBitmap(bm);
         }
 
     }
