@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARt Project owners
+/* Copyright (c) 2010 ARtags Project owners (see http://artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -35,7 +35,7 @@ import org.artags.android.app.util.location.LocationService;
 
 /**
  *
- * @author pierre
+ * @author pierre@artags.org
  */
 public class SendDialog extends Dialog implements OnClickListener, LocationListener
 {
@@ -101,8 +101,15 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
             SendInfos si = new SendInfos();
             si.setTitle(mEditTitle.getText().toString());
             si.setLandscape(mLandscapeCB.isChecked());
-            si.setLatitude(mLocation.getLatitude());
-            si.setLongitude(mLocation.getLongitude());
+            if (mLocation != null)
+            {
+                si.setLatitude(mLocation.getLatitude());
+                si.setLongitude(mLocation.getLongitude());
+            } else
+            {
+                si.setLatitude(48.0);
+                si.setLongitude(2.0);
+            }
             mListener.setSendInfos(si);
             dismiss();
         } else if (view == mCancelButton)
@@ -123,18 +130,18 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
 
     public void onProviderDisabled(String provider)
     {
-        Log.i("ARt - SendDialog", "Location Provider disabled");
+        Log.i("ARtags - SendDialog", "Location Provider disabled");
         mLocationManager.removeUpdates(this);
     }
 
     public void onProviderEnabled(String provider)
     {
-        Log.i("ARt - SendDialog", "Location Provider enabled.");
+        Log.i("ARtags - SendDialog", "Location Provider enabled.");
     }
 
     public void onStatusChanged(String provider, int status, Bundle extras)
     {
-        Log.i("ARt - SendDialog", "Location Provider status changed.");
+        Log.i("ARtags - SendDialog", "Location Provider status changed.");
     }
     final Handler mHandler = new Handler();
     final Runnable mUpdateLocation = new Runnable()

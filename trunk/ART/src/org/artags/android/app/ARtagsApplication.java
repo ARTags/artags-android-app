@@ -12,14 +12,34 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.artags.android.app;
 
+import java.util.List;
+
+import org.openintents.intents.WikitudePOI;
+
+import android.app.Application;
+
 /**
+ * The application object which holds information about all objects needed to be
+ * exchanged in the application
  *
  * @author pierre@artags.org
+ *
  */
-public class Constants
+public class ARtagsApplication extends Application
 {
-    public static final String SERVER = "http://art-server.appspot.com";
+
+    /** the POIs */
+    private List<WikitudePOI> pois;
+
+    public List<WikitudePOI> getPOIs()
+    {
+        return pois;
+    }
+
+    public void setPOIs(List<WikitudePOI> pois)
+    {
+        this.pois = pois;
+    }
 }

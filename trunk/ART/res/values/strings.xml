@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">ARtags</string>
     <string name="button_draw">Draw</string>
-    <string name="button_view">View existing ARtag near you</string>
+    <string name="button_view">View existing ARtags near you</string>
     <string name="activity_paint">ARtags Draw</string>
     <string name="activity_ShowImage">Detail</string>
     <string name="activity_SaveFile">Save File</string>
