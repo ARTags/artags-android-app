@@ -86,6 +86,7 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
 
         mSendButton.setEnabled(false);
 
+        Log.i( "ARtags:SendDialog" , "Start searching GPS location");
         mLocationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 60000, 0, this);
 
@@ -120,6 +121,7 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
 
     public void onLocationChanged(Location location)
     {
+        Log.i("ARtags:SendDialog", "Location found (" + location.getLatitude() + "," + location.getLongitude() + ")");
         mLocation = location;
         mSeachTextView.setText(mContext.getString(R.string.send_search_gps_found));
         mProgress.setVisibility(View.INVISIBLE);
@@ -130,18 +132,18 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
 
     public void onProviderDisabled(String provider)
     {
-        Log.i("ARtags - SendDialog", "Location Provider disabled");
+        Log.i("ARtags:SendDialog", "Location Provider disabled");
         mLocationManager.removeUpdates(this);
     }
 
     public void onProviderEnabled(String provider)
     {
-        Log.i("ARtags - SendDialog", "Location Provider enabled.");
+        Log.i("ARtags:SendDialog", "Location Provider enabled.");
     }
 
     public void onStatusChanged(String provider, int status, Bundle extras)
     {
-        Log.i("ARtags - SendDialog", "Location Provider status changed.");
+        Log.i("ARtags:SendDialog", "Location Provider status changed.");
     }
     final Handler mHandler = new Handler();
     final Runnable mUpdateLocation = new Runnable()

@@ -59,13 +59,13 @@ public class HttpUtil
             HttpEntity resEntity = response.getEntity();
             if (resEntity != null)
             {
-                Log.i("RESPONSE", EntityUtils.toString(resEntity));
+                Log.i("ARtags:HttpUtil:Post:Response", EntityUtils.toString(resEntity));
             }
 
             //return response;
         } catch (Exception e)
         {
-            Log.e("ART:HttpUtil", "Error : " + e.getMessage());
+            Log.e("ARtags:HttpUtil", "Error : " + e.getMessage());
             throw new HttpException( e.getMessage() );
         }
     }

@@ -37,6 +37,7 @@ public class DrawView extends View
     private Paint mBitmapPaint;
     private int mHeight;
     private int mWidth;
+    private Bitmap mBitmapUndo;
             
     public DrawView(Context c, DisplayMetrics dm )
     {
@@ -74,6 +75,7 @@ public class DrawView extends View
 
     private void touch_start(float x, float y)
     {
+        save();
         mPath.reset();
         mPath.moveTo(x, y);
         mX = x;
@@ -140,5 +142,27 @@ public class DrawView extends View
         mBitmap = bm.copy(Bitmap.Config.ARGB_8888, true);
         mCanvas = new Canvas( mBitmap );
 
+    }
+
+    private void save()
+    {
+        mBitmapUndo = Bitmap.createBitmap(mBitmap);
+    }
+
+    public void restore()
+    {
+        if( mBitmapUndo != null )
+        {
+            mBitmap = Bitmap.createBitmap(mBitmapUndo);
+            mCanvas = new Canvas( mBitmap );
+            invalidate();
+        }
+    }
+
+    public void reset()
+    {
+        mBitmap = Bitmap.createBitmap( mWidth, mHeight, Bitmap.Config.ARGB_8888);
+        mCanvas = new Canvas(mBitmap);
+        invalidate();
     }
 }
