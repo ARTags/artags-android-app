@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARt Project owners
+/* Copyright (c) 2010 ARtags Project owners (see http://artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -18,7 +18,7 @@ import org.artags.android.app.ar.GenericPOI;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.util.Log;
-import org.artags.android.app.ARtApplication;
+import org.artags.android.app.ARtagsApplication;
 import org.artags.android.app.R;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ import org.openintents.intents.WikitudePOI;
 
 /**
  *
- * @author pierre
+ * @author pierre@artags.org
  */
 public class WikitudeDisplayService
 {
@@ -46,7 +46,7 @@ public class WikitudeDisplayService
 
 
         intent.addPOIs(list);
-//        ((ARtApplication) mActivity.getApplication()).setPois(list);
+//        ((ARtagsApplication) mActivity.getApplication()).setPois(list);
 
         try
         {

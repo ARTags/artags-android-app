@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARt Project owners
+/* Copyright (c) 2010 ARtags Project owners (see http://artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -281,7 +281,7 @@ public class DrawActivity extends GraphicsActivity
 
             } catch (Exception e)
             {
-                Log.e("ARt:DrawActivity:send", "Exception while writing or sending the tag", e);
+                Log.e("ARtags:DrawActivity:send", "Exception while writing or sending the tag", e);
                 return false;
             }
         }

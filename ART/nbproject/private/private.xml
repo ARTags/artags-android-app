@@ -1,22 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
-        <file>file:/home/pierre/java/projets/artgameweekend/ART/AndroidManifest.xml</file>
-        <file>file:/home/pierre/java/projets/artgameweekend/ART/res/values/strings.xml</file>
-        <file>file:/home/pierre/java/projets/artgameweekend/ART/src/com/artgameweekend/projects/art/FingerPaint.java</file>
-        <file>file:/home/pierre/java/projets/artgameweekend/ART/src/com/artgameweekend/projects/art/PictureLayout.java</file>
-        <file>file:/home/pierre/java/projets/artgameweekend/ART/src/com/artgameweekend/projects/art/GraphicsActivity.java</file>
-        <file>file:/home/pierre/java/projets/artgameweekend/ART/src/com/artgameweekend/projects/art/SendActivity.java</file>
-        <file>file:/home/pierre/java/projets/artgameweekend/ART/src/com/artgameweekend/projects/art/MainActivity.java</file>
-        <file>file:/home/pierre/java/projets/artgameweekend/ART/res/layout/send.xml</file>
-        <file>file:/home/pierre/java/projets/artgameweekend/ART/res/layout/main.xml</file>
-        <file>file:/home/pierre/java/projets/artgameweekend/ART/res/drawable/icon.gif</file>
-        <file>file:/home/pierre/java/projets/artgameweekend/ART/res/drawable/bt_display.png</file>
-        <file>file:/home/pierre/java/projets/artgameweekend/ART/res/drawable/bt_draw.png</file>
-        <file>file:/home/pierre/java/projets/artgameweekend/ART/nbproject/build-impl.xml</file>
-        <file>file:/home/pierre/java/projets/artgameweekend/ART/src/com/artgameweekend/projects/art/ColorPickerDialog.java</file>
-        <file>file:/home/pierre/java/projets/artgameweekend/ART/src/com/artgameweekend/projects/art/BrushSizeDialog.java</file>
-        <file>file:/home/pierre/java/projets/artgameweekend/ART/src/com/artgameweekend/projects/art/MyPOIs.java</file>
-    </open-files>
 </project-private>

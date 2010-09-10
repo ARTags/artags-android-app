@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARt Project owners
+/* Copyright (c) 2010 ARtags Project owners (see http://artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -23,12 +23,12 @@ import java.io.FileOutputStream;
 
 /**
  *
- * @author pierre
+ * @author pierre@artags.org
  */
 public class BitmapUtil
 {
 
-    private static final String ROOT_DIRECTORY = "/ARt";
+    private static final String ROOT_DIRECTORY = "/ARtags";
 
     public static String saveImage(String filename, Bitmap bm)
     {
@@ -53,7 +53,7 @@ public class BitmapUtil
 
             } catch (Exception e)
             {
-                Log.e("ARt:BitmapUtil:saveImage", "Exception while writing the tag", e);
+                Log.e("ARtags:BitmapUtil:saveImage", "Exception while writing the tag", e);
             }
         }
         return null;
@@ -72,7 +72,7 @@ public class BitmapUtil
 
         } catch (Exception e)
         {
-            Log.e("ARt:BitmapUtil:saveImage", "Exception while loading the tag", e);
+            Log.e("ARtags:BitmapUtil:saveImage", "Exception while loading the tag", e);
         }
         return null;
     }
