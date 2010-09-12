@@ -14,7 +14,6 @@
  */
 package org.artags.android.app.draw;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -22,6 +21,7 @@ import android.graphics.Path;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
+import org.artags.android.app.DrawActivity;
 
 /**
  *
@@ -38,10 +38,14 @@ public class DrawView extends View
     private int mHeight;
     private int mWidth;
     private Bitmap mBitmapUndo;
+    private boolean mEyeDropper;
+    private DrawActivity mActivity;
             
-    public DrawView(Context c, DisplayMetrics dm )
+    public DrawView( DrawActivity activity, DisplayMetrics dm )
     {
-        super(c);
+        super( activity );
+
+        mActivity = activity;
 
         mHeight = dm.heightPixels;
         mWidth = dm.widthPixels;
@@ -109,6 +113,9 @@ public class DrawView extends View
         float x = event.getX();
         float y = event.getY();
 
+        if( ! mEyeDropper )
+        {
+
         switch (event.getAction())
         {
             case MotionEvent.ACTION_DOWN:
@@ -123,6 +130,17 @@ public class DrawView extends View
                 touch_up();
                 invalidate();
                 break;
+        }
+        }
+        else
+        {
+            if( event.getAction() == MotionEvent.ACTION_UP )
+            {
+                int color = mBitmap.getPixel( (int) x, (int) y );
+                mActivity.showBrushDialog( color );
+                mEyeDropper = false;
+            }
+
         }
         return true;
     }
@@ -161,8 +179,15 @@ public class DrawView extends View
 
     public void reset()
     {
+        save();
         mBitmap = Bitmap.createBitmap( mWidth, mHeight, Bitmap.Config.ARGB_8888);
         mCanvas = new Canvas(mBitmap);
         invalidate();
+    }
+
+    public void setEyeDropperMode()
+    {
+         mEyeDropper = true;
+
     }
 }

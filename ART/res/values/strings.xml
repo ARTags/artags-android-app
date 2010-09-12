@@ -5,7 +5,6 @@
     <string name="button_view">View existing ARtags near you</string>
     <string name="activity_paint">ARtags Draw</string>
     <string name="activity_ShowImage">Detail</string>
-    <string name="activity_SaveFile">Save File</string>
     <string name="menu_color">Colors</string>
     <string name="menu_emboss">Emboss</string>
     <string name="menu_blur">Blur</string>

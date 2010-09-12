@@ -48,7 +48,7 @@ public class WikitudeShowImageActivity  extends Activity
         mWebView = (WebView) findViewById(R.id.webview);
         mWebView.getSettings().setJavaScriptEnabled(true);
 
-        String url =  Constants.SERVER + "/client/wikitude.jsp?id=111001";
+        String url =  Constants.SERVER + "/client/tag.jsp?id=111001";
         int poiId = this.getIntent().getIntExtra( WikitudeARIntentHelper.EXTRA_INDEX_SELECTED_POI, -1);
         List<WikitudePOI> list = ((ARtagsApplication) this.getApplication()).getPOIs();
         if( (poiId >= 0) && (list != null ))
@@ -60,6 +60,7 @@ public class WikitudeShowImageActivity  extends Activity
         {
             Log.d("ARtags", "Selected POI Id = " + poiId );
         }
+        url =  Constants.SERVER + "/client/tag.jsp?id=111001";
         mWebView.loadUrl( url );
 
     }

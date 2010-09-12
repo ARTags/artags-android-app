@@ -24,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
@@ -131,6 +132,8 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
                 mCenterPaint.setStyle(Paint.Style.FILL);
                 mCenterPaint.setColor(c);
             }
+            mSeekBarIntensity.setBackgroundColor( getColor());
+            mSeekBarSize.setBackgroundColor( getColor());
         }
 
         @Override
@@ -301,16 +304,17 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
     protected void onCreate(Bundle savedInstanceState)
     {
         LinearLayout layout = new LinearLayout(mContext);
-        layout.setBackgroundDrawable( mContext.getResources().getDrawable(R.drawable.background));
+        layout.setBackgroundColor( Color.parseColor("#707070") );
 
         layout.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams dialogParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.FILL_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
-        layout.setPadding(15, 0, 15, 0);
+        layout.setPadding(15, 15, 15, 15);
         layout.setLayoutParams(dialogParams);
 
         setTitle(mContext.getString(R.string.dialog_brush));
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 
         // Color picker
@@ -356,6 +360,9 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
         mButtonOK = (Button) view.findViewById(R.id.button_ok);
         mButtonOK.setOnClickListener(this);
 
+        mSeekBarIntensity.setProgressDrawable( getContext().getResources().getDrawable(R.drawable.progress) );
+        mSeekBarSize.setProgressDrawable( getContext().getResources().getDrawable(R.drawable.progress) );
+
         setContentView(layout);
 
     }
@@ -398,11 +405,8 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
             mProgressTextIntensity.setText("" + progress);
             mIntensity = progress;
 
-
         }
         mColorPickerView.invalidate();
-
-
 
     }
 
