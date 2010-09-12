@@ -53,7 +53,7 @@ public class DrawActivity extends GraphicsActivity
     private static final int ERASE_MENU_ID = Menu.FIRST + 3;
 //    private static final int SRCATOP_MENU_ID = Menu.FIRST + 6;
     private static final int SEND_MENU_ID = Menu.FIRST + 5;
-    private static final int HELP_MENU_ID = Menu.FIRST + 4;
+    private static final int EYEDROPPER_MENU_ID = Menu.FIRST + 4;
     private static final int DIALOG_PROGRESS = 0;
     private DrawView mView;
     private ProgressThread progressThread;
@@ -142,12 +142,12 @@ public class DrawActivity extends GraphicsActivity
         Resources res = getApplicationContext().getResources();
 
         menu.add(0, COLOR_MENU_ID, 0, getString(R.string.menu_color)).setShortcut('3', 'c').setIcon(res.getDrawable(R.drawable.menu_color));
-        menu.add(0, ERASE_MENU_ID, 0, getString(R.string.menu_erase)).setShortcut('5', 'z').setIcon(res.getDrawable(R.drawable.menu_erase));
-        menu.add(0, RESET_MENU_ID, 0, "Reset");
-        menu.add(0, UNDO_MENU_ID, 0, "Undo");
+        menu.add(0, ERASE_MENU_ID, 1, getString(R.string.menu_erase)).setShortcut('5', 'z').setIcon(res.getDrawable(R.drawable.menu_erase));
+        menu.add(0, EYEDROPPER_MENU_ID, 2, "Eyedropper");
+        menu.add(0, UNDO_MENU_ID, 3, "Undo");
+        menu.add(0, RESET_MENU_ID, 4, "Reset");
         //       menu.add(0, SRCATOP_MENU_ID, 0, getString(R.string.menu_srcatop)).setShortcut('5', 'z');
-        menu.add(0, HELP_MENU_ID, 0, "Help");
-        menu.add(0, SEND_MENU_ID, 0, getString(R.string.menu_send)).setShortcut('5', 'z').setIcon(res.getDrawable(R.drawable.menu_save));
+        menu.add(0, SEND_MENU_ID, 5, getString(R.string.menu_send)).setShortcut('5', 'z').setIcon(res.getDrawable(R.drawable.menu_save));
 
         return true;
     }
@@ -169,13 +169,12 @@ public class DrawActivity extends GraphicsActivity
         {
             case COLOR_MENU_ID:
                 Log.i("ARtags", "Menu Brush Parameters selected");
-                final BrushDialog dialogBrushSize = new BrushDialog(this, this, mBP);
-                dialogBrushSize.show();
+                showBrushDialog();
                 return true;
 
-            case HELP_MENU_ID:
+            case EYEDROPPER_MENU_ID:
                 Log.i("ARtags", "Menu Help selected");
-                help();
+                eyedropper();
                 return true;
 
             case RESET_MENU_ID:
@@ -244,14 +243,29 @@ public class DrawActivity extends GraphicsActivity
         mView.reset();
     }
 
-    private void help()
+    private void eyedropper()
     {
+        mView.setEyeDropperMode();
     }
 
     private void send()
     {
         final SendDialog dialog = new SendDialog(this, this);
         dialog.show();
+    }
+
+    private void showBrushDialog()
+    {
+        final BrushDialog dialogBrushSize = new BrushDialog(this, this, mBP);
+        dialogBrushSize.show();
+    }
+
+    public void showBrushDialog(int color)
+    {
+        mBP.setColor(color);
+        mBP.setColorBase(color);
+        mBP.setColorIntensity( 50 );
+        showBrushDialog();
     }
 
     private class ProgressThread extends Thread

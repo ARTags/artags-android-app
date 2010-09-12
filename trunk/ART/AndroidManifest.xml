@@ -28,7 +28,6 @@
         </activity>
 
         <activity android:name=".DrawActivity"
-                  android:theme="@style/tagDialogTheme"
                   android:label="@string/activity_paint"
                   android:screenOrientation="portrait">
             <intent-filter>
@@ -62,12 +61,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".WebViewActivity" android:label="@string/activity_SaveFile">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
 
     </application>
 
