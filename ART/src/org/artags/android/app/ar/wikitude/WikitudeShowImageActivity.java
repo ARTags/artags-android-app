@@ -61,6 +61,7 @@ public class WikitudeShowImageActivity  extends Activity
             Log.d("ARtags", "Selected POI Id = " + poiId );
         }
         url =  Constants.SERVER + "/client/tag.jsp?id=111001";
+        Log.d("ARtags", "Loading url : " + url );
         mWebView.loadUrl( url );
 
     }
