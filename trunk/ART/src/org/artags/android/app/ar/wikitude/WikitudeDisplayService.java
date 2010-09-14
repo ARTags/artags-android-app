@@ -18,7 +18,6 @@ import org.artags.android.app.ar.GenericPOI;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.util.Log;
-import org.artags.android.app.ARtagsApplication;
 import org.artags.android.app.R;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,14 +38,11 @@ public class WikitudeDisplayService
         mActivity = activity;
         List<WikitudePOI> list = buildWikitudePOIs(listGenericPOIs);
 
-        WikitudeARIntent intent = new WikitudeARIntent(activity.getApplication(), null, "507419D8685F116E0AB61704F21734D0", "art");
+        WikitudeARIntent intent = new WikitudeARIntent(activity.getApplication(), null, "4f765149-b4d7-4893-9c2f-397214f685ed", "artags");
 
-//        intent.setMenuItem1("My menu item", CALLBACK_INTENT);
         intent.setPrintMarkerSubText(false);
 
-
         intent.addPOIs(list);
-//        ((ARtagsApplication) mActivity.getApplication()).setPois(list);
 
         try
         {
