@@ -19,6 +19,8 @@ import org.artags.android.app.util.http.HttpUtil;
 import java.io.File;
 import java.util.HashMap;
 import org.artags.android.app.Constants;
+import org.artags.android.app.Security;
+import org.artags.android.app.util.security.SecurityUtils;
 
 /**
  *
@@ -27,10 +29,15 @@ import org.artags.android.app.Constants;
 public class TagUploadService
 {
 
+    private static final String VERSION = "1";
+    private static final String PLATFORM = "ANDROID";
     private static final String PARAMETER_TITLE = "name";
     private static final String PARAMETER_LATITUDE = "lat";
     private static final String PARAMETER_LONGITUDE = "lon";
     private static final String PARAMETER_LANDSCAPE = "landscape";
+    private static final String PARAMETER_VERSION = "version";
+    private static final String PARAMETER_PLATFORM = "platform";
+    private static final String PARAMETER_KEY = "key";
     private static final String URL_UPLOAD_SERVER = Constants.SERVER + "/upload";
 
     public static void upload(Tag tag) throws HttpException
@@ -39,6 +46,10 @@ public class TagUploadService
         map.put(PARAMETER_TITLE, tag.getTitle());
         map.put(PARAMETER_LATITUDE, tag.getLatitude());
         map.put(PARAMETER_LONGITUDE, tag.getLongitude());
+        map.put(PARAMETER_VERSION, VERSION );
+        map.put(PARAMETER_PLATFORM, PLATFORM );
+        map.put(PARAMETER_KEY, SecurityUtils.sha1( tag.getTitle() + Security.KEY_ARTAGS ) );
+
         if (tag.isLandscape())
         {
             map.put(PARAMETER_LANDSCAPE, "on");
