@@ -21,6 +21,7 @@ import android.util.Log;
 import org.artags.android.app.R;
 import java.util.ArrayList;
 import java.util.List;
+import org.artags.android.app.Security;
 import org.openintents.intents.WikitudeARIntent;
 import org.openintents.intents.WikitudePOI;
 
@@ -30,6 +31,7 @@ import org.openintents.intents.WikitudePOI;
  */
 public class WikitudeDisplayService
 {
+
     private static Activity mActivity;
     private static final String CALLBACK_INTENT = "wikitudeapi.SHOWIMAGE";
 
@@ -38,7 +40,7 @@ public class WikitudeDisplayService
         mActivity = activity;
         List<WikitudePOI> list = buildWikitudePOIs(listGenericPOIs);
 
-        WikitudeARIntent intent = new WikitudeARIntent(activity.getApplication(), null, "4f765149-b4d7-4893-9c2f-397214f685ed", "artags");
+        WikitudeARIntent intent = new WikitudeARIntent(activity.getApplication(), null, Security.KEY_WIKITUDE, "artags");
 
         intent.setPrintMarkerSubText(false);
 
@@ -65,12 +67,12 @@ public class WikitudeDisplayService
             double alt = poi.getAltitude();
             String url = poi.getUrl();
             String iconUrl = poi.getIconUrl();
-            Log.d("Wikitude ", "Adding POI : " + lat + ", " + lon + ", 10, \"" + name + "\", \"" + desc +"\"" );
-            WikitudePOI wpoi = new WikitudePOI(lat, lon, 10, name, desc );
-            wpoi.setLink( poi.getUrl() );
+            Log.d("Wikitude ", "Adding POI : " + lat + ", " + lon + ", 10, \"" + name + "\", \"" + desc + "\"");
+            WikitudePOI wpoi = new WikitudePOI(lat, lon, 10, name, desc);
+            wpoi.setLink(poi.getUrl());
 //            wpoi.setIconuri(iconUrl);
-            wpoi.setIconresource( mActivity.getResources().getResourceName(R.drawable.marker ));
-            wpoi.setDetailAction( CALLBACK_INTENT );
+            wpoi.setIconresource(mActivity.getResources().getResourceName(R.drawable.marker));
+            wpoi.setDetailAction(CALLBACK_INTENT);
             list.add(wpoi);
         }
         return list;
