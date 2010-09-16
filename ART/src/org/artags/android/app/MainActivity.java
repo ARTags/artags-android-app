@@ -129,7 +129,7 @@ public class MainActivity extends Activity implements OnClickListener
             return true;
         } else if (PreferencesService.LAYAR.equalsIgnoreCase(ARBrowser))
         {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("layar://artag2"));
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse( "layar://artags" ));
             startActivity(intent);
 
         }

@@ -42,20 +42,24 @@ public class TagUploadService
 
     public static void upload(Tag tag) throws HttpException
     {
-        HashMap map = new HashMap();
-        map.put(PARAMETER_TITLE, tag.getTitle());
-        map.put(PARAMETER_LATITUDE, tag.getLatitude());
-        map.put(PARAMETER_LONGITUDE, tag.getLongitude());
-        map.put(PARAMETER_VERSION, VERSION );
-        map.put(PARAMETER_PLATFORM, PLATFORM );
-        map.put(PARAMETER_KEY, SecurityUtils.sha1( tag.getTitle() + Security.KEY_ARTAGS ) );
+        HashMap<String, String> mapParams = new HashMap<String, String>();
+        mapParams.put(PARAMETER_TITLE, tag.getTitle());
+        mapParams.put(PARAMETER_LATITUDE, tag.getLatitude());
+        mapParams.put(PARAMETER_LONGITUDE, tag.getLongitude());
+        mapParams.put(PARAMETER_VERSION, VERSION );
+        mapParams.put(PARAMETER_PLATFORM, PLATFORM );
+        mapParams.put(PARAMETER_KEY, SecurityUtils.sha1( tag.getTitle() + Security.KEY_ARTAGS ) );
 
         if (tag.isLandscape())
         {
-            map.put(PARAMETER_LANDSCAPE, "on");
+            mapParams.put(PARAMETER_LANDSCAPE, "on");
         }
-        File file = new File(tag.getFilename());
-        HttpUtil.post(URL_UPLOAD_SERVER, map, file, "photo");
+
+        HashMap<String, File> mapFiles = new HashMap<String, File>();
+        mapFiles.put( "photo" , new File(tag.getFilename() ));
+        mapFiles.put( "thumbnail" , new File(tag.getThumbnail() ));
+
+        HttpUtil.post(URL_UPLOAD_SERVER, mapParams, mapFiles);
 
     }
 }

@@ -23,6 +23,7 @@ public class Tag
 
     private String title;
     private String filename;
+    private String thumbnail;
     private String latitude;
     private String longitude;
     private boolean landscape;
@@ -99,5 +100,21 @@ public class Tag
     public boolean isLandscape()
     {
         return landscape;
+    }
+
+    /**
+     * @return the thumbnail
+     */
+    public String getThumbnail()
+    {
+        return thumbnail;
+    }
+
+    /**
+     * @param thumbnail the thumbnail to set
+     */
+    public void setThumbnail(String thumbnail)
+    {
+        this.thumbnail = thumbnail;
     }
 }
