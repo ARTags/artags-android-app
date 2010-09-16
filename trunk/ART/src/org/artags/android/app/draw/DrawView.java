@@ -18,6 +18,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Rect;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,6 +30,8 @@ import org.artags.android.app.DrawActivity;
  */
 public class DrawView extends View
 {
+    private static final int THUMBNAIL_SIZE = 120;
+    private static final int THUMBNAIL_MARGIN = 25;
 
     private Paint mPaint;
     private Bitmap mBitmap;
@@ -189,5 +192,16 @@ public class DrawView extends View
     {
          mEyeDropper = true;
 
+    }
+
+
+    public Bitmap getThumbnail()
+    {
+        Bitmap thumbnail = Bitmap.createBitmap( THUMBNAIL_SIZE , THUMBNAIL_SIZE , Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas( thumbnail );
+        Rect rect = null;
+        rect = new Rect( THUMBNAIL_MARGIN , 0 , THUMBNAIL_SIZE - THUMBNAIL_MARGIN , THUMBNAIL_SIZE );
+        canvas.drawBitmap( mBitmap, null, rect , null);
+        return thumbnail;
     }
 }

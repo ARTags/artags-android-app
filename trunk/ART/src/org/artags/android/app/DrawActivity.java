@@ -34,6 +34,7 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
+import java.util.Date;
 import org.artags.android.app.draw.BrushDialog;
 import org.artags.android.app.draw.DrawView;
 import org.artags.android.app.draw.SendDialog;
@@ -45,8 +46,9 @@ public class DrawActivity extends GraphicsActivity
         implements BrushDialog.OnBrushParametersChangedListener, SendDialog.OnSendListener
 {
 
-    private static final String IMAGE_FILE_LAST_SENT = "last_sent.jpeg";
-    private static final String IMAGE_FILE_BACKUP = "backup.jpeg";
+    private static final String IMAGE_FILE = "last_sent_image.png";
+    private static final String THUMBNAIL_FILE = "last_sent_thumbnail.png";
+    private static final String IMAGE_FILE_BACKUP = "backup.png";
     private static final int COLOR_MENU_ID = Menu.FIRST;
     private static final int RESET_MENU_ID = Menu.FIRST + 1;
     private static final int UNDO_MENU_ID = Menu.FIRST + 2;
@@ -295,13 +297,15 @@ public class DrawActivity extends GraphicsActivity
         {
             try
             {
-                String filename = BitmapUtil.saveImage(IMAGE_FILE_LAST_SENT, mView.getBitmap());
+                String filename = BitmapUtil.saveImage(IMAGE_FILE, mView.getBitmap());
+                String thumbnail = BitmapUtil.saveImage( THUMBNAIL_FILE, mView.getThumbnail());
 
                 Tag tag = new Tag();
                 tag.setTitle(mSendInfos.getTitle());
                 tag.setLatitude("" + mSendInfos.getLatitude());
                 tag.setLongitude("" + mSendInfos.getLongitude());
                 tag.setFilename(filename);
+                tag.setThumbnail(thumbnail);
                 tag.setOrientation(mSendInfos.isLandscape());
                 Log.i("ARtags:DrawActivity:send", "Prepare tag post - Tag name : " + tag.getTitle());
                 Log.i("ARtags:DrawActivity:send", "Prepare tag post - geoloc (" + tag.getLatitude() + "," + tag.getLongitude() + ")");
@@ -309,6 +313,12 @@ public class DrawActivity extends GraphicsActivity
                 Log.i("ARtags:DrawActivity:send", "Post tag");
                 TagUploadService.upload(tag);
                 Log.i("ARtags:DrawActivity:send", "Tag posted successfully");
+
+                // Save a copy on the SD
+                Date date = new Date();
+                String savedfile = "tag-" + date.getTime() + ".png";
+                BitmapUtil.saveImage( savedfile, mView.getBitmap());
+
                 return true;
 
 

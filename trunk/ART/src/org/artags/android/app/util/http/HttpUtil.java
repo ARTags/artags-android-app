@@ -35,7 +35,7 @@ import org.apache.http.util.EntityUtils;
 public class HttpUtil
 {
 
-    public static void post(String sUrl, HashMap<String, String> params, File file, String fileParam ) throws HttpException
+    public static void post(String sUrl, HashMap<String, String> params, HashMap<String, File> files) throws HttpException
     {
 
         try
@@ -43,9 +43,14 @@ public class HttpUtil
             HttpClient client = new DefaultHttpClient();
 
             HttpPost post = new HttpPost(sUrl);
-            FileBody bin = new FileBody(file);
+
             MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
-            reqEntity.addPart( fileParam, bin);
+
+            for (String key : files.keySet())
+            {
+                FileBody bin = new FileBody(files.get(key));
+                reqEntity.addPart(key, bin);
+            }
 
             for (String key : params.keySet())
             {
@@ -66,7 +71,7 @@ public class HttpUtil
         } catch (Exception e)
         {
             Log.e("ARtags:HttpUtil", "Error : " + e.getMessage());
-            throw new HttpException( e.getMessage() );
+            throw new HttpException(e.getMessage());
         }
     }
 }
