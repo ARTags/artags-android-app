@@ -30,8 +30,8 @@ import org.artags.android.app.DrawActivity;
  */
 public class DrawView extends View
 {
-    private static final int THUMBNAIL_SIZE = 120;
-    private static final int THUMBNAIL_MARGIN = 25;
+    private static final int THUMBNAIL_SIZE = 200;
+    private static final int THUMBNAIL_MARGIN = 40;
 
     private Paint mPaint;
     private Bitmap mBitmap;
