@@ -54,8 +54,8 @@ public class MyLocationActivity extends Activity implements OnClickListener, Loc
     private Button mValidateButton;
     private Button mSelectSourceButton;
     private Button mGetPositionButton;
-    private Button mSelectOnMapButton;
-    private Button mDefineAddressButton;
+//    private Button mSelectOnMapButton;
+//    private Button mDefineAddressButton;
     private ProgressBar mProgressBar;
 
     @Override
@@ -77,15 +77,15 @@ public class MyLocationActivity extends Activity implements OnClickListener, Loc
         mValidateButton = (Button) findViewById(R.id.mylocation_validate_button);
         mSelectSourceButton = (Button) findViewById(R.id.mylocation_select_source_button);
         mGetPositionButton = (Button) findViewById(R.id.mylocation_get_position_button);
-        mSelectOnMapButton = (Button) findViewById(R.id.mylocation_select_on_map_button);
-        mDefineAddressButton = (Button) findViewById(R.id.mylocation_enter_position_button);
+//        mSelectOnMapButton = (Button) findViewById(R.id.mylocation_select_on_map_button);
+//        mDefineAddressButton = (Button) findViewById(R.id.mylocation_enter_position_button);
         mProgressBar = (ProgressBar) findViewById( R.id.mylocation_progress );
 
         mValidateButton.setOnClickListener(this);
         mSelectSourceButton.setOnClickListener(this);
         mGetPositionButton.setOnClickListener(this);
-        mSelectOnMapButton.setOnClickListener(this);
-        mDefineAddressButton.setOnClickListener(this);
+//        mSelectOnMapButton.setOnClickListener(this);
+//        mDefineAddressButton.setOnClickListener(this);
 
 
         resetForm();

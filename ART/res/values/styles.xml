@@ -1,29 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="tagDialogTheme" parent="@android:style/Theme.Dialog">
-        <item name="android:windowBackground">@drawable/background</item>
-        <item name="android:textColor">#FF7700</item>
-        <item name="android:typeface">serif</item>
+ <!--       <item name="android:windowBackground">@drawable/background</item> -->
+        <item name="android:textColor">#77DDFF</item>
     </style>
 
     <style name="tagLayout" >
         <item name="android:background">@drawable/background</item>
-        <item name="android:headerBackground">@drawable/background</item>
+<!--        <item name="android:headerBackground">@drawable/background</item>-->
+        <item name="android:padding">10dip</item>
     </style>
 
     <style name="tagEditText" parent="@android:style/Widget.EditText">
-        <item name="android:textColor">#FF7700</item>
+        <item name="android:textColor">#55BBEE</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:typeface">serif</item>
-        <item name="android:background">@drawable/background</item>
         <item name="android:layout_margin">20dip</item>
     </style>
 
     <style name="tagCheckBox" parent="@android:style/Widget.CompoundButton.CheckBox">
-        <item name="android:textColor">#FF7700</item>
+        <item name="android:textColor">#77DDFF</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:typeface">serif</item>
-        <item name="android:background">@drawable/background</item>
     </style>
 
     <style name="tagTextNormal" parent="@android:style/TextAppearance.Medium">
@@ -31,15 +27,13 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">#00FF00</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:typeface">serif</item>
     </style>
     <style name="tagTextTitle" parent="@android:style/TextAppearance.Medium">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">#FF7700</item>
+        <item name="android:textColor">#77DDFF</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">20sp</item>
-        <item name="android:typeface">serif</item>
     </style>
 </resources>
 

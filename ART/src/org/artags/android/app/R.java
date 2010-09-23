@@ -16,22 +16,24 @@ public final class R {
     }
     public static final class drawable {
         public static final int background=0x7f020000;
-        public static final int bt_display=0x7f020001;
-        public static final int bt_display_down=0x7f020002;
-        public static final int bt_draw=0x7f020003;
-        public static final int bt_draw_down=0x7f020004;
-        public static final int credits=0x7f020005;
-        public static final int icon=0x7f020006;
-        public static final int marker=0x7f020007;
-        public static final int menu_blur=0x7f020008;
-        public static final int menu_brush=0x7f020009;
-        public static final int menu_color=0x7f02000a;
-        public static final int menu_emboss=0x7f02000b;
-        public static final int menu_erase=0x7f02000c;
-        public static final int menu_save=0x7f02000d;
-        public static final int progress=0x7f02000e;
-        public static final int splash=0x7f02000f;
-        public static final int splash_land=0x7f020010;
+        public static final int background_draw_display=0x7f020001;
+        public static final int bt_display=0x7f020002;
+        public static final int bt_display_down=0x7f020003;
+        public static final int bt_draw=0x7f020004;
+        public static final int bt_draw_down=0x7f020005;
+        public static final int credits=0x7f020006;
+        public static final int icon=0x7f020007;
+        public static final int marker=0x7f020008;
+        public static final int menu_blur=0x7f020009;
+        public static final int menu_brush=0x7f02000a;
+        public static final int menu_color=0x7f02000b;
+        public static final int menu_emboss=0x7f02000c;
+        public static final int menu_erase=0x7f02000d;
+        public static final int menu_save=0x7f02000e;
+        public static final int menu_undo=0x7f02000f;
+        public static final int progress=0x7f020010;
+        public static final int splash=0x7f020011;
+        public static final int splash_land=0x7f020012;
     }
     public static final class id {
         public static final int brush_size=0x7f080003;
@@ -47,9 +49,6 @@ public final class R {
         public static final int mylocation_address=0x7f08001a;
         public static final int mylocation_address_title=0x7f080019;
         public static final int mylocation_detect_title=0x7f08001b;
-        public static final int mylocation_enter=0x7f080021;
-        public static final int mylocation_enter_location_title=0x7f080020;
-        public static final int mylocation_enter_position_button=0x7f080023;
         public static final int mylocation_form=0x7f08001d;
         public static final int mylocation_get_position_button=0x7f08001f;
         public static final int mylocation_latitude=0x7f080015;
@@ -58,26 +57,25 @@ public final class R {
         public static final int mylocation_longitude=0x7f080017;
         public static final int mylocation_longitude_label=0x7f080016;
         public static final int mylocation_progress=0x7f08001c;
-        public static final int mylocation_select_on_map_button=0x7f080022;
         public static final int mylocation_select_source_button=0x7f08001e;
         public static final int mylocation_title=0x7f080013;
         public static final int mylocation_validate_button=0x7f080018;
-        public static final int preferences_browser=0x7f080028;
-        public static final int preferences_browser_label=0x7f080027;
-        public static final int preferences_browser_title=0x7f080026;
-        public static final int preferences_change_browser_button=0x7f080029;
-        public static final int preferences_layout=0x7f080024;
-        public static final int preferences_title=0x7f080025;
+        public static final int preferences_browser=0x7f080024;
+        public static final int preferences_browser_label=0x7f080023;
+        public static final int preferences_browser_title=0x7f080022;
+        public static final int preferences_change_browser_button=0x7f080025;
+        public static final int preferences_layout=0x7f080020;
+        public static final int preferences_title=0x7f080021;
         public static final int seek_brush_size=0x7f080004;
         public static final int seek_intensity=0x7f080002;
         public static final int send_cancel_button=0x7f08000e;
         public static final int send_search_location=0x7f08000b;
         public static final int send_search_location_progress=0x7f08000c;
         public static final int send_send_button=0x7f08000d;
-        public static final int splash=0x7f08002a;
+        public static final int splash=0x7f080026;
         public static final int toggleBlur=0x7f080006;
         public static final int toggleEmboss=0x7f080005;
-        public static final int webview=0x7f08002b;
+        public static final int webview=0x7f080027;
     }
     public static final class layout {
         public static final int credits=0x7f030000;
