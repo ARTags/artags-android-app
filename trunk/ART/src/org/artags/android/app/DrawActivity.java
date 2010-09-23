@@ -146,7 +146,7 @@ public class DrawActivity extends GraphicsActivity
         menu.add(0, COLOR_MENU_ID, 0, getString(R.string.menu_color)).setShortcut('3', 'c').setIcon(res.getDrawable(R.drawable.menu_color));
         menu.add(0, ERASE_MENU_ID, 1, getString(R.string.menu_erase)).setShortcut('5', 'z').setIcon(res.getDrawable(R.drawable.menu_erase));
         menu.add(0, EYEDROPPER_MENU_ID, 2, "Eyedropper");
-        menu.add(0, UNDO_MENU_ID, 3, "Undo");
+        menu.add(0, UNDO_MENU_ID, 3, "Undo").setIcon(res.getDrawable(R.drawable.menu_undo));
         menu.add(0, RESET_MENU_ID, 4, "Reset");
         //       menu.add(0, SRCATOP_MENU_ID, 0, getString(R.string.menu_srcatop)).setShortcut('5', 'z');
         menu.add(0, SEND_MENU_ID, 5, getString(R.string.menu_send)).setShortcut('5', 'z').setIcon(res.getDrawable(R.drawable.menu_save));
