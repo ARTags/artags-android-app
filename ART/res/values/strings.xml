@@ -33,6 +33,24 @@
     <string name="dialog_brush">Brush parameters</string>
     <string name="label_color">Color :</string>
 
+    <!-- What's new dialog -->
+    <string name="first_run_dialog_title">Welcome to ARTags</string>
+    <string name="first_run_dialog_message">Thanks for downloading ARTags\n
+    Quick start instructions :\n
+    \t• Click on the DRAW button to draw your tag. Use menu to change the brush.\n
+    \t• Send your tag.\n
+    \t• Leave the DRAW feature and click on the DISPLAY button to see tags into the augmented reality\n
+
+    </string>
+    <string name="whats_new_dialog_title">What\'s new in ARTags</string>
+    <string name="whats_new_dialog_message">Thanks for upgrading ARTags\n
+    <b>New in version 1.0.1:</b>\n
+    \t• \n
+    \t• \n
+    \t• \n
+
+    </string>
+
     <!-- Preferences strings -->
     <string name="activity_preferences">Preferences</string>
     <string name="menu_preferences">Preferences</string>

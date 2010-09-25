@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARtags Project owners (see http://artags.org)
+/* Copyright (c) 2010 ARTags Project owners (see http://artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@ import android.app.Application;
  * @author pierre@artags.org
  *
  */
-public class ARtagsApplication extends Application
+public class ARTagsApplication extends Application
 {
 
     /** the POIs */

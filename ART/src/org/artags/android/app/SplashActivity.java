@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARtags Project owners (see http://artags.org)
+/* Copyright (c) 2010 ARTags Project owners (see http://artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -15,6 +15,9 @@
 package org.artags.android.app;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +25,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import org.artags.android.app.preferences.PreferencesService;
 
 /**
  *
@@ -30,7 +34,10 @@ import android.widget.ImageView;
 public class SplashActivity extends Activity implements OnClickListener
 {
 
-    ImageView mImageView;
+    private static final int WHATS_NEW_DIALOG = 0;
+    private ImageView mImageView;
+    private int mResTitle;
+    private int mResMessage;
 
     /** Called when the activity is first created. */
     @Override
@@ -46,6 +53,7 @@ public class SplashActivity extends Activity implements OnClickListener
 
         mImageView = (ImageView) findViewById(R.id.splash);
         mImageView.setOnClickListener(this);
+        checkLastVersion();
 
     }
 
@@ -59,4 +67,44 @@ public class SplashActivity extends Activity implements OnClickListener
         }
     }
 
+    @Override
+    protected Dialog onCreateDialog(int id)
+    {
+        Dialog dialog;
+        if (id == WHATS_NEW_DIALOG)
+        {
+            Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle( mResTitle);
+            builder.setPositiveButton(R.string.button_ok, null);
+            builder.setMessage(mResMessage);
+            dialog = builder.create();
+        } else
+        {
+            dialog = super.onCreateDialog(id);
+        }
+        return dialog;
+    }
+
+    private void checkLastVersion()
+    {
+        final int lastVersion = PreferencesService.instance().getVersion(this);
+        if ( lastVersion < Constants.VERSION)
+        {
+            if( lastVersion == 0 )
+            {
+                // This is a new install
+                mResTitle = R.string.first_run_dialog_title;
+                mResMessage = R.string.first_run_dialog_message;
+            }
+            else
+            {
+                // This is an upgrade.
+                mResTitle = R.string.whats_new_dialog_title;
+                mResMessage = R.string.whats_new_dialog_message;
+            }
+            // show what's new message
+            PreferencesService.instance().saveVersion(this, Constants.VERSION );
+            showDialog(WHATS_NEW_DIALOG);
+        }
+    }
 }
