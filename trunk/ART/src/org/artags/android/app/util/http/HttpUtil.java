@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARtags Project owners (see http://artags.org)
+/* Copyright (c) 2010 ARTags Project owners (see http://artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -64,13 +64,13 @@ public class HttpUtil
             HttpEntity resEntity = response.getEntity();
             if (resEntity != null)
             {
-                Log.i("ARtags:HttpUtil:Post:Response", EntityUtils.toString(resEntity));
+                Log.i("ARTags:HttpUtil:Post:Response", EntityUtils.toString(resEntity));
             }
 
             //return response;
         } catch (Exception e)
         {
-            Log.e("ARtags:HttpUtil", "Error : " + e.getMessage());
+            Log.e("ARTags:HttpUtil", "Error : " + e.getMessage());
             throw new HttpException(e.getMessage());
         }
     }

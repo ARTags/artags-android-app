@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARtags Project owners (see http://artags.org)
+/* Copyright (c) 2010 ARTags Project owners (see http://artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -25,6 +25,7 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -53,6 +54,10 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
     private ProgressBar mProgress;
     private boolean mFound;
 
+    private void gotoMyLocation()
+    {
+    }
+
     public interface OnSendListener
     {
 
@@ -69,7 +74,8 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        setTitle(R.string.dialog_send);
+        // setTitle(R.string.dialog_send);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_send);
 
 
@@ -86,7 +92,7 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
 
         mSendButton.setEnabled(false);
 
-        Log.i( "ARtags:SendDialog" , "Start searching GPS location");
+        Log.i("ARTags:SendDialog", "Start searching GPS location");
         mLocationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 60000, 0, this);
 
@@ -99,29 +105,42 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
     {
         if (view == mSendButton)
         {
-            SendInfos si = new SendInfos();
-            si.setTitle(mEditTitle.getText().toString());
-            si.setLandscape(mLandscapeCB.isChecked());
-            if (mLocation != null)
+            if (mFound)
             {
-                si.setLatitude(mLocation.getLatitude());
-                si.setLongitude(mLocation.getLongitude());
+                send();
             } else
             {
-                si.setLatitude(48.0);
-                si.setLongitude(2.0);
+                mLocation = LocationService.getLocation(mContext);
+                send();
             }
-            mListener.setSendInfos(si);
-            dismiss();
         } else if (view == mCancelButton)
         {
             dismiss();
         }
     }
 
+    private void send()
+    {
+        SendInfos si = new SendInfos();
+        si.setTitle(mEditTitle.getText().toString());
+        si.setLandscape(mLandscapeCB.isChecked());
+        if (mLocation != null)
+        {
+            si.setLatitude(mLocation.getLatitude());
+            si.setLongitude(mLocation.getLongitude());
+        } else
+        {
+            si.setLatitude(48.0);
+            si.setLongitude(2.0);
+        }
+        mListener.setSendInfos(si);
+        dismiss();
+
+    }
+
     public void onLocationChanged(Location location)
     {
-        Log.i("ARtags:SendDialog", "Location found (" + location.getLatitude() + "," + location.getLongitude() + ")");
+        Log.i("ARTags:SendDialog", "Location found (" + location.getLatitude() + "," + location.getLongitude() + ")");
         mLocation = location;
         mSeachTextView.setText(mContext.getString(R.string.send_search_gps_found));
         mProgress.setVisibility(View.INVISIBLE);
@@ -132,18 +151,18 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
 
     public void onProviderDisabled(String provider)
     {
-        Log.i("ARtags:SendDialog", "Location Provider disabled");
+        Log.i("ARTags:SendDialog", "Location Provider disabled");
         mLocationManager.removeUpdates(this);
     }
 
     public void onProviderEnabled(String provider)
     {
-        Log.i("ARtags:SendDialog", "Location Provider enabled.");
+        Log.i("ARTags:SendDialog", "Location Provider enabled.");
     }
 
     public void onStatusChanged(String provider, int status, Bundle extras)
     {
-        Log.i("ARtags:SendDialog", "Location Provider status changed.");
+        Log.i("ARTags:SendDialog", "Location Provider status changed.");
     }
     final Handler mHandler = new Handler();
     final Runnable mUpdateLocation = new Runnable()
@@ -177,9 +196,9 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
     {
         if (!mFound)
         {
-            mLocation = LocationService.getLocation(mContext);
             mSeachTextView.setText(mContext.getString(R.string.send_search_gps_not_found));
             mProgress.setVisibility(View.INVISIBLE);
+//            mSendButton.setText("MyLocation");
             mSendButton.setEnabled(true);
         }
     }

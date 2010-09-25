@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARtags Project owners (see http://artags.org)
+/* Copyright (c) 2010 ARTags Project owners (see http://artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -26,6 +26,7 @@ import org.artags.android.app.draw.BrushParameters;
  */
 public class PreferencesService
 {
+    public static final String KEY_VERSION = "version";
     public static final String LAYAR = "Layar";
     public static final String WIKITUDE = "Wikitude";
 
@@ -93,6 +94,20 @@ public class PreferencesService
         bp.setBrushSize( prefs.getInt( KEY_BRUSH_SIZE, DEFAULT_BRUSH_SIZE ));
         bp.setBlur( prefs.getBoolean( KEY_BLUR_EFFECT , false ));
         bp.setEmboss( prefs.getBoolean( KEY_EMBOSS_EFFECT , false ));
+    }
+
+    public int getVersion( Activity activity )
+    {
+        SharedPreferences prefs = activity.getSharedPreferences(SHARED_PREFS_NAME, Activity.MODE_PRIVATE);
+        return prefs.getInt( KEY_VERSION , 0 );
+    }
+
+    public void saveVersion( Activity activity , int version )
+    {
+        SharedPreferences prefs = activity.getSharedPreferences( SHARED_PREFS_NAME, Activity.MODE_PRIVATE);
+        Editor editor = prefs.edit();
+        editor.putInt( KEY_VERSION, version );
+        editor.commit();
     }
 
 }

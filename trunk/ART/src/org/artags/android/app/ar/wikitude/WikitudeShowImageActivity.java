@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARtags Project owners (see http://artags.org)
+/* Copyright (c) 2010 ARTags Project owners (see http://artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -22,7 +22,7 @@ import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebView;
-import org.artags.android.app.ARtagsApplication;
+import org.artags.android.app.ARTagsApplication;
 import org.artags.android.app.R;
 import java.util.List;
 import org.artags.android.app.Constants;
@@ -50,7 +50,7 @@ public class WikitudeShowImageActivity  extends Activity
 
         String url =  Constants.SERVER + "/client/tag.jsp?id=111001";
         int poiId = this.getIntent().getIntExtra( WikitudeARIntentHelper.EXTRA_INDEX_SELECTED_POI, -1);
-        List<WikitudePOI> list = ((ARtagsApplication) this.getApplication()).getPOIs();
+        List<WikitudePOI> list = ((ARTagsApplication) this.getApplication()).getPOIs();
         if( (poiId >= 0) && (list != null ))
         {
             WikitudePOI poi = list.get(poiId);
@@ -58,10 +58,10 @@ public class WikitudeShowImageActivity  extends Activity
         }
         else
         {
-            Log.d("ARtags", "Selected POI Id = " + poiId );
+            Log.d("ARTags", "Selected POI Id = " + poiId );
         }
         url =  Constants.SERVER + "/client/tag.jsp?id=111001";
-        Log.d("ARtags", "Loading url : " + url );
+        Log.d("ARTags", "Loading url : " + url );
         mWebView.loadUrl( url );
 
     }

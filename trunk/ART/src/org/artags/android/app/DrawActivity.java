@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARtags Project owners (see http://artags.org)
+/* Copyright (c) 2010 ARTags Project owners (see http://artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -170,27 +170,27 @@ public class DrawActivity extends GraphicsActivity
         switch (item.getItemId())
         {
             case COLOR_MENU_ID:
-                Log.i("ARtags", "Menu Brush Parameters selected");
+                Log.i("ARTags", "Menu Brush Parameters selected");
                 showBrushDialog();
                 return true;
 
             case EYEDROPPER_MENU_ID:
-                Log.i("ARtags", "Menu Help selected");
+                Log.i("ARTags", "Menu Help selected");
                 eyedropper();
                 return true;
 
             case RESET_MENU_ID:
-                Log.i("ARtags", "Menu Reset selected");
+                Log.i("ARTags", "Menu Reset selected");
                 reset();
                 return true;
 
             case UNDO_MENU_ID:
-                Log.i("ARtags", "Menu Undo selected");
+                Log.i("ARTags", "Menu Undo selected");
                 undo();
                 return true;
 
             case ERASE_MENU_ID:
-                Log.i("ARtags", "Menu Erase selected");
+                Log.i("ARTags", "Menu Erase selected");
                 mPaint.setXfermode(new PorterDuffXfermode(
                         PorterDuff.Mode.CLEAR));
                 return true;
@@ -202,7 +202,7 @@ public class DrawActivity extends GraphicsActivity
              */
 
             case SEND_MENU_ID:
-                Log.i("ARtags", "Menu Send selected");
+                Log.i("ARTags", "Menu Send selected");
                 send();
                 return true;
         }
@@ -307,12 +307,12 @@ public class DrawActivity extends GraphicsActivity
                 tag.setFilename(filename);
                 tag.setThumbnail(thumbnail);
                 tag.setOrientation(mSendInfos.isLandscape());
-                Log.i("ARtags:DrawActivity:send", "Prepare tag post - Tag name : " + tag.getTitle());
-                Log.i("ARtags:DrawActivity:send", "Prepare tag post - geoloc (" + tag.getLatitude() + "," + tag.getLongitude() + ")");
+                Log.i("ARTags:DrawActivity:send", "Prepare tag post - Tag name : " + tag.getTitle());
+                Log.i("ARTags:DrawActivity:send", "Prepare tag post - geoloc (" + tag.getLatitude() + "," + tag.getLongitude() + ")");
 
-                Log.i("ARtags:DrawActivity:send", "Post tag");
+                Log.i("ARTags:DrawActivity:send", "Post tag");
                 TagUploadService.upload(tag);
-                Log.i("ARtags:DrawActivity:send", "Tag posted successfully");
+                Log.i("ARTags:DrawActivity:send", "Tag posted successfully");
 
                 // Save a copy on the SD
                 Date date = new Date();
@@ -324,7 +324,7 @@ public class DrawActivity extends GraphicsActivity
 
             } catch (Exception e)
             {
-                Log.e("ARtags:DrawActivity:send", "Exception while writing or sending the tag", e);
+                Log.e("ARTags:DrawActivity:send", "Exception while writing or sending the tag", e);
                 return false;
             }
         }

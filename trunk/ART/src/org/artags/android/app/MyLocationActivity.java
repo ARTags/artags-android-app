@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARtags Project owners (see http://artags.org)
+/* Copyright (c) 2010 ARTags Project owners (see http://artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -209,7 +209,7 @@ public class MyLocationActivity extends Activity implements OnClickListener, Loc
 
     public void onLocationChanged(Location location)
     {
-        Log.i("ARtags - MyLocation", "Location changed");
+        Log.i("ARTags - MyLocation", "Location changed");
         showProgress(false);
 
         this.mLocation = location;
@@ -220,7 +220,7 @@ public class MyLocationActivity extends Activity implements OnClickListener, Loc
 
     public void onProviderDisabled(String provider)
     {
-        Log.i("ARtags - MyLocation", "Location Provider disabled");
+        Log.i("ARTags - MyLocation", "Location Provider disabled");
         Toast.makeText(MyLocationActivity.this,
                 String.format("Provider \"%s\" disabled", provider),
                 Toast.LENGTH_SHORT).show();
@@ -230,12 +230,12 @@ public class MyLocationActivity extends Activity implements OnClickListener, Loc
 
     public void onProviderEnabled(String provider)
     {
-        Log.i("ARtags - MyLocation", "Location Provider enabled.");
+        Log.i("ARTags - MyLocation", "Location Provider enabled.");
     }
 
     public void onStatusChanged(String provider, int status, Bundle extras)
     {
-        Log.i("ARtags - MyLocation", "Location Provider status changed.");
+        Log.i("ARTags - MyLocation", "Location Provider status changed.");
     }
 
     private void showProgress( boolean show )
