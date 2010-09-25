@@ -16,6 +16,7 @@ package org.artags.android.app.util.bitmap;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
 import android.os.Environment;
 import android.util.Log;
 import java.io.File;
@@ -56,6 +57,10 @@ public class BitmapUtil
                 Log.e("ARTags:BitmapUtil:saveImage", "Exception while writing the tag", e);
             }
         }
+        else
+        {
+             Log.e("ARTags:BitmapUtil:saveImage", "Can't write on the volume");
+        }
         return null;
 
     }
@@ -67,7 +72,9 @@ public class BitmapUtil
         {
             File directory = new File(root.getPath() + ROOT_DIRECTORY);
             String filepath = directory.getPath() + "/" + filename;
-            return BitmapFactory.decodeFile(filepath );
+            Options option = new Options();
+            option.inScaled = false;
+            return BitmapFactory.decodeFile(filepath , option );
 
 
         } catch (Exception e)

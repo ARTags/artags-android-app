@@ -39,8 +39,9 @@
     Quick start instructions :\n
     \t• Click on the DRAW button to draw your tag. Use menu to change the brush.\n
     \t• Send your tag.\n
+    \t• ARTags is using your GPS to find your location, it may not work inside.
     \t• Leave the DRAW feature and click on the DISPLAY button to see tags into the augmented reality\n
-
+    \t• Enjoy it!\n
     </string>
     <string name="whats_new_dialog_title">What\'s new in ARTags</string>
     <string name="whats_new_dialog_message">Thanks for upgrading ARTags\n
