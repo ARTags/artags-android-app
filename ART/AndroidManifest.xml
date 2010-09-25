@@ -7,7 +7,7 @@
 
     <uses-sdk android:minSdkVersion="7" />
 
-    <supports-screens android:anyDensity="false" />
+    <supports-screens android:anyDensity="false" />  
      
 
     <application android:name=".ARTagsApplication" android:icon="@drawable/icon"  android:label="@string/app_name" android:debuggable="true">
