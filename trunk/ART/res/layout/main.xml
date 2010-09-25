@@ -2,17 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="fill_parent" 
-              android:layout_height="wrap_content"
+              android:layout_height="fill_parent"
               android:background="@drawable/background"
               android:layout_gravity="center">"
     
 
     <ImageButton
         android:id="@+id/button_draw"
-        android:background="@drawable/bt_draw" android:layout_height="200px" android:layout_width="200px" android:layout_gravity="center_horizontal" android:layout_margin="5px"/>
+        android:background="@drawable/bt_draw" 
+        android:layout_height="200px"
+        android:layout_width="200px"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10px"/>
 
     <ImageButton
         android:id="@+id/button_display"
-        android:layout_height="200px" android:layout_width="200px" android:background="@drawable/bt_display" android:layout_gravity="center_horizontal" android:layout_margin="5px"/>
+        android:layout_height="200px" 
+        android:layout_width="200px"
+        android:background="@drawable/bt_display"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10px"/>
 
 </LinearLayout>
