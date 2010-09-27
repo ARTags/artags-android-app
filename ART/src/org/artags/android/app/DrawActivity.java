@@ -42,7 +42,6 @@ import org.artags.android.app.preferences.PreferencesService;
 import org.artags.android.app.util.bitmap.BitmapUtil;
 
 public class DrawActivity extends GraphicsActivity
-        //        implements ColorPickerDialog.OnColorChangedListener, BrushSizeDialog.OnBrushSizeListener
         implements BrushDialog.OnBrushParametersChangedListener, SendDialog.OnSendListener
 {
 
@@ -50,12 +49,11 @@ public class DrawActivity extends GraphicsActivity
     private static final String THUMBNAIL_FILE = "last_sent_thumbnail.png";
     private static final String IMAGE_FILE_BACKUP = "backup.png";
     private static final int COLOR_MENU_ID = Menu.FIRST;
-    private static final int RESET_MENU_ID = Menu.FIRST + 1;
-    private static final int UNDO_MENU_ID = Menu.FIRST + 2;
-    private static final int ERASE_MENU_ID = Menu.FIRST + 3;
-//    private static final int SRCATOP_MENU_ID = Menu.FIRST + 6;
+    private static final int ERASE_MENU_ID = Menu.FIRST + 1;
+    private static final int EYEDROPPER_MENU_ID = Menu.FIRST + 2;
+    private static final int UNDO_MENU_ID = Menu.FIRST + 3;
+    private static final int RESET_MENU_ID = Menu.FIRST + 4;
     private static final int SEND_MENU_ID = Menu.FIRST + 5;
-    private static final int EYEDROPPER_MENU_ID = Menu.FIRST + 4;
     private static final int DIALOG_PROGRESS = 0;
     private DrawView mView;
     private ProgressThread progressThread;
@@ -143,13 +141,12 @@ public class DrawActivity extends GraphicsActivity
         super.onCreateOptionsMenu(menu);
         Resources res = getApplicationContext().getResources();
 
-        menu.add(0, COLOR_MENU_ID, 0, getString(R.string.menu_color)).setShortcut('3', 'c').setIcon(res.getDrawable(R.drawable.menu_color));
-        menu.add(0, ERASE_MENU_ID, 1, getString(R.string.menu_erase)).setShortcut('5', 'z').setIcon(res.getDrawable(R.drawable.menu_erase));
-        menu.add(0, EYEDROPPER_MENU_ID, 2, "Eyedropper");
-        menu.add(0, UNDO_MENU_ID, 3, "Undo").setIcon(res.getDrawable(R.drawable.menu_undo));
-        menu.add(0, RESET_MENU_ID, 4, "Reset");
-        //       menu.add(0, SRCATOP_MENU_ID, 0, getString(R.string.menu_srcatop)).setShortcut('5', 'z');
-        menu.add(0, SEND_MENU_ID, 5, getString(R.string.menu_send)).setShortcut('5', 'z').setIcon(res.getDrawable(R.drawable.menu_save));
+        menu.add(0, COLOR_MENU_ID, 0, getString(R.string.menu_color)).setIcon(res.getDrawable(R.drawable.menu_color));
+        menu.add(0, ERASE_MENU_ID, 1, getString(R.string.menu_erase)).setIcon(res.getDrawable(R.drawable.menu_erase));
+        menu.add(0, EYEDROPPER_MENU_ID, 2, getString(R.string.menu_eyedropper)).setIcon(res.getDrawable(R.drawable.menu_eyedropper));
+        menu.add(0, UNDO_MENU_ID, 3, getString(R.string.menu_undo)).setIcon(res.getDrawable(R.drawable.menu_undo));
+        menu.add(0, RESET_MENU_ID, 4, getString(R.string.menu_reset)).setIcon(res.getDrawable(R.drawable.menu_reset));
+        menu.add(0, SEND_MENU_ID, 5, getString(R.string.menu_send)).setIcon(res.getDrawable(R.drawable.menu_send));
 
         return true;
     }
@@ -175,7 +172,7 @@ public class DrawActivity extends GraphicsActivity
                 return true;
 
             case EYEDROPPER_MENU_ID:
-                Log.i("ARTags", "Menu Help selected");
+                Log.i("ARTags", "Menu Eyedropper selected");
                 eyedropper();
                 return true;
 

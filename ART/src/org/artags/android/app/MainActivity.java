@@ -175,9 +175,9 @@ public class MainActivity extends Activity implements OnClickListener
     public boolean onCreateOptionsMenu(Menu menu)
     {
         super.onCreateOptionsMenu(menu);
-        menu.add(0, MYLOCATION_MENU_ID, 0, getString(R.string.menu_mylocation));
-        menu.add(1, PREFERENCES_MENU_ID, 0, getString(R.string.menu_preferences));
-        menu.add(2, CREDITS_MENU_ID, 0, getString(R.string.menu_credits));
+        menu.add(0, MYLOCATION_MENU_ID, 0, getString(R.string.menu_mylocation)).setIcon(R.drawable.menu_mylocation);
+        menu.add(1, PREFERENCES_MENU_ID, 0, getString(R.string.menu_preferences)).setIcon(R.drawable.menu_preferences);
+        menu.add(2, CREDITS_MENU_ID, 0, getString(R.string.menu_credits)).setIcon(R.drawable.menu_credits);
         return true;
     }
 
