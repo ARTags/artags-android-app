@@ -11,6 +11,58 @@
               android:gravity="left"
               android:layout_margin="10dip" />
 
+    <TextView android:text="@string/mylocation_detect_title" style="@style/tagTextTitle"
+              android:id="@+id/mylocation_detect_title"
+              android:layout_below="@id/mylocation_title"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:gravity="left"
+              android:textStyle="bold"
+              android:textSize="18sp"
+              android:layout_margin="10dip" />
+
+    <ProgressBar android:id="@+id/mylocation_progress"
+                 style="?android:attr/progressBarStyle"
+                 android:layout_alignParentRight="true"
+                 android:layout_alignBottom="@id/mylocation_detect_title"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_margin="10dip" />
+
+    <LinearLayout android:id="@+id/mylocation_form"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_below="@id/mylocation_detect_title"
+                  android:layout_centerHorizontal="true"
+                  android:layout_marginTop="10dip">
+
+        <Button android:layout_height="wrap_content"
+                android:id="@+id/mylocation_select_source_button"
+                android:text="@string/mylocation_select_source"
+                android:layout_width="150dip" />
+
+        <Button android:layout_height="wrap_content"
+                android:id="@+id/mylocation_get_position_button"
+                android:text="@string/mylocation_get_position"
+                android:layout_width="150dip" />
+
+    </LinearLayout>
+
+    <TextView android:text="@string/mylocation_address_title" style="@style/tagTextTitle"
+              android:id="@+id/mylocation_address_title"
+              android:layout_below="@id/mylocation_form"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:gravity="left"
+              android:layout_margin="10dip" />
+
+    <TextView android:id="@+id/mylocation_address"
+              android:layout_below="@id/mylocation_address_title"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_centerHorizontal="true"
+              android:layout_marginTop="10dip" />
+
     <TextView android:text="@string/mylocation_latitude" style="@style/tagTextNormal"
               android:id="@+id/mylocation_latitude_label"
               android:layout_width="wrap_content"
@@ -24,7 +76,7 @@
               android:id="@+id/mylocation_latitude"
               android:layout_height="wrap_content"
               android:layout_alignParentRight="true"
-              android:layout_below="@id/mylocation_title"
+              android:layout_below="@id/mylocation_address"
               android:editable="false"
               android:focusable="false"
               android:gravity="center"
@@ -52,74 +104,29 @@
               android:layout_below="@+id/mylocation_latitude" />
 
 
-    <Button android:id="@+id/mylocation_validate_button"
-            android:text="@string/mylocation_validate"
-            android:layout_below="@id/mylocation_longitude"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dip"
-            android:layout_width="180dip" />
-
-
-    <TextView android:text="@string/mylocation_address_title" style="@style/tagTextTitle"
-              android:id="@+id/mylocation_address_title"
-              android:layout_below="@id/mylocation_validate_button"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:gravity="left"
-              android:layout_margin="10dip" />
-    <!--
-    <Button android:id="@+id/mylocation_get_address_button"
-            android:text="@string/mylocation_get_address"
-            android:layout_below="@id/mylocation_address_title"
-            android:layout_height="wrap_content"
-            android:layout_width="100dip" /> style="@style/tagEditText"
--->
-    <TextView android:id="@+id/mylocation_address"
-              android:layout_below="@id/mylocation_address_title"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_centerHorizontal="true"
-              android:layout_marginTop="10dip" />
-
-    <TextView android:text="@string/mylocation_detect_title" style="@style/tagTextTitle"
-              android:id="@+id/mylocation_detect_title"
-              android:layout_below="@id/mylocation_address"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:gravity="left"
-              android:textStyle="bold"
-              android:textSize="18sp"
-              android:layout_margin="10dip" />
-
-    <ProgressBar android:id="@+id/mylocation_progress"
-                 style="?android:attr/progressBarStyleSmall"
-                 android:layout_alignParentRight="true"
-                 android:layout_marginRight="10dip"
-                 android:layout_alignBottom="@+id/mylocation_detect_title"
-                 android:layout_alignTop="@+id/mylocation_detect_title"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content" />
-
-    <LinearLayout android:id="@+id/mylocation_form"
+    <LinearLayout android:id="@+id/mylocation_validate"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:layout_below="@id/mylocation_detect_title"
+                  android:layout_below="@id/mylocation_longitude"
                   android:layout_centerHorizontal="true"
                   android:layout_marginTop="10dip">
 
-        <Button android:layout_height="wrap_content"
-                android:id="@+id/mylocation_select_source_button"
-                android:text="@string/mylocation_select_source"
+        <Button android:id="@+id/mylocation_validate_button"
+                android:layout_height="wrap_content"
+                android:text="@string/mylocation_validate"
                 android:layout_width="150dip" />
 
-        <Button android:layout_height="wrap_content"
-                android:id="@+id/mylocation_get_position_button"
-                android:text="@string/mylocation_get_position"
+        <Button android:id="@+id/mylocation_cancel_button"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel"
                 android:layout_width="150dip" />
+
 
     </LinearLayout>
-<!--
+
+
+
+    <!--
     <TextView android:text="@string/mylocation_enter_location_title" style="@style/tagTextTitle"
               android:id="@+id/mylocation_enter_location_title"
               android:layout_below="@id/mylocation_form"

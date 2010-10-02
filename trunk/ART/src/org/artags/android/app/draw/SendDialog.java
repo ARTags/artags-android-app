@@ -31,8 +31,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import org.artags.android.app.DrawActivity;
 import org.artags.android.app.R;
-import org.artags.android.app.util.location.LocationService;
+import org.artags.android.app.preferences.PreferencesService;
 
 /**
  *
@@ -42,21 +43,17 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
 {
 
     private static final int TIMEOUT = 15000;
+    private DrawActivity mActivity;
     private EditText mEditTitle;
-    private CheckBox mLandscapeCB;
-    private Context mContext;
-    private Button mSendButton;
-    private Button mCancelButton;
+    private CheckBox mCheckBoxLandscape;
+    private Button mButtonSend;
+    private Button mButtonCancel;
     private OnSendListener mListener;
     private Location mLocation;
     private LocationManager mLocationManager;
     private TextView mSeachTextView;
     private ProgressBar mProgress;
-    private boolean mFound;
-
-    private void gotoMyLocation()
-    {
-    }
+    public boolean mFound;
 
     public interface OnSendListener
     {
@@ -64,10 +61,10 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
         void setSendInfos(SendInfos si);
     }
 
-    public SendDialog(Context context, OnSendListener listener)
+    public SendDialog(DrawActivity context, OnSendListener listener)
     {
         super(context);
-        mContext = context;
+        mActivity = context;
         mListener = listener;
     }
 
@@ -80,20 +77,20 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
 
 
         mEditTitle = (EditText) findViewById(R.id.edit_title);
-        mLandscapeCB = (CheckBox) findViewById(R.id.checkbox_landscape);
-        mSendButton = (Button) findViewById(R.id.send_send_button);
-        mCancelButton = (Button) findViewById(R.id.send_cancel_button);
+        mCheckBoxLandscape = (CheckBox) findViewById(R.id.checkbox_landscape);
+        mButtonSend = (Button) findViewById(R.id.send_send_button);
+        mButtonCancel = (Button) findViewById(R.id.send_cancel_button);
         mSeachTextView = (TextView) findViewById(R.id.send_search_location);
         mProgress = (ProgressBar) findViewById(R.id.send_search_location_progress);
 
-        mLandscapeCB.setOnClickListener(this);
-        mSendButton.setOnClickListener(this);
-        mCancelButton.setOnClickListener(this);
+        mCheckBoxLandscape.setOnClickListener(this);
+        mButtonSend.setOnClickListener(this);
+        mButtonCancel.setOnClickListener(this);
 
-        mSendButton.setEnabled(false);
+        mButtonSend.setEnabled(false);
 
         Log.i("ARTags:SendDialog", "Start searching GPS location");
-        mLocationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
+        mLocationManager = (LocationManager) mActivity.getSystemService(Context.LOCATION_SERVICE);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 60000, 0, this);
 
         startTimeout();
@@ -103,27 +100,48 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
 
     public void onClick(View view)
     {
-        if (view == mSendButton)
+        if (view == mButtonSend)
         {
             if (mFound)
             {
                 send();
             } else
             {
-                mLocation = LocationService.getLocation(mContext);
-                send();
+                hide();
+                mActivity.gotoMyLocation();
             }
-        } else if (view == mCancelButton)
+        } else if (view == mButtonCancel)
         {
             dismiss();
         }
     }
 
+    public void onMyLocationResult( boolean ok )
+    {
+        if( ok )
+        {
+                mSeachTextView.setText( mActivity.getString(R.string.send_approximate_location_found));
+                mButtonSend.setText( mActivity.getString(R.string.send_button_send) );
+                mFound = true;
+        }
+        else
+        {
+                mSeachTextView.setText( mActivity.getString(R.string.send_search_gps_not_found));
+                mButtonSend.setText( mActivity.getString(R.string.send_button_send) );
+                mButtonSend.setEnabled(false);
+                mFound = true;
+        }
+        show();
+
+    }
+
+
+
     private void send()
     {
         SendInfos si = new SendInfos();
         si.setTitle(mEditTitle.getText().toString());
-        si.setLandscape(mLandscapeCB.isChecked());
+        si.setLandscape(mCheckBoxLandscape.isChecked());
         if (mLocation != null)
         {
             si.setLatitude(mLocation.getLatitude());
@@ -142,11 +160,11 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
     {
         Log.i("ARTags:SendDialog", "Location found (" + location.getLatitude() + "," + location.getLongitude() + ")");
         mLocation = location;
-        mSeachTextView.setText(mContext.getString(R.string.send_search_gps_found));
+        mSeachTextView.setText(mActivity.getString(R.string.send_search_gps_found));
         mProgress.setVisibility(View.INVISIBLE);
         mLocationManager.removeUpdates(this);
         mFound = true;
-        mSendButton.setEnabled(true);
+        mButtonSend.setEnabled(true);
     }
 
     public void onProviderDisabled(String provider)
@@ -196,10 +214,16 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
     {
         if (!mFound)
         {
-            mSeachTextView.setText(mContext.getString(R.string.send_search_gps_not_found));
+            if (PreferencesService.instance().getMyLocation(mActivity))
+            {
+                mSeachTextView.setText(mActivity.getString(R.string.send_search_gps_not_found_use_mylocation));
+                mButtonSend.setText(  mActivity.getString(R.string.send_button_mylocation) );
+                mButtonSend.setEnabled(true);
+            } else
+            {
+                mSeachTextView.setText(mActivity.getString(R.string.send_search_gps_not_found));
+            }
             mProgress.setVisibility(View.INVISIBLE);
-//            mSendButton.setText("MyLocation");
-            mSendButton.setEnabled(true);
         }
     }
 }
