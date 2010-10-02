@@ -46,11 +46,11 @@ public class MainActivity extends Activity implements OnClickListener
 {
 
 
-    private static final String INTENT_PACKAGE = "org.artags.android.app";
+    public static final String INTENT_PACKAGE = "org.artags.android.app";
     private static final String INTENT_DRAW_CLASS = INTENT_PACKAGE + ".DrawActivity";
     private static final String INTENT_PREFERENCES_CLASS = INTENT_PACKAGE + ".PreferencesActivity";
     private static final String INTENT_CREDITS_CLASS = INTENT_PACKAGE + ".CreditsActivity";
-    private static final String INTENT_MYLOCATION_CLASS = INTENT_PACKAGE + ".MyLocationActivity";
+    public static final String INTENT_MYLOCATION_CLASS = INTENT_PACKAGE + ".MyLocationActivity";
     private static final int DIALOG_PROGRESS = 0;
     private static final int PREFERENCES_MENU_ID = 0;
     private static final int CREDITS_MENU_ID = 1;
@@ -181,7 +181,7 @@ public class MainActivity extends Activity implements OnClickListener
     public boolean onCreateOptionsMenu(Menu menu)
     {
         super.onCreateOptionsMenu(menu);
-        menu.add(0, MYLOCATION_MENU_ID, 0, getString(R.string.menu_mylocation)).setIcon(R.drawable.menu_mylocation);
+//        menu.add(0, MYLOCATION_MENU_ID, 0, getString(R.string.menu_mylocation)).setIcon(R.drawable.menu_mylocation);
         menu.add(1, PREFERENCES_MENU_ID, 0, getString(R.string.menu_preferences)).setIcon(R.drawable.menu_preferences);
         menu.add(2, CREDITS_MENU_ID, 0, getString(R.string.menu_credits)).setIcon(R.drawable.menu_credits);
         return true;

@@ -44,16 +44,19 @@ import java.util.List;
  */
 public class MyLocationActivity extends Activity implements OnClickListener, LocationListener
 {
-
+    public static final int MYLOCATION_VALIDATE = 0;
+    public static final int MYLOCATION_CANCEL = 1;
     private LocationManager mLocationManager;
     private Location mLocation;
     private String mProvider = "";
     private TextView mLatitude;
     private TextView mLongitude;
     private TextView mAddress;
-    private Button mValidateButton;
-    private Button mSelectSourceButton;
-    private Button mGetPositionButton;
+    private Button mButtonValidate;
+    private Button mButtonSelectSource;
+    private Button mButtonGetPosition;
+    private Button mButtonCancel;
+
 //    private Button mSelectOnMapButton;
 //    private Button mDefineAddressButton;
     private ProgressBar mProgressBar;
@@ -74,19 +77,22 @@ public class MyLocationActivity extends Activity implements OnClickListener, Loc
         mLatitude = (TextView) findViewById(R.id.mylocation_latitude);
         mLongitude = (TextView) findViewById(R.id.mylocation_longitude);
         mAddress = (TextView) findViewById(R.id.mylocation_address);
-        mValidateButton = (Button) findViewById(R.id.mylocation_validate_button);
-        mSelectSourceButton = (Button) findViewById(R.id.mylocation_select_source_button);
-        mGetPositionButton = (Button) findViewById(R.id.mylocation_get_position_button);
+        mButtonValidate = (Button) findViewById(R.id.mylocation_validate_button);
+        mButtonCancel = (Button) findViewById(R.id.mylocation_cancel_button);
+        mButtonSelectSource = (Button) findViewById(R.id.mylocation_select_source_button);
+        mButtonGetPosition = (Button) findViewById(R.id.mylocation_get_position_button);
 //        mSelectOnMapButton = (Button) findViewById(R.id.mylocation_select_on_map_button);
 //        mDefineAddressButton = (Button) findViewById(R.id.mylocation_enter_position_button);
         mProgressBar = (ProgressBar) findViewById( R.id.mylocation_progress );
 
-        mValidateButton.setOnClickListener(this);
-        mSelectSourceButton.setOnClickListener(this);
-        mGetPositionButton.setOnClickListener(this);
+        mButtonValidate.setOnClickListener(this);
+        mButtonCancel.setOnClickListener(this);
+        mButtonSelectSource.setOnClickListener(this);
+        mButtonGetPosition.setOnClickListener(this);
 //        mSelectOnMapButton.setOnClickListener(this);
 //        mDefineAddressButton.setOnClickListener(this);
 
+        mButtonValidate.setEnabled(false);
 
         resetForm();
 
@@ -98,6 +104,9 @@ public class MyLocationActivity extends Activity implements OnClickListener, Loc
         {
             case R.id.mylocation_validate_button:
                 validate();
+                break;
+            case R.id.mylocation_cancel_button:
+                cancel();
                 break;
             case R.id.mylocation_select_source_button:
                 selectSource();
@@ -114,8 +123,17 @@ public class MyLocationActivity extends Activity implements OnClickListener, Loc
     private void validate()
     {
         LocationService.setLocation(mLocation);
+        setResult( MYLOCATION_VALIDATE);
         finish();
     }
+    
+    private void cancel()
+    {
+        setResult( MYLOCATION_CANCEL);
+        finish();
+    }
+
+
 
     private void resetForm()
     {
@@ -138,7 +156,7 @@ public class MyLocationActivity extends Activity implements OnClickListener, Loc
             getAddress();
         }
 
-        mGetPositionButton.setEnabled(false);
+        mButtonGetPosition.setEnabled(false);
         showProgress( false );
     }
 
@@ -160,7 +178,7 @@ public class MyLocationActivity extends Activity implements OnClickListener, Loc
 
             public void onClick(DialogInterface dialog, int which)
             {
-                mGetPositionButton.setEnabled(true);
+                mButtonGetPosition.setEnabled(true);
                 mProvider = sources[which];
             }
         }).create().show();
@@ -169,6 +187,7 @@ public class MyLocationActivity extends Activity implements OnClickListener, Loc
     private void getPosition()
     {
         showProgress(true);
+        mButtonValidate.setEnabled(false);
 
         mLocationManager.requestLocationUpdates(mProvider, 60000, 0, this);
     }
@@ -195,6 +214,7 @@ public class MyLocationActivity extends Activity implements OnClickListener, Loc
                         address.getAddressLine(0),
                         address.getPostalCode(),
                         address.getLocality()));
+                mButtonValidate.setEnabled(true);
             } else
             {
                 mAddress.setText("No address found");

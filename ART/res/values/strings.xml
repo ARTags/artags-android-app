@@ -17,6 +17,7 @@
     <string name="ok">OK</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="close">Close</string>
     <string name="confirm_reset">Are you sure you want to start a new tag?</string>
     <string name="send">Send</string>
     <string name="cancel">Cancel</string>
@@ -25,7 +26,11 @@
     <string name="dialog_send">Send your tag</string>
     <string name="send_search_gps">Searching location by GPS ...</string>
     <string name="send_search_gps_found">GPS location found !</string>
-    <string name="send_search_gps_not_found">Can\'t get GPS location. Using MyLocation instead.</string>
+    <string name="send_search_gps_not_found">Can\'t get GPS location.\nThe tag can not be sent.\n</string>
+    <string name="send_search_gps_not_found_use_mylocation">Can\'t get GPS location.\nClick on MyLocation to define an approximate location.</string>
+    <string name="send_approximate_location_found">Your location has been defined approximatively!\nYou can now send your tag.</string>
+    <string name="send_button_send">Send</string>
+    <string name="send_button_mylocation">My Location</string>
     <string name="dialog_progress">"Upload in progress..."</string>
     <string name="upload_successful">Your tag has been uploaded successfully!</string>
     <string name="upload_failed">Sorry, upload failed!</string>
@@ -68,8 +73,10 @@
 
     <string name="preferences_title">Preferences</string>
     <string name="preferences_browser_title">Augmented Reality Browser</string>
+    <string name="preferences_location_title">Location Options</string>
     <string name="preferences_browser">Selected browser</string>
     <string name="preferences_change_browser">Change</string>
+    <string name="preference_mylocation">Use an approximate location using wireless networks where the GPS does not work. \nIf not checked, tags cannot be sent if the GPS location is not found.</string>
 
 
     <!-- My Location strings -->

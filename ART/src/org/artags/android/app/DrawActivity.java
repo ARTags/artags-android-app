@@ -23,6 +23,7 @@ import org.artags.android.app.draw.GraphicsActivity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.*;
 import android.os.Bundle;
@@ -47,6 +48,7 @@ public class DrawActivity extends GraphicsActivity
         implements BrushDialog.OnBrushParametersChangedListener, SendDialog.OnSendListener
 {
 
+    private static final int INTENT_RESULT_MY_LOCATION = 0;
     private static final String IMAGE_FILE = "last_sent_image.png";
     private static final String THUMBNAIL_FILE = "last_sent_thumbnail.png";
     private static final String IMAGE_FILE_BACKUP = "backup.png";
@@ -65,6 +67,7 @@ public class DrawActivity extends GraphicsActivity
     private Paint mPaint;
     private BrushParameters mBP;
     private SendInfos mSendInfos;
+    private SendDialog mDialogSend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -243,16 +246,14 @@ public class DrawActivity extends GraphicsActivity
     private void reset()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage( getString( R.string.confirm_reset))
-                .setCancelable(false)
-                .setPositiveButton( getString( R.string.yes ), new DialogInterface.OnClickListener()
+        builder.setMessage(getString(R.string.confirm_reset)).setCancelable(false).setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener()
         {
 
             public void onClick(DialogInterface dialog, int id)
             {
                 mView.reset();
             }
-        }).setNegativeButton( getString( R.string.no ), new DialogInterface.OnClickListener()
+        }).setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener()
         {
 
             public void onClick(DialogInterface dialog, int id)
@@ -271,8 +272,8 @@ public class DrawActivity extends GraphicsActivity
 
     private void send()
     {
-        final SendDialog dialog = new SendDialog(this, this);
-        dialog.show();
+        mDialogSend = new SendDialog(this, this);
+        mDialogSend.show();
     }
 
     private void showBrushDialog()
@@ -370,5 +371,22 @@ public class DrawActivity extends GraphicsActivity
             mView.setBitmap(bm);
         }
 
+    }
+
+
+   public void gotoMyLocation()
+    {
+        Intent intentMyLocation = new Intent();
+        intentMyLocation.setClassName(MainActivity.INTENT_PACKAGE, MainActivity.INTENT_MYLOCATION_CLASS);
+        startActivityForResult( intentMyLocation , INTENT_RESULT_MY_LOCATION );
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (requestCode == INTENT_RESULT_MY_LOCATION)
+        {
+            mDialogSend.onMyLocationResult( resultCode == MyLocationActivity.MYLOCATION_VALIDATE );
+        }
     }
 }

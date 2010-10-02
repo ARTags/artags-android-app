@@ -17,14 +17,13 @@ package org.artags.android.app;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import org.artags.android.app.preferences.PreferencesService;
 
@@ -36,7 +35,9 @@ public class PreferencesActivity extends Activity implements OnClickListener
 {
 
     private TextView mBrowser;
-    private Button mChangeBrowserButton;
+    private Button mButtonChangeBrowser;
+    private Button mButtonClose;
+    private CheckBox mCheckBoxMyLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -50,9 +51,15 @@ public class PreferencesActivity extends Activity implements OnClickListener
         setContentView(R.layout.preferences);
 
         mBrowser = (TextView) findViewById(R.id.preferences_browser);
-        mChangeBrowserButton = (Button) findViewById(R.id.preferences_change_browser_button);
+        mButtonChangeBrowser = (Button) findViewById(R.id.preferences_button_change_browser);
+        mButtonClose = (Button) findViewById( R.id.preferences_button_close );
+        mCheckBoxMyLocation = (CheckBox) findViewById( R.id.preferences_checkbox_mylocation );
 
-        mChangeBrowserButton.setOnClickListener(this);
+        mCheckBoxMyLocation.setChecked( PreferencesService.instance().getMyLocation(this));
+
+        mButtonChangeBrowser.setOnClickListener(this);
+        mButtonClose.setOnClickListener(this);
+        mCheckBoxMyLocation.setOnClickListener(this);
 
         mBrowser.setText(PreferencesService.instance().getAugmentedRealityBrowser(this));
 
@@ -60,9 +67,17 @@ public class PreferencesActivity extends Activity implements OnClickListener
 
     public void onClick(View button)
     {
-        if (button == mChangeBrowserButton)
+        if (button == mButtonChangeBrowser)
         {
             selectBrowser();
+        }
+        else if (button == mCheckBoxMyLocation )
+        {
+            PreferencesService.instance().setMyLocation( this , mCheckBoxMyLocation.isChecked());
+        }
+        else if (button == mButtonClose )
+        {
+            finish();
         }
     }
 
@@ -86,26 +101,4 @@ public class PreferencesActivity extends Activity implements OnClickListener
         }).create().show();
     }
 
-
-    /*
-    getPreferenceManager().setSharedPreferencesName( MainActivity.SHARED_PREFS_NAME);
-
-    // Load the preferences from an XML resource
-    addPreferencesFromResource(R.xml.preferences);
-    getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
-     */
 }
-/*
-@Override
-protected void onDestroy() {
-getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
-super.onDestroy();
-}
-
-
-public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,  String key)
-{
-}
- */
-
-

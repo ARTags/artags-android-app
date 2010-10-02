@@ -33,6 +33,7 @@ public class PreferencesService
 
     private static final String SHARED_PREFS_NAME = "art.preferences";
     private static final String KEY_BROWSER = "ar_browser";
+    private static final String KEY_MYLOCATION = "mylocation";
     private static final String KEY_BRUSH_SIZE = "brush.size";
     private static final String KEY_BRUSH_COLOR = "brush.color";
     private static final String KEY_BRUSH_COLOR_BASE = "brush.color.base";
@@ -43,6 +44,7 @@ public class PreferencesService
     private static final int DEFAULT_BRUSH_SIZE = 12;
     private static final int DEFAULT_COLOR = 0xFFA5C739;
     private static final int DEFAULT_INTENSITY = 50;
+    private static final boolean DEFAULT_MYLOCATION = false;
 
 
     private static PreferencesService singleton = new PreferencesService();
@@ -109,6 +111,20 @@ public class PreferencesService
         Editor editor = prefs.edit();
         editor.putInt( KEY_VERSION, version );
         editor.commit();
+    }
+
+    public void setMyLocation( Activity activity , boolean enabled )
+    {
+        SharedPreferences prefs = activity.getSharedPreferences( SHARED_PREFS_NAME, Activity.MODE_PRIVATE);
+        Editor editor = prefs.edit();
+        editor.putBoolean( KEY_MYLOCATION, enabled );
+        editor.commit();
+    }
+
+    public boolean getMyLocation( Activity activity )
+    {
+        SharedPreferences prefs = activity.getSharedPreferences(SHARED_PREFS_NAME, Activity.MODE_PRIVATE);
+        return prefs.getBoolean( KEY_MYLOCATION , DEFAULT_MYLOCATION );
     }
 
 }
