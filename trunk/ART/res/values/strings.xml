@@ -15,6 +15,9 @@
     <string name="menu_undo">Undo</string>
     <string name="menu_send">Send</string>
     <string name="ok">OK</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="confirm_reset">Are you sure you want to start a new tag?</string>
     <string name="send">Send</string>
     <string name="cancel">Cancel</string>
     <string name="dialog_enter_title">Enter a title for the tag : </string>

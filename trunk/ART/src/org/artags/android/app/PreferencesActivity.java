@@ -70,7 +70,7 @@ public class PreferencesActivity extends Activity implements OnClickListener
     {
         final String[] browsers =
         {
-            PreferencesService.LAYAR , PreferencesService.WIKITUDE
+            PreferencesService.LAYAR , PreferencesService.WIKITUDE, PreferencesService.JUNAIO
         };
 
         new AlertDialog.Builder(PreferencesActivity.this).setItems(browsers, new DialogInterface.OnClickListener()

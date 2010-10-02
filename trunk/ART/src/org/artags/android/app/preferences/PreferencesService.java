@@ -29,6 +29,7 @@ public class PreferencesService
     public static final String KEY_VERSION = "version";
     public static final String LAYAR = "Layar";
     public static final String WIKITUDE = "Wikitude";
+    public static final String JUNAIO = "Junaio";
 
     private static final String SHARED_PREFS_NAME = "art.preferences";
     private static final String KEY_BROWSER = "ar_browser";
