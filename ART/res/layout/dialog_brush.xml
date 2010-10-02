@@ -33,6 +33,25 @@
         <TableRow>
             <TextView
             android:layout_column="1"
+            android:text="@string/label_opacity" />
+            <TextView
+            android:id="@+id/opacity"
+            android:text="10"
+            android:gravity="right" />
+        </TableRow>
+    </TableLayout>
+    <SeekBar android:id="@+id/seek_opacity"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:max="100" />
+    <TableLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:stretchColumns="1">
+
+        <TableRow>
+            <TextView
+            android:layout_column="1"
             android:text="@string/label_brush_size" />
             <TextView
             android:id="@+id/brush_size"

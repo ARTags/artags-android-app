@@ -24,6 +24,7 @@ public class BrushParameters {
 
     private int brushSize;
     private int color;
+    private int opacity;
     private boolean blur;
     private boolean emboss;
     private int colorBase;
@@ -158,6 +159,22 @@ public class BrushParameters {
     public void setBlurFilter(MaskFilter blurFilter)
     {
         this.blurFilter = blurFilter;
+    }
+
+    /**
+     * @return the opacity
+     */
+    public int getOpacity()
+    {
+        return opacity;
+    }
+
+    /**
+     * @param opacity the opacity to set
+     */
+    public void setOpacity(int opacity)
+    {
+        this.opacity = opacity;
     }
 
     

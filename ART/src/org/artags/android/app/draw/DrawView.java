@@ -199,8 +199,7 @@ public class DrawView extends View
     {
         Bitmap thumbnail = Bitmap.createBitmap( THUMBNAIL_SIZE , THUMBNAIL_SIZE , Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas( thumbnail );
-        Rect rect = null;
-        rect = new Rect( THUMBNAIL_MARGIN , 0 , THUMBNAIL_SIZE - THUMBNAIL_MARGIN , THUMBNAIL_SIZE );
+        Rect rect = new Rect( THUMBNAIL_MARGIN , 0 , THUMBNAIL_SIZE - THUMBNAIL_MARGIN , THUMBNAIL_SIZE );
         canvas.drawBitmap( mBitmap, null, rect , null);
         return thumbnail;
     }
