@@ -108,6 +108,7 @@ public class DrawActivity extends GraphicsActivity
     {
         mBP = bp;
         mPaint.setColor(mBP.getColor());
+        mPaint.setAlpha(mBP.getOpacity());
         mPaint.setStrokeWidth(mBP.getBrushSize());
         if (bp.isEmboss())
         {

@@ -38,12 +38,14 @@ public class PreferencesService
     private static final String KEY_BRUSH_COLOR = "brush.color";
     private static final String KEY_BRUSH_COLOR_BASE = "brush.color.base";
     private static final String KEY_BRUSH_COLOR_INTENSITY = "brush.color.intensity";
+    private static final String KEY_OPACITY = "brush.opacity";
     private static final String KEY_BLUR_EFFECT = "brush.blur";
     private static final String KEY_EMBOSS_EFFECT = "brush.emboss";
 
     private static final int DEFAULT_BRUSH_SIZE = 12;
     private static final int DEFAULT_COLOR = 0xFFA5C739;
     private static final int DEFAULT_INTENSITY = 50;
+    private static final int DEFAULT_OPACITY = 0xFF;
     private static final boolean DEFAULT_MYLOCATION = false;
 
 
@@ -82,6 +84,7 @@ public class PreferencesService
         editor.putInt( KEY_BRUSH_COLOR, bp.getColor() );
         editor.putInt( KEY_BRUSH_COLOR_BASE, bp.getColorBase() );
         editor.putInt( KEY_BRUSH_COLOR_INTENSITY, bp.getColorIntensity() );
+        editor.putInt( KEY_OPACITY , bp.getOpacity() );
         editor.putBoolean(KEY_BLUR_EFFECT , bp.isBlur() );
         editor.putBoolean(KEY_EMBOSS_EFFECT , bp.isEmboss() );
         editor.commit();
@@ -94,6 +97,7 @@ public class PreferencesService
         bp.setColor( prefs.getInt( KEY_BRUSH_COLOR, DEFAULT_COLOR ));
         bp.setColorBase( prefs.getInt( KEY_BRUSH_COLOR_BASE, DEFAULT_COLOR ));
         bp.setColorIntensity( prefs.getInt( KEY_BRUSH_COLOR_INTENSITY, DEFAULT_INTENSITY ));
+        bp.setOpacity( prefs.getInt(KEY_OPACITY, DEFAULT_OPACITY));
         bp.setBrushSize( prefs.getInt( KEY_BRUSH_SIZE, DEFAULT_BRUSH_SIZE ));
         bp.setBlur( prefs.getBoolean( KEY_BLUR_EFFECT , false ));
         bp.setEmboss( prefs.getBoolean( KEY_EMBOSS_EFFECT , false ));
