@@ -168,7 +168,6 @@ public class DrawActivity extends GraphicsActivity
     public boolean onOptionsItemSelected(MenuItem item)
     {
         mPaint.setXfermode(null);
-        mPaint.setAlpha(0xFF);
 
         switch (item.getItemId())
         {
@@ -197,12 +196,6 @@ public class DrawActivity extends GraphicsActivity
                 mPaint.setXfermode(new PorterDuffXfermode(
                         PorterDuff.Mode.CLEAR));
                 return true;
-            /*            case SRCATOP_MENU_ID:
-            mPaint.setXfermode(new PorterDuffXfermode(
-            PorterDuff.Mode.SRC_ATOP));
-            mPaint.setAlpha(0x80);
-            return true;
-             */
 
             case SEND_MENU_ID:
                 Log.i("ARTags", "Menu Send selected");
