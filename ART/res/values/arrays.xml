@@ -4,11 +4,13 @@
     <string-array name="ar_browsers_entries">
         <item>Layar</item>
         <item>Wikitude</item>
+        <item>Junaio</item>
     </string-array>
 
     <string-array name="ar_browsers_entryvalues">
         <item>layar</item>
         <item>wikitude</item>
+        <item>junaio</item>
     </string-array>
 
 </resources>

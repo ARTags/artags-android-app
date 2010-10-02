@@ -16,6 +16,7 @@ package org.artags.android.app.util.http;
 
 import android.util.Log;
 import java.io.File;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -44,7 +45,8 @@ public class HttpUtil
 
             HttpPost post = new HttpPost(sUrl);
 
-            MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+
+            MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE );
 
             for (String key : files.keySet())
             {
@@ -56,7 +58,7 @@ public class HttpUtil
             {
                 String val = params.get(key);
 
-                reqEntity.addPart(key, new StringBody(val));
+                reqEntity.addPart(key, new StringBody(val , Charset.forName("UTF-8")));
             }
             post.setEntity(reqEntity);
             HttpResponse response = client.execute(post);

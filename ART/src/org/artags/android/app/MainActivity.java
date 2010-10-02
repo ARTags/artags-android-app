@@ -132,7 +132,13 @@ public class MainActivity extends Activity implements OnClickListener
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse( "layar://artags" ));
             startActivity(intent);
 
+        }else if (PreferencesService.JUNAIO.equalsIgnoreCase(ARBrowser))
+        {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse( "http://www.junaio.com/ /map/index/channel/ARTags" ));
+            startActivity(intent);
         }
+
+
         return false;
     }
     final Handler handler = new Handler()

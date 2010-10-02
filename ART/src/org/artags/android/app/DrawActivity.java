@@ -14,6 +14,7 @@
  */
 package org.artags.android.app;
 
+import android.app.AlertDialog;
 import org.artags.android.app.draw.BrushParameters;
 import org.artags.android.app.draw.SendInfos;
 import org.artags.android.app.tag.TagUploadService;
@@ -21,6 +22,7 @@ import org.artags.android.app.tag.Tag;
 import org.artags.android.app.draw.GraphicsActivity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.*;
 import android.os.Bundle;
@@ -234,12 +236,32 @@ public class DrawActivity extends GraphicsActivity
 
     private void undo()
     {
+
         mView.restore();
     }
 
     private void reset()
     {
-        mView.reset();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage( getString( R.string.confirm_reset))
+                .setCancelable(false)
+                .setPositiveButton( getString( R.string.yes ), new DialogInterface.OnClickListener()
+        {
+
+            public void onClick(DialogInterface dialog, int id)
+            {
+                mView.reset();
+            }
+        }).setNegativeButton( getString( R.string.no ), new DialogInterface.OnClickListener()
+        {
+
+            public void onClick(DialogInterface dialog, int id)
+            {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private void eyedropper()
@@ -263,7 +285,7 @@ public class DrawActivity extends GraphicsActivity
     {
         mBP.setColor(color);
         mBP.setColorBase(color);
-        mBP.setColorIntensity( 50 );
+        mBP.setColorIntensity(50);
         showBrushDialog();
     }
 
@@ -295,7 +317,7 @@ public class DrawActivity extends GraphicsActivity
             try
             {
                 String filename = BitmapUtil.saveImage(IMAGE_FILE, mView.getBitmap());
-                String thumbnail = BitmapUtil.saveImage( THUMBNAIL_FILE, mView.getThumbnail());
+                String thumbnail = BitmapUtil.saveImage(THUMBNAIL_FILE, mView.getThumbnail());
 
                 Tag tag = new Tag();
                 tag.setTitle(mSendInfos.getTitle());
@@ -314,7 +336,7 @@ public class DrawActivity extends GraphicsActivity
                 // Save a copy on the SD
                 Date date = new Date();
                 String savedfile = "tag-" + date.getTime() + ".png";
-                BitmapUtil.saveImage( savedfile, mView.getBitmap());
+                BitmapUtil.saveImage(savedfile, mView.getBitmap());
 
                 return true;
 
