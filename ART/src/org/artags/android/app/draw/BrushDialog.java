@@ -246,7 +246,7 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
             mCenterPaint.setColor(getColor());
             mCenterPaint.setAlpha( mOpacity );
             canvas.drawCircle(0, 0, mBrushSize / 2, mCenterPaint);
-
+/*
             if (mTrackingCenter)
             {
                 int c = mCenterPaint.getColor();
@@ -266,6 +266,7 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
                 mCenterPaint.setStyle(Paint.Style.FILL);
                 mCenterPaint.setColor(c);
             }
+*/
             mSeekBarIntensity.setBackgroundColor( getColor());
             mSeekBarOpacity.setBackgroundColor( getColor());
             mSeekBarSize.setBackgroundColor( getColor());
@@ -393,16 +394,12 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
                         mColorBase = interpColor(mColors, unit);
                         mCenterPaint.setColor(getColor());
                         invalidate();
-                    }
+                  }
                     break;
                 case MotionEvent.ACTION_UP:
                     if (mTrackingCenter)
                     {
-                        if (inCenter)
-                        {
-//                            mListener.colorChanged(mCenterPaint.getColor());
-                        }
-                        mTrackingCenter = false;    // so we draw w/o halo
+                        mTrackingCenter = false;
                         invalidate();
                     }
                     break;
