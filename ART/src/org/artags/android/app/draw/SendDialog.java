@@ -34,6 +34,7 @@ import android.widget.TextView;
 import org.artags.android.app.DrawActivity;
 import org.artags.android.app.R;
 import org.artags.android.app.preferences.PreferencesService;
+import org.artags.android.app.util.location.LocationService;
 
 /**
  *
@@ -116,26 +117,24 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
         }
     }
 
-    public void onMyLocationResult( boolean ok )
+    public void onMyLocationResult(boolean ok)
     {
-        if( ok )
+        if (ok)
         {
-                mSeachTextView.setText( mActivity.getString(R.string.send_approximate_location_found));
-                mButtonSend.setText( mActivity.getString(R.string.send_button_send) );
-                mFound = true;
-        }
-        else
+            mSeachTextView.setText(mActivity.getString(R.string.send_approximate_location_found));
+            mButtonSend.setText(mActivity.getString(R.string.send_button_send));
+            mLocation = LocationService.getLocation(mActivity);
+            mFound = true;
+        } else
         {
-                mSeachTextView.setText( mActivity.getString(R.string.send_search_gps_not_found));
-                mButtonSend.setText( mActivity.getString(R.string.send_button_send) );
-                mButtonSend.setEnabled(false);
-                mFound = true;
+            mSeachTextView.setText(mActivity.getString(R.string.send_search_gps_not_found));
+            mButtonSend.setText(mActivity.getString(R.string.send_button_send));
+            mButtonSend.setEnabled(false);
+            mFound = false;
         }
         show();
 
     }
-
-
 
     private void send()
     {
@@ -217,7 +216,7 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
             if (PreferencesService.instance().getMyLocation(mActivity))
             {
                 mSeachTextView.setText(mActivity.getString(R.string.send_search_gps_not_found_use_mylocation));
-                mButtonSend.setText(  mActivity.getString(R.string.send_button_mylocation) );
+                mButtonSend.setText(mActivity.getString(R.string.send_button_mylocation));
                 mButtonSend.setEnabled(true);
             } else
             {
