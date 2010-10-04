@@ -26,7 +26,6 @@ import android.location.LocationManager;
 public class LocationService
 {
 
-    private static LocationManager locationManager;
     private static Location mLocation;
 
     public static Location getLocation(Context context)
