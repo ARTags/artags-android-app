@@ -21,6 +21,7 @@ import android.util.Log;
 import org.artags.android.app.R;
 import java.util.ArrayList;
 import java.util.List;
+import org.artags.android.app.ARTagsApplication;
 import org.artags.android.app.Security;
 import org.openintents.intents.WikitudeARIntent;
 import org.openintents.intents.WikitudePOI;
@@ -33,7 +34,7 @@ public class WikitudeDisplayService
 {
 
     private static Activity mActivity;
-    private static final String CALLBACK_INTENT = "wikitudeapi.SHOWIMAGE";
+    public static final String CALLBACK_INTENT = "wikitudeapi.SHOWIMAGE";
 
     public static void display(List<GenericPOI> listGenericPOIs, Activity activity)
     {
@@ -45,6 +46,7 @@ public class WikitudeDisplayService
         intent.setPrintMarkerSubText(false);
 
         intent.addPOIs(list);
+        (( ARTagsApplication ) activity.getApplication()).setPOIs(list);
 
         try
         {
@@ -72,7 +74,7 @@ public class WikitudeDisplayService
             wpoi.setLink(poi.getUrl());
 //            wpoi.setIconuri(iconUrl);
             wpoi.setIconresource(mActivity.getResources().getResourceName(R.drawable.marker));
-            wpoi.setDetailAction(CALLBACK_INTENT);
+            wpoi.setDetailAction( WikitudeDisplayService.CALLBACK_INTENT);
             list.add(wpoi);
         }
         return list;

@@ -51,6 +51,7 @@ public class MainActivity extends Activity implements OnClickListener
     private static final String INTENT_PREFERENCES_CLASS = INTENT_PACKAGE + ".PreferencesActivity";
     private static final String INTENT_CREDITS_CLASS = INTENT_PACKAGE + ".CreditsActivity";
     public static final String INTENT_MYLOCATION_CLASS = INTENT_PACKAGE + ".MyLocationActivity";
+    private static final int MAX_POIS = 30;
     private static final int DIALOG_PROGRESS = 0;
     private static final int PREFERENCES_MENU_ID = 0;
     private static final int CREDITS_MENU_ID = 1;
@@ -123,7 +124,7 @@ public class MainActivity extends Activity implements OnClickListener
             latitude = location.getLatitude();
             longitude = location.getLongitude();
             }
-            List<GenericPOI> list = POIService.getPOIs(latitude, longitude);
+            List<GenericPOI> list = POIService.getPOIs(latitude, longitude , MAX_POIS );
             WikitudeDisplayService.display(list, this);
 
             return true;
@@ -134,7 +135,7 @@ public class MainActivity extends Activity implements OnClickListener
 
         }else if (PreferencesService.JUNAIO.equalsIgnoreCase(ARBrowser))
         {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse( "http://www.junaio.com/ /map/index/channel/ARTags" ));
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse( "junaio://channels/id=15781" ));
             startActivity(intent);
         }
 

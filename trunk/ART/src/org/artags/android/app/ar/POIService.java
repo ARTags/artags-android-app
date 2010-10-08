@@ -33,14 +33,14 @@ public class POIService
 
     private static final String URL_TAGS = Constants.SERVER + "/tags?";
 
-    public static List<GenericPOI> getPOIs(double lat, double lon)
+    public static List<GenericPOI> getPOIs(double lat, double lon, int maxPOIs )
     {
         List<GenericPOI> list = null;
 
         try
         {
             /* Create a URL we want to load some xml-data from. */
-            URL url = new URL( buildUrl( lat , lon ));
+            URL url = new URL( buildUrl( lat , lon , maxPOIs));
 
             /* Get a SAXParser from the SAXPArserFactory. */
             SAXParserFactory spf = SAXParserFactory.newInstance();
@@ -63,12 +63,13 @@ public class POIService
         return list;
     }
 
-    public static String buildUrl(double lat, double lon)
+    public static String buildUrl(double lat, double lon, int maxPOIs )
     {
         String url = URL_TAGS;
 
         url += "&lat=" + lat;
         url += "&lon=" + lon;
+        url += "&max=" + maxPOIs;
 
         return url;
     }
