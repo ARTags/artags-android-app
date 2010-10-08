@@ -62,7 +62,7 @@ public class SplashActivity extends Activity implements OnClickListener
         if (view == mImageView)
         {
             Intent intent = new Intent();
-            intent.setClassName("org.artags.android.app", "org.artags.android.app.MainActivity");
+            intent.setClassName( MainActivity.INTENT_PACKAGE, MainActivity.INTENT_MAIN_CLASS );
             startActivity(intent);
         }
     }

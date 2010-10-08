@@ -20,7 +20,8 @@ import android.graphics.MaskFilter;
  *
  * @author pierre@artags.org
  */
-public class BrushParameters {
+public class BrushParameters
+{
 
     private int brushSize;
     private int color;
@@ -31,7 +32,6 @@ public class BrushParameters {
     private int colorIntensity;
     private MaskFilter embossFilter;
     private MaskFilter blurFilter;
-
 
     /**
      * @return the brushSize
@@ -176,7 +176,4 @@ public class BrushParameters {
     {
         this.opacity = opacity;
     }
-
-    
-
 }

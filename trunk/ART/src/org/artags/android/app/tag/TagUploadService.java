@@ -18,7 +18,6 @@ import org.artags.android.app.util.http.HttpException;
 import org.artags.android.app.util.http.HttpUtil;
 import java.io.File;
 import java.util.HashMap;
-import org.artags.android.app.Constants;
 import org.artags.android.app.Security;
 import org.artags.android.app.util.security.SecurityUtils;
 
@@ -38,7 +37,7 @@ public class TagUploadService
     private static final String PARAMETER_VERSION = "version";
     private static final String PARAMETER_PLATFORM = "platform";
     private static final String PARAMETER_KEY = "key";
-    private static final String URL_UPLOAD_SERVER = Constants.SERVER + "/upload";
+    
 
     public static void upload(Tag tag) throws HttpException
     {
@@ -59,7 +58,7 @@ public class TagUploadService
         mapFiles.put( "photo" , new File(tag.getFilename() ));
         mapFiles.put( "thumbnail" , new File(tag.getThumbnail() ));
 
-        HttpUtil.post(URL_UPLOAD_SERVER, mapParams, mapFiles);
+        HttpUtil.post(Security.URL_UPLOAD, mapParams, mapFiles);
 
     }
 }

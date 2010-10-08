@@ -24,7 +24,6 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 import java.util.List;
 import org.artags.android.app.ARTagsApplication;
-import org.artags.android.app.Constants;
 import org.openintents.intents.WikitudeARIntentHelper;
 import org.openintents.intents.WikitudePOI;
 
@@ -73,7 +72,7 @@ public class WikitudeShowImageActivity extends Activity
         });
 
 
-        String url = Constants.SERVER + "/client/tag.jsp?id=111001";
+        String url = "";
         int poiId = this.getIntent().getIntExtra(WikitudeARIntentHelper.EXTRA_INDEX_SELECTED_POI, -1);
         List<WikitudePOI> list = ((ARTagsApplication) this.getApplication()).getPOIs();
         if ((poiId >= 0) && (list != null))
