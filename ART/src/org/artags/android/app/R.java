@@ -90,7 +90,6 @@ public final class R {
         public static final int splash=0x7f08002e;
         public static final int toggleBlur=0x7f080008;
         public static final int toggleEmboss=0x7f080007;
-        public static final int webview=0x7f08002f;
     }
     public static final class layout {
         public static final int credits=0x7f030000;
@@ -101,7 +100,6 @@ public final class R {
         public static final int my_location=0x7f030005;
         public static final int preferences=0x7f030006;
         public static final int splash=0x7f030007;
-        public static final int webview=0x7f030008;
     }
     public static final class string {
         public static final int activity_ShowImage=0x7f060004;

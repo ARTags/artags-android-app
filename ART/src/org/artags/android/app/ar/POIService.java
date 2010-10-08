@@ -21,6 +21,7 @@ import java.util.List;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import org.artags.android.app.Constants;
+import org.artags.android.app.Security;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
@@ -31,7 +32,7 @@ import org.xml.sax.XMLReader;
 public class POIService
 {
 
-    private static final String URL_TAGS = Constants.SERVER + "/tags?";
+    
 
     public static List<GenericPOI> getPOIs(double lat, double lon, int maxPOIs )
     {
@@ -65,7 +66,7 @@ public class POIService
 
     public static String buildUrl(double lat, double lon, int maxPOIs )
     {
-        String url = URL_TAGS;
+        String url = Security.URL_TAGS;
 
         url += "&lat=" + lat;
         url += "&lon=" + lon;

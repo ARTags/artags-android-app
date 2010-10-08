@@ -18,7 +18,9 @@ package org.artags.android.app.ar;
  *
  * @author pierre@artags.org
  */
-public class GenericPOI {
+public class GenericPOI
+{
+
     private String name;
     private String description;
     private String url;
@@ -189,6 +191,4 @@ public class GenericPOI {
     {
         this.imageUrl = imageUrl;
     }
-
-
 }

@@ -17,7 +17,7 @@ package org.artags.android.app.tag;
 import org.artags.android.app.ar.GenericPOI;
 import java.util.ArrayList;
 import java.util.List;
-import org.artags.android.app.Constants;
+import org.artags.android.app.Security;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -29,9 +29,6 @@ import org.xml.sax.helpers.DefaultHandler;
 public class TagParser extends DefaultHandler
 {
     private static final String TAG = "tag";
-    private static final String URL = Constants.SERVER + "/client/tag.jsp?id=";
-    private static final String URL_IMAGE = Constants.SERVER + "/display?id=";
-    private static final String URL_ICON = Constants.SERVER + "/thumbnail?id=";
     private static final String ID = "id";
     private static final String TITLE = "name";
     private static final String LATITUDE = "lat";
@@ -62,8 +59,8 @@ public class TagParser extends DefaultHandler
         if (this.currentGenericPOI != null){
             if (localName.equalsIgnoreCase(ID)){
                 String id = builder.toString();
-                currentGenericPOI.setUrl( URL + id );
-                currentGenericPOI.setImageUrl(URL_IMAGE + id );
+                currentGenericPOI.setUrl( Security.URL_TAG + id );
+                currentGenericPOI.setImageUrl(Security.URL_IMAGE + id );
             } else if (localName.equalsIgnoreCase(TITLE)){
                 currentGenericPOI.setName(builder.toString());
             } else if (localName.equalsIgnoreCase(DATE)){
@@ -76,7 +73,7 @@ public class TagParser extends DefaultHandler
                 currentGenericPOI.setLongitude(Double.parseDouble(builder.toString()));
             } else if (localName.equalsIgnoreCase(IMAGE)){
             } else if (localName.equalsIgnoreCase(THUMBNAIL)){
-                currentGenericPOI.setIconUrl( URL_ICON + builder.toString());
+                currentGenericPOI.setIconUrl( Security.URL_ICON + builder.toString());
             } else if (localName.equalsIgnoreCase(TAG)){
                 GenericPOIs.add(currentGenericPOI);
             }

@@ -41,7 +41,7 @@ public class WikitudeDisplayService
         mActivity = activity;
         List<WikitudePOI> list = buildWikitudePOIs(listGenericPOIs);
 
-        WikitudeARIntent intent = new WikitudeARIntent(activity.getApplication(), null, Security.KEY_WIKITUDE, "artags");
+        WikitudeARIntent intent = new WikitudeARIntent(activity.getApplication(), null, Security.KEY_WIKITUDE, Security.KEY_WIKITUDE_WORLD );
 
         intent.setPrintMarkerSubText(false);
 

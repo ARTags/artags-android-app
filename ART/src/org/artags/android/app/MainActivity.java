@@ -47,10 +47,12 @@ public class MainActivity extends Activity implements OnClickListener
 
 
     public static final String INTENT_PACKAGE = "org.artags.android.app";
+    public static final String INTENT_MAIN_CLASS = INTENT_PACKAGE + ".MainActivity";
+    public static final String INTENT_MYLOCATION_CLASS = INTENT_PACKAGE + ".MyLocationActivity";
+
     private static final String INTENT_DRAW_CLASS = INTENT_PACKAGE + ".DrawActivity";
     private static final String INTENT_PREFERENCES_CLASS = INTENT_PACKAGE + ".PreferencesActivity";
     private static final String INTENT_CREDITS_CLASS = INTENT_PACKAGE + ".CreditsActivity";
-    public static final String INTENT_MYLOCATION_CLASS = INTENT_PACKAGE + ".MyLocationActivity";
     private static final int MAX_POIS = 30;
     private static final int DIALOG_PROGRESS = 0;
     private static final int PREFERENCES_MENU_ID = 0;
@@ -130,12 +132,12 @@ public class MainActivity extends Activity implements OnClickListener
             return true;
         } else if (PreferencesService.LAYAR.equalsIgnoreCase(ARBrowser))
         {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse( "layar://artags" ));
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse( Security.URI_LAYAR ));
             startActivity(intent);
 
         }else if (PreferencesService.JUNAIO.equalsIgnoreCase(ARBrowser))
         {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse( "junaio://channels/id=15781" ));
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse( Security.URI_JUNAIO ));
             startActivity(intent);
         }
 

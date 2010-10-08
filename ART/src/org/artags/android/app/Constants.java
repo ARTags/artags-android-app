@@ -21,6 +21,5 @@ package org.artags.android.app;
  */
 public class Constants
 {
-    public static final String SERVER = "http://art-server.appspot.com";
     public static final int VERSION = 1;
 }
