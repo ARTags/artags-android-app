@@ -29,7 +29,8 @@ import org.xml.sax.helpers.DefaultHandler;
 public class TagParser extends DefaultHandler
 {
     private static final String TAG = "tag";
-    private static final String URL = Constants.SERVER + "/display?id=";
+    private static final String URL = Constants.SERVER + "/client/tag.jsp?id=";
+    private static final String URL_IMAGE = Constants.SERVER + "/display?id=";
     private static final String URL_ICON = Constants.SERVER + "/thumbnail?id=";
     private static final String ID = "id";
     private static final String TITLE = "name";
@@ -60,6 +61,9 @@ public class TagParser extends DefaultHandler
         super.endElement(uri, localName, name);
         if (this.currentGenericPOI != null){
             if (localName.equalsIgnoreCase(ID)){
+                String id = builder.toString();
+                currentGenericPOI.setUrl( URL + id );
+                currentGenericPOI.setImageUrl(URL_IMAGE + id );
             } else if (localName.equalsIgnoreCase(TITLE)){
                 currentGenericPOI.setName(builder.toString());
             } else if (localName.equalsIgnoreCase(DATE)){
@@ -71,7 +75,6 @@ public class TagParser extends DefaultHandler
             } else if (localName.equalsIgnoreCase(LONGITUDE)){
                 currentGenericPOI.setLongitude(Double.parseDouble(builder.toString()));
             } else if (localName.equalsIgnoreCase(IMAGE)){
-                currentGenericPOI.setUrl( URL + builder.toString());
             } else if (localName.equalsIgnoreCase(THUMBNAIL)){
                 currentGenericPOI.setIconUrl( URL_ICON + builder.toString());
             } else if (localName.equalsIgnoreCase(TAG)){

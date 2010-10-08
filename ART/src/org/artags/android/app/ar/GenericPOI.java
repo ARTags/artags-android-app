@@ -26,6 +26,7 @@ public class GenericPOI {
     private double longitude;
     private double altitude;
     private String iconUrl;
+    private String imageUrl;
     private String date;
     private String rating;
 
@@ -171,6 +172,22 @@ public class GenericPOI {
     public void setRating(String rating)
     {
         this.rating = rating;
+    }
+
+    /**
+     * @return the imageUrl
+     */
+    public String getImageUrl()
+    {
+        return imageUrl;
+    }
+
+    /**
+     * @param imageUrl the imageUrl to set
+     */
+    public void setImageUrl(String imageUrl)
+    {
+        this.imageUrl = imageUrl;
     }
 
 
