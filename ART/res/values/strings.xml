@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <string name="app_name">ARTags</string>
+    <string name="eula_title">End User License Agreement</string>
+    <string name="eula_button_accept">Accept</string>
+    <string name="eula_button_refuse">Refuse</string>
     <string name="button_draw">Draw</string>
     <string name="button_view">View existing ARTags near you</string>
     <string name="activity_paint">ARTags Draw</string>

@@ -41,6 +41,8 @@ public class PreferencesService
     private static final String KEY_OPACITY = "brush.opacity";
     private static final String KEY_BLUR_EFFECT = "brush.blur";
     private static final String KEY_EMBOSS_EFFECT = "brush.emboss";
+    private static final String KEY_EULA_ACCEPTED = "eula.accepted";
+
 
     private static final int DEFAULT_BRUSH_SIZE = 12;
     private static final int DEFAULT_COLOR = 0xFFA5C739;
@@ -131,4 +133,17 @@ public class PreferencesService
         return prefs.getBoolean( KEY_MYLOCATION , DEFAULT_MYLOCATION );
     }
 
+    public void setEulaAccepted( Activity activity )
+    {
+        SharedPreferences prefs = activity.getSharedPreferences( SHARED_PREFS_NAME, Activity.MODE_PRIVATE);
+        Editor editor = prefs.edit();
+        editor.putBoolean( KEY_EULA_ACCEPTED, true );
+        editor.commit();
+    }
+
+    public boolean isEulaAccepted( Activity activity )
+    {
+        SharedPreferences prefs = activity.getSharedPreferences(SHARED_PREFS_NAME, Activity.MODE_PRIVATE);
+        return prefs.getBoolean( KEY_EULA_ACCEPTED , false );
+    }
 }
