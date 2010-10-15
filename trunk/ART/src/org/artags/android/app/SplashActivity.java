@@ -18,6 +18,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -25,6 +26,9 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import org.artags.android.app.preferences.PreferencesService;
 
 /**
@@ -34,7 +38,9 @@ import org.artags.android.app.preferences.PreferencesService;
 public class SplashActivity extends Activity implements OnClickListener
 {
 
+    private static final String ASSET_EULA = "EULA";
     private static final int WHATS_NEW_DIALOG = 0;
+    private static final int EULA_DIALOG = 1;
     private ImageView mImageView;
     private int mResTitle;
     private int mResMessage;
@@ -53,6 +59,8 @@ public class SplashActivity extends Activity implements OnClickListener
 
         mImageView = (ImageView) findViewById(R.id.splash);
         mImageView.setOnClickListener(this);
+
+        checkEulaAccepted();
         checkLastVersion();
 
     }
@@ -62,7 +70,7 @@ public class SplashActivity extends Activity implements OnClickListener
         if (view == mImageView)
         {
             Intent intent = new Intent();
-            intent.setClassName( MainActivity.INTENT_PACKAGE, MainActivity.INTENT_MAIN_CLASS );
+            intent.setClassName(MainActivity.INTENT_PACKAGE, MainActivity.INTENT_MAIN_CLASS);
             startActivity(intent);
         }
     }
@@ -74,11 +82,44 @@ public class SplashActivity extends Activity implements OnClickListener
         if (id == WHATS_NEW_DIALOG)
         {
             Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle( mResTitle);
+            builder.setTitle(mResTitle);
             builder.setPositiveButton(R.string.button_ok, null);
             builder.setMessage(mResMessage);
             dialog = builder.create();
-        } else
+        } else if ( id == EULA_DIALOG )
+        {
+             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.eula_title);
+            builder.setCancelable(true);
+            builder.setPositiveButton(R.string.eula_button_accept, new DialogInterface.OnClickListener()
+            {
+
+                public void onClick(DialogInterface dialog, int which)
+                {
+                    PreferencesService.instance().setEulaAccepted(SplashActivity.this);
+                }
+            });
+            builder.setNegativeButton(R.string.eula_button_refuse, new DialogInterface.OnClickListener()
+            {
+
+                public void onClick(DialogInterface dialog, int which)
+                {
+                    finish();
+                }
+            });
+            builder.setOnCancelListener(new DialogInterface.OnCancelListener()
+            {
+
+                public void onCancel(DialogInterface dialog)
+                {
+                    finish();
+                }
+            });
+            builder.setMessage(readEula());
+            dialog = builder.create();
+
+        }
+        else
         {
             dialog = super.onCreateDialog(id);
         }
@@ -88,23 +129,62 @@ public class SplashActivity extends Activity implements OnClickListener
     private void checkLastVersion()
     {
         final int lastVersion = PreferencesService.instance().getVersion(this);
-        if ( lastVersion < Constants.VERSION)
+        if (lastVersion < Constants.VERSION)
         {
-            if( lastVersion == 0 )
+            if (lastVersion == 0)
             {
                 // This is a new install
                 mResTitle = R.string.first_run_dialog_title;
                 mResMessage = R.string.first_run_dialog_message;
-            }
-            else
+            } else
             {
                 // This is an upgrade.
                 mResTitle = R.string.whats_new_dialog_title;
                 mResMessage = R.string.whats_new_dialog_message;
             }
             // show what's new message
-            PreferencesService.instance().saveVersion(this, Constants.VERSION );
+            PreferencesService.instance().saveVersion(this, Constants.VERSION);
             showDialog(WHATS_NEW_DIALOG);
         }
     }
-}
+
+    private void checkEulaAccepted()
+    {
+        if (!PreferencesService.instance().isEulaAccepted(this))
+        {
+            showDialog(EULA_DIALOG);
+        }
+    }
+
+    private CharSequence readEula()
+    {
+        BufferedReader in = null;
+        try
+        {
+            in = new BufferedReader(new InputStreamReader(getAssets().open(ASSET_EULA)));
+            String line;
+            StringBuilder buffer = new StringBuilder();
+            while ((line = in.readLine()) != null)
+            {
+                buffer.append(line).append('\n');
+            }
+            return buffer;
+        } catch (IOException e)
+        {
+            return "";
+        } finally
+        {
+            if (in != null)
+            {
+                try
+                {
+                    in.close();
+                } catch (IOException e)
+                {
+                    // Ignore
+                }
+            }
+        }
+    }
+
+ }

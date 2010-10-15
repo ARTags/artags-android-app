@@ -18,6 +18,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -40,11 +41,11 @@ public class WikitudeShowImageActivity extends Activity
     public void onCreate(Bundle icicle)
     {
         super.onCreate(icicle);
-        /*        requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
         WindowManager.LayoutParams.FLAG_FULLSCREEN); 
-         */
-        getWindow().requestFeature(Window.FEATURE_PROGRESS);
+         
         WebView webview = new WebView(this);
         setContentView(webview);
         webview.getSettings().setJavaScriptEnabled(true);
