@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARTags Project owners (see http://artags.org)
+/* Copyright (c) 2010 ARTags Project owners (see http://www.artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -14,16 +14,10 @@
  */
 package org.artags.android.app;
 
-import org.artags.android.app.ar.wikitude.WikitudeDisplayService;
-import org.artags.android.app.util.location.LocationService;
-import org.artags.android.app.ar.POIService;
-import org.artags.android.app.ar.GenericPOI;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.location.Location;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -35,12 +29,11 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
-import org.artags.android.app.preferences.PreferencesService;
-import java.util.List;
+import org.artags.android.app.ar.BrowserService;
 
 /**
  *
- * @author pierre@artags.org
+ * @author Pierre Levy
  */
 public class MainActivity extends Activity implements OnClickListener
 {
@@ -53,7 +46,6 @@ public class MainActivity extends Activity implements OnClickListener
     private static final String INTENT_DRAW_CLASS = INTENT_PACKAGE + ".DrawActivity";
     private static final String INTENT_PREFERENCES_CLASS = INTENT_PACKAGE + ".PreferencesActivity";
     private static final String INTENT_CREDITS_CLASS = INTENT_PACKAGE + ".CreditsActivity";
-    private static final int MAX_POIS = 30;
     private static final int DIALOG_PROGRESS = 0;
     private static final int PREFERENCES_MENU_ID = 0;
     private static final int CREDITS_MENU_ID = 1;
@@ -114,36 +106,12 @@ public class MainActivity extends Activity implements OnClickListener
 
     private boolean launchAugmentedReality()
     {
-        String ARBrowser = PreferencesService.instance().getAugmentedRealityBrowser( this );
+        BrowserService.instance().startBrowser(this);
 
-        if (PreferencesService.WIKITUDE.equalsIgnoreCase(ARBrowser))
-        {
-            double latitude = 48.0; // default value
-            double longitude = 2.0; // default value
-            Location location = LocationService.getLocation(getApplicationContext());
-            if (location != null)
-            {
-            latitude = location.getLatitude();
-            longitude = location.getLongitude();
-            }
-            List<GenericPOI> list = POIService.getPOIs(latitude, longitude , MAX_POIS );
-            WikitudeDisplayService.display(list, this);
-
-            return true;
-        } else if (PreferencesService.LAYAR.equalsIgnoreCase(ARBrowser))
-        {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse( Security.URI_LAYAR ));
-            startActivity(intent);
-
-        }else if (PreferencesService.JUNAIO.equalsIgnoreCase(ARBrowser))
-        {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse( Security.URI_JUNAIO ));
-            startActivity(intent);
-        }
-
-
-        return false;
+        return true;
     }
+
+ 
     final Handler handler = new Handler()
     {
 

@@ -7,7 +7,7 @@ package org.artags.android.app.draw;
 
 /**
  *
- * @author pierre@artags.org
+ * @author Pierre Levy
  */
 public class SendInfos 
 {
