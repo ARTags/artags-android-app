@@ -6,6 +6,9 @@
     <string name="eula_button_refuse">Refuse</string>
     <string name="button_draw">Draw</string>
     <string name="button_view">View existing ARTags near you</string>
+    <string name="title_browser_not_found">{0} not found!</string>
+    <string name="message_browser_not_found">The current selected augmented reality browser \"{0}\" hasn\'t been found! \n\nPlease download it from the Android Market or choose another browser in the Preferences screen that may be installed.</string>
+    <string name="button_download">Download</string>
     <string name="activity_paint">ARTags Draw</string>
     <string name="activity_ShowImage">Detail</string>
     <string name="menu_color">Colors</string>
@@ -60,9 +63,7 @@
     <string name="whats_new_dialog_title">What\'s new in ARTags</string>
     <string name="whats_new_dialog_message">Thanks for upgrading ARTags\n
     <b>New in version 1.0.1:</b>\n
-    \t• \n
-    \t• \n
-    \t• \n
+    \t• If the selected AR browser is not found, a message box let you download it.\n
 
     </string>
 

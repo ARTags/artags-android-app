@@ -12,14 +12,40 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package org.artags.android.app.ar;
 
-package org.artags.android.app;
+import android.app.Activity;
 
 /**
  *
  * @author Pierre Levy
  */
-public class Constants
-{
-    public static final int VERSION = 2;
+
+public interface BrowserHandler {
+
+    /**
+     * Should return the handler key
+     * @return The key
+     */
+    String getBrowserKey();
+
+
+    /**
+     * Should return the handler description
+     * @return The description
+     */
+    String getBrowserDescription();
+
+    /**
+     * Start the application
+     * @param activity The calling activity
+     */
+    void startBrowser( Activity activity );
+
+    /**
+     * Should return the package name to find the application on the market
+     * @return The package name
+     */
+    String getPackageName();
+
 }
