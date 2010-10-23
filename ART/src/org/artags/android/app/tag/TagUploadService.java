@@ -39,7 +39,7 @@ public class TagUploadService
     private static final String PARAMETER_KEY = "key";
     
 
-    public static void upload(Tag tag) throws HttpException
+    public static String upload(Tag tag) throws HttpException
     {
         HashMap<String, String> mapParams = new HashMap<String, String>();
         mapParams.put(PARAMETER_TITLE, tag.getTitle());
@@ -58,7 +58,7 @@ public class TagUploadService
         mapFiles.put( "photo" , new File(tag.getFilename() ));
         mapFiles.put( "thumbnail" , new File(tag.getThumbnail() ));
 
-        HttpUtil.post(Security.URL_UPLOAD, mapParams, mapFiles);
+        return HttpUtil.post(Security.URL_UPLOAD, mapParams, mapFiles);
 
     }
 }

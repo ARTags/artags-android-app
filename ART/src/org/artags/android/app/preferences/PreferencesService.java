@@ -42,6 +42,7 @@ public class PreferencesService
     private static final String KEY_BLUR_EFFECT = "brush.blur";
     private static final String KEY_EMBOSS_EFFECT = "brush.emboss";
     private static final String KEY_EULA_ACCEPTED = "eula.accepted";
+    private static final String KEY_TWITTER = "twitter.enabled";
 
 
     private static final int DEFAULT_BRUSH_SIZE = 12;
@@ -146,4 +147,18 @@ public class PreferencesService
         SharedPreferences prefs = activity.getSharedPreferences(SHARED_PREFS_NAME, Activity.MODE_PRIVATE);
         return prefs.getBoolean( KEY_EULA_ACCEPTED , false );
     }
+    public void setTwitter( Activity activity , boolean twitter )
+    {
+        SharedPreferences prefs = activity.getSharedPreferences( SHARED_PREFS_NAME, Activity.MODE_PRIVATE);
+        Editor editor = prefs.edit();
+        editor.putBoolean( KEY_TWITTER, twitter );
+        editor.commit();
+    }
+
+    public boolean isTwitter( Activity activity )
+    {
+        SharedPreferences prefs = activity.getSharedPreferences(SHARED_PREFS_NAME, Activity.MODE_PRIVATE);
+        return prefs.getBoolean( KEY_TWITTER , false );
+    }
+
 }

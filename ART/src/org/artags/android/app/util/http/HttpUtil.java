@@ -36,9 +36,9 @@ import org.apache.http.util.EntityUtils;
 public class HttpUtil
 {
 
-    public static void post(String sUrl, HashMap<String, String> params, HashMap<String, File> files) throws HttpException
+    public static String post(String sUrl, HashMap<String, String> params, HashMap<String, File> files) throws HttpException
     {
-
+        String ret = "";
         try
         {
             HttpClient client = new DefaultHttpClient();
@@ -66,7 +66,8 @@ public class HttpUtil
             HttpEntity resEntity = response.getEntity();
             if (resEntity != null)
             {
-                Log.i("ARTags:HttpUtil:Post:Response", EntityUtils.toString(resEntity));
+                ret = EntityUtils.toString(resEntity);
+                Log.i("ARTags:HttpUtil:Post:Response", ret);
             }
 
             //return response;
@@ -75,5 +76,6 @@ public class HttpUtil
             Log.e("ARTags:HttpUtil", "Error : " + e.getMessage());
             throw new HttpException(e.getMessage());
         }
+        return ret;
     }
 }
