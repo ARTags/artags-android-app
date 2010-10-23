@@ -37,12 +37,14 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
+import java.text.MessageFormat;
 import java.util.Date;
 import org.artags.android.app.draw.BrushDialog;
 import org.artags.android.app.draw.DrawView;
 import org.artags.android.app.draw.SendDialog;
 import org.artags.android.app.preferences.PreferencesService;
 import org.artags.android.app.util.bitmap.BitmapUtil;
+import org.artags.android.app.util.twitter.TwitterUtil;
 
 public class DrawActivity extends GraphicsActivity
         implements BrushDialog.OnBrushParametersChangedListener, SendDialog.OnSendListener
@@ -216,14 +218,44 @@ public class DrawActivity extends GraphicsActivity
             if (bOk)
             {
                 Toast.makeText(getApplicationContext(), getString(R.string.upload_successful), Toast.LENGTH_LONG).show();
+//                tweet();
+                share();
             } else
             {
                 Toast.makeText(getApplicationContext(), getString(R.string.upload_failed), Toast.LENGTH_LONG).show();
             }
 
-
         }
     };
+
+    private void tweet()
+    {
+        if (PreferencesService.instance().isTwitter(this))
+        {
+            Object[] args =
+            {
+                mSendInfos.getTitle()
+            };
+            String tweetPattern = getString(R.string.tweet_pattern);
+            String tweet = MessageFormat.format(tweetPattern, args);
+            TwitterUtil.send(this, tweet);
+        }
+    }
+
+    private void share()
+    {
+        Object[] args =
+        {
+            mSendInfos.getTitle(),
+            "" + mSendInfos.getTagId()
+        };
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        String sharePattern = getString(R.string.share_pattern);
+        String shareString = MessageFormat.format(sharePattern, args);
+        intent.putExtra(Intent.EXTRA_TEXT, shareString);
+        startActivity(Intent.createChooser(intent, getString(R.string.share_chooser_title)));
+    }
 
     public void setSendInfos(SendInfos si)
     {
@@ -325,7 +357,8 @@ public class DrawActivity extends GraphicsActivity
                 Log.i("ARTags:DrawActivity:send", "Prepare tag post - geoloc (" + tag.getLatitude() + "," + tag.getLongitude() + ")");
 
                 Log.i("ARTags:DrawActivity:send", "Post tag");
-                TagUploadService.upload(tag);
+                String tagId = TagUploadService.upload(tag);
+                mSendInfos.setTagId(Long.parseLong(tagId));
                 Log.i("ARTags:DrawActivity:send", "Tag posted successfully");
 
                 // Save a copy on the SD
@@ -367,12 +400,11 @@ public class DrawActivity extends GraphicsActivity
 
     }
 
-
-   public void gotoMyLocation()
+    public void gotoMyLocation()
     {
         Intent intentMyLocation = new Intent();
         intentMyLocation.setClassName(MainActivity.INTENT_PACKAGE, MainActivity.INTENT_MYLOCATION_CLASS);
-        startActivityForResult( intentMyLocation , INTENT_RESULT_MY_LOCATION );
+        startActivityForResult(intentMyLocation, INTENT_RESULT_MY_LOCATION);
     }
 
     @Override
@@ -380,7 +412,7 @@ public class DrawActivity extends GraphicsActivity
     {
         if (requestCode == INTENT_RESULT_MY_LOCATION)
         {
-            mDialogSend.onMyLocationResult( resultCode == MyLocationActivity.MYLOCATION_VALIDATE );
+            mDialogSend.onMyLocationResult(resultCode == MyLocationActivity.MYLOCATION_VALIDATE);
         }
     }
 }

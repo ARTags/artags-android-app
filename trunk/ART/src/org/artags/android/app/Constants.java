@@ -21,5 +21,5 @@ package org.artags.android.app;
  */
 public class Constants
 {
-    public static final int VERSION = 2;
+    public static final int VERSION = 3;
 }

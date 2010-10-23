@@ -180,9 +180,12 @@ public final class R {
         public static final int send_search_gps_found=0x7f06001f;
         public static final int send_search_gps_not_found=0x7f060020;
         public static final int send_search_gps_not_found_use_mylocation=0x7f060021;
+        public static final int share_chooser_title=0x7f060052;
+        public static final int share_pattern=0x7f060051;
         public static final int summary_ar_browser_list=0x7f06003a;
         public static final int title_ar_browser_list=0x7f060039;
         public static final int title_browser_not_found=0x7f060006;
+        public static final int tweet_pattern=0x7f060050;
         public static final int upload_failed=0x7f060027;
         public static final int upload_successful=0x7f060026;
         public static final int whats_new_dialog_message=0x7f060034;

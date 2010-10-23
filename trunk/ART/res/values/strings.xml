@@ -32,7 +32,7 @@
     <string name="dialog_send">Send your tag</string>
     <string name="send_search_gps">Searching location by GPS ...</string>
     <string name="send_search_gps_found">GPS location found !</string>
-    <string name="send_search_gps_not_found">Can\'t get GPS location.\nThe tag can not be sent.\n</string>
+    <string name="send_search_gps_not_found">Can\'t get GPS location.\nThe tag can not be sent now.\nSee Prefs to change location options.\n</string>
     <string name="send_search_gps_not_found_use_mylocation">Can\'t get GPS location.\nClick on MyLocation to define an approximate location.</string>
     <string name="send_approximate_location_found">Your location has been defined approximatively!\nYou can now send your tag.</string>
     <string name="send_button_send">Send</string>
@@ -55,15 +55,16 @@
     <string name="first_run_dialog_message">Thanks for downloading ARTags\n
     Quick start instructions :\n
     \t• Click on the DRAW button to draw your tag. Use menu to change the brush.\n
-    \t• Send your tag.\n
-    \t• ARTags is using your GPS to find your location, it may not work inside.
-    \t• Leave the DRAW feature and click on the DISPLAY button to see tags into the augmented reality\n
+    \t• When it\'s done, send your tag by the last option of the menu.\n\n
+    \t• Caution : ARTags is using your GPS to find your location, it may not work inside without changing default location options.\n\n
+    \t• Leave the DRAW feature and click on the DISPLAY button to see tags into the augmented reality\n\n
+    \t• For more information, see http://www.artags.org\n\n
     \t• Enjoy it!\n
     </string>
     <string name="whats_new_dialog_title">What\'s new in ARTags</string>
     <string name="whats_new_dialog_message">Thanks for upgrading ARTags\n
-    <b>New in version 1.0.1:</b>\n
-    \t• If the selected AR browser is not found, a message box let you download it.\n
+    <b>New in version 1.0.2:</b>\n
+    \t• After you sent a new tag, you can now share the information with Twitter, Facebook or other social application .\n
 
     </string>
 
@@ -99,4 +100,8 @@
     <string name="mylocation_enter_location_title">Define my location manually</string>
     <string name="mylocation_select_on_map">Select on map</string>
     <string name="mylocation_enter_position">Enter address</string>
+
+    <string name="tweet_pattern">#ARTags New tag : {0}</string>
+    <string name="share_pattern">#ARTags New tag : {0} - http://new.artags.net/{1}</string>
+    <string name="share_chooser_title">Share with</string>
 </resources>
