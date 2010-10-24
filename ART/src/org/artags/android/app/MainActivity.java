@@ -33,7 +33,7 @@ import org.artags.android.app.ar.BrowserService;
 
 /**
  *
- * @author Pierre Levy
+ * @author Pierre Levy, Pierre Gros
  */
 public class MainActivity extends Activity implements OnClickListener
 {
