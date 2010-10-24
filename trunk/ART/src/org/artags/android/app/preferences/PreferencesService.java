@@ -49,7 +49,7 @@ public class PreferencesService
     private static final int DEFAULT_COLOR = 0xFFA5C739;
     private static final int DEFAULT_INTENSITY = 50;
     private static final int DEFAULT_OPACITY = 0xFF;
-    private static final boolean DEFAULT_MYLOCATION = false;
+    private static final boolean DEFAULT_MYLOCATION = true;
 
 
     private static PreferencesService singleton = new PreferencesService();

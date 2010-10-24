@@ -167,7 +167,7 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
         } else if (seekbar == mSeekBarOpacity)
         {
             mProgressTextOpacity.setText("" + progress);
-            mOpacity = (int) ( 2.55 * (float) progress);
+            mOpacity = (int) ( 2.56 * (float) progress);
 
         } else if (seekbar == mSeekBarIntensity)
         {

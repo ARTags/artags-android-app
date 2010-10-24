@@ -29,7 +29,7 @@ import org.artags.android.app.DrawActivity;
 
 /**
  *
- * @author Pierre Levy
+ * @author Pierre Levy, Pierre Gros
  */
 public class DrawView extends View
 {
