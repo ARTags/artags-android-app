@@ -102,7 +102,7 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
         mSeekBarOpacity = (SeekBar) view.findViewById(R.id.seek_opacity);
         mProgressTextOpacity = (TextView) view.findViewById(R.id.opacity);
         mSeekBarOpacity.setOnSeekBarChangeListener(this);
-        mSeekBarOpacity.setProgress( (int) ( (float) mOpacity / 2.55));
+        mSeekBarOpacity.setProgress( (int) ( (float) (mOpacity + 1) / 2.55));
 
         // Brush size seekbar
         mSeekBarSize = (SeekBar) view.findViewById(R.id.seek_brush_size);
@@ -167,7 +167,7 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
         } else if (seekbar == mSeekBarOpacity)
         {
             mProgressTextOpacity.setText("" + progress);
-            mOpacity = (int) ( 2.56 * (float) progress);
+            mOpacity = (int) ( 2.55 * (float) progress);
 
         } else if (seekbar == mSeekBarIntensity)
         {
