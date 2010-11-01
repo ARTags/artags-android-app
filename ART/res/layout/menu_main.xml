@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/root"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+<LinearLayout android:id="@+id/footer_organize"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:clickable="false"
+            android:layout_alignParentBottom="true"
+            android:baselineAligned="false" android:visibility="gone">
+
+        <Button android:id="@+id/button_config"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="@string/menu_preferences"
+            android:background="@drawable/ic_menu_button"
+            android:drawableLeft="@drawable/menu_preferences_small"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp"/>
+
+        <Button android:id="@+id/button_credits"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="@string/menu_credits"
+            android:background="@drawable/ic_menu_button"
+            android:drawableLeft="@drawable/menu_credits_small"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp"/>
+    </LinearLayout>
+</RelativeLayout>

@@ -22,13 +22,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import org.artags.android.app.ar.BrowserService;
 
 /**
@@ -70,7 +74,6 @@ public class MainActivity extends Activity implements OnClickListener
 
         mButtonDraw.setOnClickListener(this);
         mButtonDisplay.setOnClickListener(this);
-
     }
 
     @Override
@@ -102,6 +105,14 @@ public class MainActivity extends Activity implements OnClickListener
         }
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && isMenuVisible()) {
+        	showHideMenu();
+        	return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
 
     private boolean launchAugmentedReality()
@@ -152,9 +163,13 @@ public class MainActivity extends Activity implements OnClickListener
     public boolean onCreateOptionsMenu(Menu menu)
     {
         super.onCreateOptionsMenu(menu);
+        createMenu();
+        /*
 //        menu.add(0, MYLOCATION_MENU_ID, 0, getString(R.string.menu_mylocation)).setIcon(R.drawable.menu_mylocation);
         menu.add(1, PREFERENCES_MENU_ID, 0, getString(R.string.menu_preferences)).setIcon(R.drawable.menu_preferences);
         menu.add(2, CREDITS_MENU_ID, 0, getString(R.string.menu_credits)).setIcon(R.drawable.menu_credits);
+         * 
+         */
         return true;
     }
 
@@ -162,34 +177,95 @@ public class MainActivity extends Activity implements OnClickListener
     public boolean onPrepareOptionsMenu(Menu menu)
     {
         super.onPrepareOptionsMenu(menu);
+        showHideMenu();
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
+    
+    public void menuSelected(int item)
     {
 
-        switch (item.getItemId())
+        switch (item)
         {
             case PREFERENCES_MENU_ID:
                 Intent intent = new Intent();
                 intent.setClassName(INTENT_PACKAGE, INTENT_PREFERENCES_CLASS);
                 startActivity(intent);
-                return true;
+                break;
 
             case CREDITS_MENU_ID:
                 Intent intentCredits = new Intent();
                 intentCredits.setClassName(INTENT_PACKAGE, INTENT_CREDITS_CLASS);
                 startActivity(intentCredits);
-                return true;
+                break;
 
-            case MYLOCATION_MENU_ID:
+            /*case MYLOCATION_MENU_ID:
                 Intent intentMyLocation = new Intent();
                 intentMyLocation.setClassName(INTENT_PACKAGE, INTENT_MYLOCATION_CLASS);
                 startActivity(intentMyLocation );
-                return true;
+                return true;*/
         }
-        return super.onOptionsItemSelected(item);
+        hideMenu();
+        //return super.onOptionsItemSelected(item);
     }
 
+    //create and populate the menu
+    private void createMenu()
+    {
+        LayoutInflater inflater = (LayoutInflater)getWindow().getLayoutInflater();
+        View menuView = inflater.inflate(R.layout.menu_main, null);
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT );
+        addContentView(menuView, layoutParams);
+
+        Button undoButton = (Button) this.findViewById(R.id.button_config);
+        undoButton.setOnClickListener(new View.OnClickListener() {
+            //@Override
+            public void onClick(View v) {
+                menuSelected(PREFERENCES_MENU_ID);
+            }
+        });
+
+        Button sendButton = (Button) this.findViewById(R.id.button_credits);
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            //@Override
+            public void onClick(View v) {
+                menuSelected(CREDITS_MENU_ID);
+            }
+        });
+    }
+    //Call this to show the menu or hide it if already displayed
+    private void showHideMenu() {
+    	LinearLayout footer = (LinearLayout) this.findViewById(R.id.footer_organize);
+        if(footer == null) {
+            return;
+        }
+    	if(isMenuVisible()) {
+            footer.setVisibility(View.GONE);
+        } else {
+            footer.setVisibility(View.VISIBLE);
+        }
+    }
+    private void hideMenu() {
+        LinearLayout footer = (LinearLayout) this.findViewById(R.id.footer_organize);
+        if(footer == null) {
+            return;
+        }
+    	footer.setVisibility(View.GONE);
+
+    }
+    private boolean isMenuVisible() {
+    	LinearLayout footer = (LinearLayout) this.findViewById(R.id.footer_organize);
+        if(footer == null) {
+            return false;
+        }
+    	int visible = footer.getVisibility();
+    	switch (visible) {
+		case View.GONE:
+		case View.INVISIBLE:
+			return false;
+		case View.VISIBLE:
+		default:
+			return true;
+		}
+    }
 }

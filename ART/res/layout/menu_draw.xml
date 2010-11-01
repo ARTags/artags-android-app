@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/root"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+<LinearLayout android:id="@+id/footer_organize"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:clickable="false"
+            android:layout_alignParentBottom="true"
+            android:baselineAligned="false" android:visibility="visible">
+
+        <Button android:id="@+id/button_tools"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="@string/menu_tools"
+            android:background="@drawable/ic_menu_button"
+            android:drawableLeft="@drawable/menu_brush_small"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp"/>
+
+        <Button android:id="@+id/button_undo"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="@string/menu_undo"
+            android:background="@drawable/ic_menu_button"
+            android:drawableLeft="@drawable/menu_undo_small"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp"/>
+
+        <Button android:id="@+id/button_send"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="@string/menu_send"
+            android:background="@drawable/ic_menu_button"
+            android:drawableLeft="@drawable/menu_send_small"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp"/>
+    </LinearLayout>
+</RelativeLayout>

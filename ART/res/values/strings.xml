@@ -11,6 +11,7 @@
     <string name="button_download">Download</string>
     <string name="activity_paint">ARTags Draw</string>
     <string name="activity_ShowImage">Detail</string>
+    <string name="menu_tools">Tools</string>
     <string name="menu_color">Colors</string>
     <string name="menu_emboss">Emboss</string>
     <string name="menu_blur">Blur</string>
@@ -63,10 +64,10 @@
     </string>
     <string name="whats_new_dialog_title">What\'s new in ARTags</string>
     <string name="whats_new_dialog_message">Thanks for upgrading ARTags\n
-    <b>New in version 1.0.2:</b>\n
-    \t• After you sent a new tag, you can now share the information with Twitter, Facebook or other social application .\n
-    \t• Pinch to zoom feature added in Draw.\n
-
+    <b>New in version 1.0.3:</b>\n
+    \t• Black, Grey and White colors in selector.\n
+    \t• New menus design.\n
+    \t• Minor bug-fixes.\n
     </string>
 
     <!-- Preferences strings -->

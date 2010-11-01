@@ -1,0 +1,7 @@
+New in version 1.0.3:
+    • New menus design.
+    • Black, Grey and White colors in selector.
+    • Minor bug-fixes.
+New in version 1.0.2:
+    • After you sent a new tag, you can now share the information with Twitter, Facebook or other social application.
+    • Pinch to zoom feature added in Draw.
