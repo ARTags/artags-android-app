@@ -71,10 +71,16 @@ public class SplashActivity extends Activity implements OnClickListener
         {
             Intent intent = new Intent();
             intent.setClassName(MainActivity.INTENT_PACKAGE, MainActivity.INTENT_MAIN_CLASS);
-            startActivity(intent);
+            startActivityForResult(intent,0);
         }
     }
 
+    //when we get back there, just finish.
+    @Override
+    protected void onActivityResult (int requestCode, int resultCode, Intent data)
+    {
+        super.finish();
+    }
     @Override
     protected Dialog onCreateDialog(int id)
     {

@@ -52,6 +52,7 @@ public class DrawView extends View
 
     //used in pinch
     private float oldDist;
+    //private float oldAngle;
     private PointF mid;
     private PointF newMid;
 
@@ -252,6 +253,7 @@ public class DrawView extends View
     private void startZoom(MotionEvent event)
     {
         oldDist = spacing(event);
+        //oldAngle = angle(event);
         if (oldDist > 50) {
 
             savedMatrix.set(matrix);
@@ -264,14 +266,17 @@ public class DrawView extends View
     private void zoom(MotionEvent event)
     {
         float newDist = spacing(event);
+        float newAngle = angle(event);
         if (newDist > 50) {
             matrix.set(savedMatrix);
             float scale = newDist / oldDist;
+            //float angle = newAngle - oldAngle;
             matrix.postScale(scale, scale, mid.x, mid.y);
 
             //translate the picture if both fingers moved
             midPoint(newMid, event);
             matrix.postTranslate(newMid.x-mid.x, newMid.y-mid.y);
+            //matrix.postRotate(angle);
 
             //be sure nothing outside the image will be visible
             float[] matrixValues = new float[9];
@@ -318,6 +323,12 @@ public class DrawView extends View
         float x = event.getX(0) + event.getX(1);
         float y = event.getY(0) + event.getY(1);
         point.set(x / 2, y / 2);
+    }
+    private float angle(MotionEvent event) {
+        float x = event.getX(0) - event.getX(1);
+        float y = event.getY(0) - event.getY(1);
+        Double angle = Math.toDegrees(Math.atan2(y, x));
+        return angle.floatValue();
     }
 
     private float getNewX(float x) {
