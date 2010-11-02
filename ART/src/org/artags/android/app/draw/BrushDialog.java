@@ -208,7 +208,7 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
             mColors = new int[]
                     {
                         0xFFFF0000, 0xFFFF00FF, 0xFF0000FF, 0xFF00FFFF, 0xFF00FF00,
-                        0xFFFFFF00, 0xFF000000, 0xFFFFFFFF, 0xFFFF0000
+                        0xFFFFFF00, 0xFFFF0000, 0xFF000000, 0xFFFFFFFF, 0xFFFF0000
                     };
             Shader s = new SweepGradient(0, 0, mColors, null);
 
