@@ -1,8 +1,17 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/* Copyright (c) 2010 ARTags Project owners (see http://www.artags.org)
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.artags.android.app.menu;
 
 import android.content.Context;
@@ -30,233 +39,258 @@ import org.artags.android.app.R;
  *
  * @author Lorensius. W. T
  */
-public class QuickAction extends CustomPopupWindow {
-	private final View root;
-	private final ImageView mArrowUp;
-	private final ImageView mArrowDown;
-	private final LayoutInflater inflater;
-	private final Context context;
+public class QuickAction extends CustomPopupWindow
+{
 
-	protected static final int ANIM_GROW_FROM_LEFT = 1;
-	protected static final int ANIM_GROW_FROM_RIGHT = 2;
-	protected static final int ANIM_GROW_FROM_CENTER = 3;
-	protected static final int ANIM_REFLECT = 4;
-	protected static final int ANIM_AUTO = 5;
+    private final View root;
+    private final ImageView mArrowUp;
+    private final ImageView mArrowDown;
+    private final LayoutInflater inflater;
+    private final Context context;
+    protected static final int ANIM_GROW_FROM_LEFT = 1;
+    protected static final int ANIM_GROW_FROM_RIGHT = 2;
+    protected static final int ANIM_GROW_FROM_CENTER = 3;
+    protected static final int ANIM_REFLECT = 4;
+    protected static final int ANIM_AUTO = 5;
+    private int animStyle;
+    private ViewGroup mTrack;
+    private ScrollView scroller;
+    private ArrayList<ActionItem> actionList;
 
-	private int animStyle;
-	private ViewGroup mTrack;
-	private ScrollView scroller;
-	private ArrayList<ActionItem> actionList;
+    /**
+     * Constructor
+     *
+     * @param anchor {@link View} on where the popup window should be displayed
+     */
+    public QuickAction(View anchor)
+    {
+        super(anchor);
 
-	/**
-	 * Constructor
-	 *
-	 * @param anchor {@link View} on where the popup window should be displayed
-	 */
-	public QuickAction(View anchor) {
-		super(anchor);
+        actionList = new ArrayList<ActionItem>();
+        context = anchor.getContext();
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-		actionList	= new ArrayList<ActionItem>();
-		context		= anchor.getContext();
-		inflater 	= (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        root = (ViewGroup) inflater.inflate(R.layout.popup, null);
 
-		root		= (ViewGroup) inflater.inflate(R.layout.popup, null);
+        mArrowDown = (ImageView) root.findViewById(R.id.arrow_down);
+        mArrowUp = (ImageView) root.findViewById(R.id.arrow_up);
 
-		mArrowDown 	= (ImageView) root.findViewById(R.id.arrow_down);
-		mArrowUp 	= (ImageView) root.findViewById(R.id.arrow_up);
+        setContentView(root);
 
-		setContentView(root);
+        mTrack = (ViewGroup) root.findViewById(R.id.tracks);
+        scroller = (ScrollView) root.findViewById(R.id.scroller);
+        animStyle = ANIM_AUTO;
+    }
 
-		mTrack 			= (ViewGroup) root.findViewById(R.id.tracks);
-		scroller		= (ScrollView) root.findViewById(R.id.scroller);
-		animStyle		= ANIM_AUTO;
-	}
+    /**
+     * Set animation style
+     *
+     * @param animStyle animation style, default is set to ANIM_AUTO
+     */
+    public void setAnimStyle(int animStyle)
+    {
+        this.animStyle = animStyle;
+    }
 
-	/**
-	 * Set animation style
-	 *
-	 * @param animStyle animation style, default is set to ANIM_AUTO
-	 */
-	public void setAnimStyle(int animStyle) {
-		this.animStyle = animStyle;
-	}
+    /**
+     * Add action item
+     *
+     * @param action  {@link ActionItem} object
+     */
+    public void addActionItem(ActionItem action)
+    {
+        actionList.add(action);
+    }
 
-	/**
-	 * Add action item
-	 *
-	 * @param action  {@link ActionItem} object
-	 */
-	public void addActionItem(ActionItem action) {
-		actionList.add(action);
-	}
+    /**
+     * Show popup window. Popup is automatically positioned, on top or bottom of anchor view.
+     *
+     */
+    public void show()
+    {
+        preShow();
 
-	/**
-	 * Show popup window. Popup is automatically positioned, on top or bottom of anchor view.
-	 *
-	 */
-	public void show () {
-		preShow();
+        int xPos, yPos;
 
-		int xPos, yPos;
+        int[] location = new int[2];
 
-		int[] location 		= new int[2];
+        anchor.getLocationOnScreen(location);
 
-		anchor.getLocationOnScreen(location);
+        Rect anchorRect = new Rect(location[0], location[1], location[0] + anchor.getWidth(), location[1]
+                + anchor.getHeight());
 
-		Rect anchorRect 	= new Rect(location[0], location[1], location[0] + anchor.getWidth(), location[1]
-		                	+ anchor.getHeight());
+        createActionList();
 
-		createActionList();
+        root.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+        root.measure(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 
-		root.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-		root.measure(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        int rootHeight = root.getMeasuredHeight();
+        int rootWidth = root.getMeasuredWidth();
 
-		int rootHeight 		= root.getMeasuredHeight();
-		int rootWidth		= root.getMeasuredWidth();
+        int screenWidth = windowManager.getDefaultDisplay().getWidth();
+        int screenHeight = windowManager.getDefaultDisplay().getHeight();
 
-		int screenWidth 	= windowManager.getDefaultDisplay().getWidth();
-		int screenHeight	= windowManager.getDefaultDisplay().getHeight();
+        //automatically get X coord of popup (top left)
+        if ((anchorRect.left + rootWidth) > screenWidth)
+        {
+            xPos = anchorRect.left - (rootWidth - anchor.getWidth());
+        } else
+        {
+            if (anchor.getWidth() > rootWidth)
+            {
+                xPos = anchorRect.centerX() - (rootWidth / 2);
+            } else
+            {
+                xPos = anchorRect.left;
+            }
+        }
 
-		//automatically get X coord of popup (top left)
-		if ((anchorRect.left + rootWidth) > screenWidth) {
-			xPos = anchorRect.left - (rootWidth-anchor.getWidth());
-		} else {
-			if (anchor.getWidth() > rootWidth) {
-				xPos = anchorRect.centerX() - (rootWidth/2);
-			} else {
-				xPos = anchorRect.left;
-			}
-		}
+        int dyTop = anchorRect.top;
+        int dyBottom = screenHeight - anchorRect.bottom;
 
-		int dyTop			= anchorRect.top;
-		int dyBottom		= screenHeight - anchorRect.bottom;
+        boolean onTop = (dyTop > dyBottom) ? true : false;
 
-		boolean onTop		= (dyTop > dyBottom) ? true : false;
+        if (onTop)
+        {
+            if (rootHeight > dyTop)
+            {
+                yPos = 15;
+                LayoutParams l = scroller.getLayoutParams();
+                l.height = dyTop - anchor.getHeight();
+            } else
+            {
+                yPos = anchorRect.top - rootHeight;
+            }
+        } else
+        {
+            yPos = anchorRect.bottom;
 
-		if (onTop) {
-			if (rootHeight > dyTop) {
-				yPos 			= 15;
-				LayoutParams l 	= scroller.getLayoutParams();
-				l.height		= dyTop - anchor.getHeight();
-			} else {
-				yPos = anchorRect.top - rootHeight;
-			}
-		} else {
-			yPos = anchorRect.bottom;
+            if (rootHeight > dyBottom)
+            {
+                LayoutParams l = scroller.getLayoutParams();
+                l.height = dyBottom;
+            }
+        }
 
-			if (rootHeight > dyBottom) {
-				LayoutParams l 	= scroller.getLayoutParams();
-				l.height		= dyBottom;
-			}
-		}
+        showArrow(((onTop) ? R.id.arrow_down : R.id.arrow_up), anchorRect.centerX() - xPos);
 
-		showArrow(((onTop) ? R.id.arrow_down : R.id.arrow_up), anchorRect.centerX()-xPos);
+        setAnimationStyle(screenWidth, anchorRect.centerX(), onTop);
 
-		setAnimationStyle(screenWidth, anchorRect.centerX(), onTop);
+        window.showAtLocation(anchor, Gravity.NO_GRAVITY, xPos, yPos);
+    }
 
-		window.showAtLocation(anchor, Gravity.NO_GRAVITY, xPos, yPos);
-	}
+    /**
+     * Set animation style
+     *
+     * @param screenWidth screen width
+     * @param requestedX distance from left edge
+     * @param onTop flag to indicate where the popup should be displayed. Set TRUE if displayed on top of anchor view
+     * 		  and vice versa
+     */
+    private void setAnimationStyle(int screenWidth, int requestedX, boolean onTop)
+    {
+        int arrowPos = requestedX - mArrowUp.getMeasuredWidth() / 2;
 
-	/**
-	 * Set animation style
-	 *
-	 * @param screenWidth screen width
-	 * @param requestedX distance from left edge
-	 * @param onTop flag to indicate where the popup should be displayed. Set TRUE if displayed on top of anchor view
-	 * 		  and vice versa
-	 */
-	private void setAnimationStyle(int screenWidth, int requestedX, boolean onTop) {
-		int arrowPos = requestedX - mArrowUp.getMeasuredWidth()/2;
+        switch (animStyle)
+        {
+            case ANIM_GROW_FROM_LEFT:
+                window.setAnimationStyle((onTop) ? R.style.Animations_PopUpMenu_Left : R.style.Animations_PopDownMenu_Left);
+                break;
 
-		switch (animStyle) {
-		case ANIM_GROW_FROM_LEFT:
-			window.setAnimationStyle((onTop) ? R.style.Animations_PopUpMenu_Left : R.style.Animations_PopDownMenu_Left);
-			break;
+            case ANIM_GROW_FROM_RIGHT:
+                window.setAnimationStyle((onTop) ? R.style.Animations_PopUpMenu_Right : R.style.Animations_PopDownMenu_Right);
+                break;
 
-		case ANIM_GROW_FROM_RIGHT:
-			window.setAnimationStyle((onTop) ? R.style.Animations_PopUpMenu_Right : R.style.Animations_PopDownMenu_Right);
-			break;
+            case ANIM_GROW_FROM_CENTER:
+                window.setAnimationStyle((onTop) ? R.style.Animations_PopUpMenu_Center : R.style.Animations_PopDownMenu_Center);
+                break;
 
-		case ANIM_GROW_FROM_CENTER:
-			window.setAnimationStyle((onTop) ? R.style.Animations_PopUpMenu_Center : R.style.Animations_PopDownMenu_Center);
-		break;
+            case ANIM_REFLECT:
+                window.setAnimationStyle((onTop) ? R.style.Animations_PopUpMenu_Reflect : R.style.Animations_PopDownMenu_Reflect);
+                break;
 
-		case ANIM_REFLECT:
-			window.setAnimationStyle((onTop) ? R.style.Animations_PopUpMenu_Reflect : R.style.Animations_PopDownMenu_Reflect);
-		break;
+            case ANIM_AUTO:
+                if (arrowPos <= screenWidth / 4)
+                {
+                    window.setAnimationStyle((onTop) ? R.style.Animations_PopUpMenu_Left : R.style.Animations_PopDownMenu_Left);
+                } else if (arrowPos > screenWidth / 4 && arrowPos < 3 * (screenWidth / 4))
+                {
+                    window.setAnimationStyle((onTop) ? R.style.Animations_PopUpMenu_Center : R.style.Animations_PopDownMenu_Center);
+                } else
+                {
+                    window.setAnimationStyle((onTop) ? R.style.Animations_PopUpMenu_Right : R.style.Animations_PopDownMenu_Right);
+                }
 
-		case ANIM_AUTO:
-			if (arrowPos <= screenWidth/4) {
-				window.setAnimationStyle((onTop) ? R.style.Animations_PopUpMenu_Left : R.style.Animations_PopDownMenu_Left);
-			} else if (arrowPos > screenWidth/4 && arrowPos < 3 * (screenWidth/4)) {
-				window.setAnimationStyle((onTop) ? R.style.Animations_PopUpMenu_Center : R.style.Animations_PopDownMenu_Center);
-			} else {
-				window.setAnimationStyle((onTop) ? R.style.Animations_PopUpMenu_Right : R.style.Animations_PopDownMenu_Right);
-			}
+                break;
+        }
+    }
 
-			break;
-		}
-	}
+    /**
+     * Create action list
+     */
+    private void createActionList()
+    {
+        View view;
+        String title;
+        Drawable icon;
+        OnClickListener listener;
 
-	/**
-	 * Create action list
-	 */
-	private void createActionList() {
-		View view;
-		String title;
-		Drawable icon;
-		OnClickListener listener;
+        for (int i = 0; i < actionList.size(); i++)
+        {
+            title = actionList.get(i).getTitle();
+            icon = actionList.get(i).getIcon();
+            listener = actionList.get(i).getListener();
 
-		for (int i = 0; i < actionList.size(); i++) {
-			title 		= actionList.get(i).getTitle();
-			icon 		= actionList.get(i).getIcon();
-			listener	= actionList.get(i).getListener();
+            view = getActionItem(title, icon, listener);
 
-			view 		= getActionItem(title, icon, listener);
+            view.setFocusable(true);
+            view.setClickable(true);
 
-			view.setFocusable(true);
-			view.setClickable(true);
+            mTrack.addView(view);
+        }
+    }
 
-			mTrack.addView(view);
-		}
-	}
+    /**
+     * Get action item {@link View}
+     *
+     * @param title action item title
+     * @param icon {@link Drawable} action item icon
+     * @param listener {@link View.OnClickListener} action item listener
+     * @return action item {@link View}
+     */
+    private View getActionItem(String title, Drawable icon, OnClickListener listener)
+    {
+        LinearLayout container = (LinearLayout) inflater.inflate(R.layout.action_item, null);
 
-	/**
-	 * Get action item {@link View}
-	 *
-	 * @param title action item title
-	 * @param icon {@link Drawable} action item icon
-	 * @param listener {@link View.OnClickListener} action item listener
-	 * @return action item {@link View}
-	 */
-	private View getActionItem(String title, Drawable icon, OnClickListener listener) {
-		LinearLayout container	= (LinearLayout) inflater.inflate(R.layout.action_item, null);
+        ImageView img = (ImageView) container.findViewById(R.id.icon);
+        TextView text = (TextView) container.findViewById(R.id.title);
 
-		ImageView img			= (ImageView) container.findViewById(R.id.icon);
-		TextView text			= (TextView) container.findViewById(R.id.title);
+        if (icon != null)
+        {
+            img.setImageDrawable(icon);
+        }
 
-		if (icon != null) {
-			img.setImageDrawable(icon);
-		}
+        if (title != null)
+        {
+            text.setText(title);
+        }
 
-		if (title != null) {
-			text.setText(title);
-		}
+        if (listener != null)
+        {
+            container.setOnClickListener(listener);
+        }
 
-		if (listener != null) {
-			container.setOnClickListener(listener);
-		}
+        return container;
+    }
 
-		return container;
-	}
-
-	/**
-	 * Show arrow
-	 *
-	 * @param whichArrow arrow type resource id
-	 * @param requestedX distance from left screen
-	 */
-	private void showArrow(int whichArrow, int requestedX) {
+    /**
+     * Show arrow
+     *
+     * @param whichArrow arrow type resource id
+     * @param requestedX distance from left screen
+     */
+    private void showArrow(int whichArrow, int requestedX)
+    {
         final View showArrow = (whichArrow == R.id.arrow_up) ? mArrowUp : mArrowDown;
         final View hideArrow = (whichArrow == R.id.arrow_up) ? mArrowDown : mArrowUp;
 
@@ -264,7 +298,7 @@ public class QuickAction extends CustomPopupWindow {
 
         showArrow.setVisibility(View.VISIBLE);
 
-        ViewGroup.MarginLayoutParams param = (ViewGroup.MarginLayoutParams)showArrow.getLayoutParams();
+        ViewGroup.MarginLayoutParams param = (ViewGroup.MarginLayoutParams) showArrow.getLayoutParams();
 
         param.leftMargin = requestedX - arrowWidth / 2;
 

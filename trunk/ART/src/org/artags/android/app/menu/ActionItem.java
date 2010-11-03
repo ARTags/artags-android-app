@@ -12,9 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.artags.android.app.menu;
-
 
 import android.graphics.drawable.Drawable;
 import android.view.View.OnClickListener;
@@ -25,80 +23,93 @@ import android.view.View.OnClickListener;
  * @author Lorensius. W. L. T
  *
  */
-public class ActionItem {
-	private Drawable icon;
-	private String title;
-	private OnClickListener listener;
+public class ActionItem
+{
 
-	/**
-	 * Constructor
-	 */
-	public ActionItem() {}
+    private Drawable icon;
+    private String title;
+    private OnClickListener listener;
 
-	/**
-	 * Constructor
-	 *
-	 * @param icon {@link Drawable} action icon
-	 */
-	public ActionItem(Drawable icon) {
-		this.icon = icon;
-	}
+    /**
+     * Constructor
+     */
+    public ActionItem()
+    {
+    }
 
-        public ActionItem(String title, Drawable icon, OnClickListener listener) {
-            this.icon = icon;
-            this.title = title;
-            this.listener = listener;
-        }
-	/**
-	 * Set action title
-	 *
-	 * @param title action title
-	 */
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    /**
+     * Constructor
+     *
+     * @param icon {@link Drawable} action icon
+     */
+    public ActionItem(Drawable icon)
+    {
+        this.icon = icon;
+    }
 
-	/**
-	 * Get action title
-	 *
-	 * @return action title
-	 */
-	public String getTitle() {
-		return this.title;
-	}
+    public ActionItem(String title, Drawable icon, OnClickListener listener)
+    {
+        this.icon = icon;
+        this.title = title;
+        this.listener = listener;
+    }
 
-	/**
-	 * Set action icon
-	 *
-	 * @param icon {@link Drawable} action icon
-	 */
-	public void setIcon(Drawable icon) {
-		this.icon = icon;
-	}
+    /**
+     * Set action title
+     *
+     * @param title action title
+     */
+    public void setTitle(String title)
+    {
+        this.title = title;
+    }
 
-	/**
-	 * Get action icon
-	 * @return  {@link Drawable} action icon
-	 */
-	public Drawable getIcon() {
-		return this.icon;
-	}
+    /**
+     * Get action title
+     *
+     * @return action title
+     */
+    public String getTitle()
+    {
+        return this.title;
+    }
 
-	/**
-	 * Set on click listener
-	 *
-	 * @param listener on click listener {@link View.OnClickListener}
-	 */
-	public void setOnClickListener(OnClickListener listener) {
-		this.listener = listener;
-	}
+    /**
+     * Set action icon
+     *
+     * @param icon {@link Drawable} action icon
+     */
+    public void setIcon(Drawable icon)
+    {
+        this.icon = icon;
+    }
 
-	/**
-	 * Get on click listener
-	 *
-	 * @return on click listener {@link View.OnClickListener}
-	 */
-	public OnClickListener getListener() {
-		return this.listener;
-	}
+    /**
+     * Get action icon
+     * @return  {@link Drawable} action icon
+     */
+    public Drawable getIcon()
+    {
+        return this.icon;
+    }
+
+    /**
+     * Set on click listener
+     *
+     * @param listener on click listener {@link View.OnClickListener}
+     */
+    public void setOnClickListener(OnClickListener listener)
+    {
+        this.listener = listener;
+    }
+
+    /**
+     * Get on click listener
+     *
+     * @return on click listener {@link View.OnClickListener}
+     */
+    public OnClickListener getListener()
+    {
+        return this.listener;
+    }
 }
