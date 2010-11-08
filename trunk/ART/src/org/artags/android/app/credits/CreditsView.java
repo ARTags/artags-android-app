@@ -44,6 +44,7 @@ public class CreditsView extends SurfaceView implements SurfaceHolder.Callback
     private static final int DY_AFTER_PERSON = 25;
     private SurfaceHolder mHolder;
     private Bitmap mBackground;
+    private Bitmap mBackgroundLandscape;
     private int mWidth, mHeight;
     private int period;
     private Rect mbgIn;
@@ -54,6 +55,7 @@ public class CreditsView extends SurfaceView implements SurfaceHolder.Callback
     private float mPreviousX;
     private float mPreviousY;
     private int mDY;
+    private boolean mTouch;
 
     public CreditsView(Context context)
     {
@@ -90,6 +92,7 @@ public class CreditsView extends SurfaceView implements SurfaceHolder.Callback
         loadFromResources(credits, R.array.credits);
 
         mBackground = BitmapFactory.decodeResource(getResources(), R.drawable.background);
+        mBackgroundLandscape = BitmapFactory.decodeResource(getResources(), R.drawable.background_land);
 
     }
 
@@ -125,6 +128,7 @@ public class CreditsView extends SurfaceView implements SurfaceHolder.Callback
         mHandler.removeCallbacks(mDrawFrames);
         mWidth = width;
         mHeight = height;
+        mbgIn = null;
         calculatedItemSpacing(credits, mHeight);
 
         mThread.alive = false;
@@ -228,7 +232,14 @@ public class CreditsView extends SurfaceView implements SurfaceHolder.Callback
             }
         }
 
-        mDY = (mDY / 2) - 1;
+        if( mTouch )
+        {
+            mDY = 0;
+        }
+        else
+        {
+            mDY = (mDY / 3) - 1;
+        }
 
         for (CreditsItem item : credits)
         {
@@ -272,7 +283,14 @@ public class CreditsView extends SurfaceView implements SurfaceHolder.Callback
         {
             mbgIn = new Rect(0, 0, mWidth, mHeight);
         }
-        c.drawBitmap(mBackground, mbgIn, mbgIn, mBgPaint);
+        if( mWidth < mHeight )
+        {
+            c.drawBitmap(mBackground, mbgIn, mbgIn, mBgPaint);
+        }
+        else
+        {
+            c.drawBitmap(mBackgroundLandscape, mbgIn, mbgIn, mBgPaint);
+        }
     }
 
     @Override
@@ -285,7 +303,7 @@ public class CreditsView extends SurfaceView implements SurfaceHolder.Callback
             case MotionEvent.ACTION_DOWN:
                 mPreviousX = x;
                 mPreviousY = y;
-                mDY = 2;
+                mTouch = true;
                 break;
 
             case MotionEvent.ACTION_MOVE:
@@ -294,6 +312,9 @@ public class CreditsView extends SurfaceView implements SurfaceHolder.Callback
                 mDY = (int) dy;
                 mPreviousX = x;
                 mPreviousY = y;
+
+            case MotionEvent.ACTION_UP:
+                mTouch = false;
         }
         return true;
     }
