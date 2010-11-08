@@ -64,12 +64,14 @@
     </string>
     <string name="whats_new_dialog_title">What\'s new in ARTags</string>
     <string name="whats_new_dialog_message">Thanks for upgrading ARTags\n
-    <b>New in version 1.0.3:</b>\n
-    \t• Black, Grey and White colors in selector.\n
-    \t• New menus design.\n
+    <b>New in version 1.0.4:</b>\n
+    \t• New  credits design and GUI enhancements.\n
     \t• Minor bug-fixes.\n
     </string>
 
+    <!-- Credits infos -->
+    <string name="credits_app_name">ARTags for Android</string>
+    <string name="credits_current_version">Version 1.0.4</string>
     <!-- Preferences strings -->
     <string name="activity_preferences">Preferences</string>
     <string name="menu_preferences">Preferences</string>
