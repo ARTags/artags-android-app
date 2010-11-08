@@ -17,7 +17,7 @@
     <string name="menu_blur">Blur</string>
     <string name="menu_erase">Erase</string>
     <string name="menu_brush_size">Brush size</string>
-    <string name="menu_eyedropper">Eyedropper</string>
+    <string name="menu_eyedropper">Pipette</string>
     <string name="menu_reset">Reset</string>
     <string name="menu_undo">Undo</string>
     <string name="menu_send">Send</string>
@@ -67,6 +67,13 @@
     <b>New in version 1.0.4:</b>\n
     \t• New  credits design and GUI enhancements.\n
     \t• Minor bug-fixes.\n
+    \t• Android 1.5 suport (Beta)
+    </string>
+    <string name="draw_readme_title">Tips for drawing</string>
+    <string name="draw_readme_text">\t• Touch the screen to draw.\n
+    \t• Pinch to zoom.\n
+    \t• Press menu for tools.\n
+    \t• Click send to send your tag in AR.\n
     </string>
 
     <!-- Credits infos -->

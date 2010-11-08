@@ -13,17 +13,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.artags.android.app;
+package org.artags.android.app.apilevels;
+
+import android.view.MotionEvent;
 
 /**
  *
- * @author Pierre Levy
+ * @author Pierre Gros
  */
-public class Constants
-{
-//    public static final int VERSION = 1;  // 1.0.0
-//    public static final int VERSION = 2;  // 1.0.1
-//    public static final int VERSION = 3;  // 1.0.2
-//    public static final int VERSION = 4;  // 1.0.3
-//    public static final int VERSION = 5;  // 1.0.4
+public class ApiLevel5 {
+    public static float getX(MotionEvent event, int pointerIndex)
+    {
+        return event.getX(pointerIndex);
+    }
+
+    public static float getY(MotionEvent event, int pointerIndex)
+    {
+        return event.getY(pointerIndex);
+    }
+
+    public static final int ACTION_POINTER_DOWN = MotionEvent.ACTION_POINTER_DOWN;
+    public static final int ACTION_POINTER_2_DOWN = MotionEvent.ACTION_POINTER_2_DOWN;
 }

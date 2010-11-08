@@ -15,6 +15,7 @@
 package org.artags.android.app;
 
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import org.artags.android.app.draw.BrushParameters;
 import org.artags.android.app.draw.SendInfos;
 import org.artags.android.app.tag.TagUploadService;
@@ -68,6 +69,7 @@ public class DrawActivity extends GraphicsActivity
     private static final int RESET_MENU_ID = Menu.FIRST + 4;
     private static final int SEND_MENU_ID = Menu.FIRST + 5;
     private static final int DIALOG_PROGRESS = 0;
+    private static final int DIALOG_README = 1;
     private DrawView mView;
     private ProgressThread progressThread;
     private ProgressDialog progressDialog;
@@ -112,6 +114,7 @@ public class DrawActivity extends GraphicsActivity
 
         mView.setPaint(mPaint);
         createMenu();
+        displayReadme();
     }
 
     public void setBrushParameter(BrushParameters bp)
@@ -146,6 +149,14 @@ public class DrawActivity extends GraphicsActivity
                 progressThread = new ProgressThread(handler);
                 progressThread.start();
                 return progressDialog;
+            case DIALOG_README:
+                Dialog dialog;
+                Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.draw_readme_title);
+                builder.setPositiveButton(R.string.button_ok, null);
+                builder.setMessage(R.string.draw_readme_text);
+                dialog = builder.create();
+                return dialog;
         }
         return null;
 
@@ -488,7 +499,7 @@ public class DrawActivity extends GraphicsActivity
                 // Save a copy on the SD
                 Date date = new Date();
                 String savedfile = "tag-" + date.getTime() + ".png";
-                BitmapUtil.saveImage(savedfile, mView.getBitmap());
+                BitmapUtil.saveImage(savedfile, mView.getBitmap(), mSendInfos.isLandscape());
 
                 return true;
 
@@ -529,6 +540,15 @@ public class DrawActivity extends GraphicsActivity
         Intent intentMyLocation = new Intent();
         intentMyLocation.setClassName(MainActivity.INTENT_PACKAGE, MainActivity.INTENT_MYLOCATION_CLASS);
         startActivityForResult(intentMyLocation, INTENT_RESULT_MY_LOCATION);
+    }
+    
+    private void displayReadme()
+    {
+        if(PreferencesService.instance().isDrawReadme(this))
+        {
+            showDialog(DIALOG_README);
+            PreferencesService.instance().setDrawReadme(this, false);
+        }
     }
 
     @Override

@@ -26,6 +26,8 @@ import android.util.FloatMath;
 import android.view.MotionEvent;
 import android.view.View;
 import org.artags.android.app.DrawActivity;
+import org.artags.android.app.apilevels.ApiLevel5;
+import org.artags.android.app.apilevels.ApiLevels;
 
 /**
  *
@@ -156,10 +158,10 @@ public class DrawView extends View
         {
             switch (event.getAction())
             {
-                case MotionEvent.ACTION_POINTER_DOWN:
+                /*case MotionEvent.ACTION_POINTER_DOWN:
                 case MotionEvent.ACTION_POINTER_2_DOWN://deprecated but fail on my N1 without it.
                     startZoom(event);
-                    break;
+                    break;*/
                 case MotionEvent.ACTION_DOWN:
                     this.touchMode = DRAW;
                     touch_start(x, y);
@@ -179,6 +181,12 @@ public class DrawView extends View
                     touch_up();
                     invalidate();
                     break;
+                default:
+                    if (ApiLevels.getApiLevel()>= 5 &&
+                            (event.getAction() == ApiLevel5.ACTION_POINTER_DOWN || event.getAction() == ApiLevel5.ACTION_POINTER_2_DOWN))
+                    {
+                        startZoom(event);
+                    }
             }
         }
         else
@@ -266,7 +274,7 @@ public class DrawView extends View
     private void zoom(MotionEvent event)
     {
         float newDist = spacing(event);
-        float newAngle = angle(event);
+        //float newAngle = angle(event);
         if (newDist > 50) {
             matrix.set(savedMatrix);
             float scale = newDist / oldDist;
@@ -315,21 +323,31 @@ public class DrawView extends View
     }
 
     private float spacing(MotionEvent event) {
-        float x = event.getX(0) - event.getX(1);
-        float y = event.getY(0) - event.getY(1);
+        float x = 0;
+        float y = 0;
+        if (ApiLevels.getApiLevel()>= 5)
+        {
+            x = ApiLevel5.getX(event, 0) - ApiLevel5.getX(event, 1);
+            y = ApiLevel5.getY(event, 0) - ApiLevel5.getY(event, 1);
+        }
         return FloatMath.sqrt(x * x + y * y);
     }
     private void midPoint(PointF point, MotionEvent event) {
-        float x = event.getX(0) + event.getX(1);
-        float y = event.getY(0) + event.getY(1);
+        float x = 0;
+        float y = 0;
+        if (ApiLevels.getApiLevel()>= 5)
+        {
+            x = ApiLevel5.getX(event, 0) + ApiLevel5.getX(event, 1);
+            y = ApiLevel5.getY(event, 0) + ApiLevel5.getY(event, 1);
+        }
         point.set(x / 2, y / 2);
     }
-    private float angle(MotionEvent event) {
+    /*private float angle(MotionEvent event) {
         float x = event.getX(0) - event.getX(1);
         float y = event.getY(0) - event.getY(1);
         Double angle = Math.toDegrees(Math.atan2(y, x));
         return angle.floatValue();
-    }
+    }*/
 
     private float getNewX(float x) {
         float[] matrixValues = new float[9];
