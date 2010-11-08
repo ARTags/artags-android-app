@@ -13,17 +13,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.artags.android.app;
+package org.artags.android.app.apilevels;
+
+import android.os.Build;
 
 /**
  *
- * @author Pierre Levy
+ * @author Pierre Gros
  */
-public class Constants
-{
-//    public static final int VERSION = 1;  // 1.0.0
-//    public static final int VERSION = 2;  // 1.0.1
-//    public static final int VERSION = 3;  // 1.0.2
-//    public static final int VERSION = 4;  // 1.0.3
-//    public static final int VERSION = 5;  // 1.0.4
+public class ApiLevels {
+    public static int getApiLevel()
+    {
+        return Integer.parseInt(Build.VERSION.SDK);
+    }
 }

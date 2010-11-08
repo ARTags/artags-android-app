@@ -5,7 +5,7 @@
           android:installLocation="auto"
           package="org.artags.android.app">
 
-    <uses-sdk android:minSdkVersion="7" />
+    <uses-sdk android:minSdkVersion="3" />
 
     <supports-screens android:anyDensity="false" />  
      

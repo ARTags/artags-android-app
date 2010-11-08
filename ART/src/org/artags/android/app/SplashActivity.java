@@ -26,6 +26,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -62,7 +63,8 @@ public class SplashActivity extends Activity implements OnClickListener
 
         checkEulaAccepted();
         checkLastVersion();
-
+        //PreferencesService.instance().setDrawReadme(this, true);
+        //PreferencesService.instance().saveVersion(this, Constants.VERSION);
     }
 
     public void onClick(View view)
@@ -135,7 +137,8 @@ public class SplashActivity extends Activity implements OnClickListener
     private void checkLastVersion()
     {
         final int lastVersion = PreferencesService.instance().getVersion(this);
-        if (lastVersion < Constants.VERSION)
+        final int version = PreferencesService.instance().getVersionNumber(this);
+        if (lastVersion < version)
         {
             if (lastVersion == 0)
             {
@@ -148,8 +151,13 @@ public class SplashActivity extends Activity implements OnClickListener
                 mResTitle = R.string.whats_new_dialog_title;
                 mResMessage = R.string.whats_new_dialog_message;
             }
+            //if update, then check if the readme has change. if yes, display it.
+            if(lastVersion < PreferencesService.instance().getLastReadMeChangeVersion())
+            {
+                PreferencesService.instance().setDrawReadme(this, true);
+            }
             // show what's new message
-            PreferencesService.instance().saveVersion(this, Constants.VERSION);
+            PreferencesService.instance().saveVersion(this, version);
             showDialog(WHATS_NEW_DIALOG);
         }
     }

@@ -16,8 +16,12 @@
 package org.artags.android.app.preferences;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import org.artags.android.app.draw.BrushParameters;
 
 /**
@@ -43,6 +47,7 @@ public class PreferencesService
     private static final String KEY_EMBOSS_EFFECT = "brush.emboss";
     private static final String KEY_EULA_ACCEPTED = "eula.accepted";
     private static final String KEY_TWITTER = "twitter.enabled";
+    private static final String KEY_DISPLAY_DRAW_README = "readme.draw";
 
 
     private static final int DEFAULT_BRUSH_SIZE = 12;
@@ -51,7 +56,11 @@ public class PreferencesService
     private static final int DEFAULT_OPACITY = 0xFF;
     private static final boolean DEFAULT_MYLOCATION = true;
 
+    //change this if readme have to be displayed again on app update.
+    //Check android:versionCode in AndroidManifest.xml
+    private int LAST_VERSION_WHERE_DRAW_README_CHANGED = 5;
 
+    
     private static PreferencesService singleton = new PreferencesService();
 
     private PreferencesService()
@@ -161,4 +170,37 @@ public class PreferencesService
         return prefs.getBoolean( KEY_TWITTER , false );
     }
 
+    public int getLastReadMeChangeVersion()
+    {
+        return LAST_VERSION_WHERE_DRAW_README_CHANGED;
+    }
+
+    public void setDrawReadme( Activity activity , boolean display)
+    {
+        SharedPreferences prefs = activity.getSharedPreferences( SHARED_PREFS_NAME, Activity.MODE_PRIVATE);
+        Editor editor = prefs.edit();
+        editor.putBoolean( KEY_DISPLAY_DRAW_README, display );
+        editor.commit();
+    }
+
+    public boolean isDrawReadme(Activity activity)
+    {
+        SharedPreferences prefs = activity.getSharedPreferences(SHARED_PREFS_NAME, Activity.MODE_PRIVATE);
+        return prefs.getBoolean( KEY_DISPLAY_DRAW_README , true );
+    }
+
+    public int getVersionNumber(Context c)
+    {
+        int versionNo = 0;
+        PackageInfo pInfo = null;
+        try{
+                pInfo = c.getPackageManager().getPackageInfo("org.artags.android.app",PackageManager.GET_META_DATA);
+        } catch (NameNotFoundException e) {
+                pInfo = null;
+        }
+        if(pInfo != null)
+                versionNo = pInfo.versionCode;
+
+        return versionNo;
+    }
 }

@@ -17,10 +17,13 @@ package org.artags.android.app.util.bitmap;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
+import android.graphics.Matrix;
 import android.os.Environment;
 import android.util.Log;
 import java.io.File;
 import java.io.FileOutputStream;
+import org.artags.android.app.apilevels.ApiLevel4;
+import org.artags.android.app.apilevels.ApiLevels;
 
 /**
  *
@@ -33,9 +36,19 @@ public class BitmapUtil
 
     public static String saveImage(String filename, Bitmap bm)
     {
+        return BitmapUtil.saveImage(filename, bm, false);
+    }
+    public static String saveImage(String filename, Bitmap bm, boolean landscape)
+    {
         File root = Environment.getExternalStorageDirectory();
         if (root.canWrite())
         {
+            if(landscape)
+            {
+                Matrix matrix = new Matrix();
+                matrix.postRotate(-90);
+                bm = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);
+            }
             try
             {
                 File directory = new File(root.getPath() + ROOT_DIRECTORY);
@@ -73,7 +86,11 @@ public class BitmapUtil
             File directory = new File(root.getPath() + ROOT_DIRECTORY);
             String filepath = directory.getPath() + "/" + filename;
             Options option = new Options();
-            option.inScaled = false;
+            if(ApiLevels.getApiLevel()>=4)
+            {
+                //option.inScaled = false;
+                option = ApiLevel4.setInScaled(option, false);
+            }
             return BitmapFactory.decodeFile(filepath , option );
 
 
