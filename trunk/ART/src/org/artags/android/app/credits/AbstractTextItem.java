@@ -12,37 +12,54 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.artags.android.app;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ImageView;
-import org.artags.android.app.credits.CreditsView;
+package org.artags.android.app.credits;
+
+import android.graphics.Canvas;
+import android.graphics.Paint;
 
 /**
  *
  * @author Pierre Levy
  */
-public class CreditsActivity  extends Activity
+public abstract class AbstractTextItem implements CreditsItem
 {
+    protected String mText;
+    protected int mX;
+    protected int mY;
 
-    ImageView mImageView;
+    abstract Paint getPaint();
 
-    @Override
-    public void onCreate(Bundle icicle)
+    /**
+     * {@inheritDoc }
+     */
+    public void prepare( long elapsed , int width , int height , int dy )
     {
-        super.onCreate(icicle);
-
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        View view = new CreditsView( this );
-        setContentView( view );
-
+        mY += dy;
+        mX = width / 2;
     }
 
+    /**
+     * {@inheritDoc }
+     */
+    public void draw(Canvas canvas)
+    {
+        canvas.drawText( mText , mX, mY, getPaint() );
+    }
+
+    /**
+     * {@inheritDoc }
+     */
+    public void setOffset( int offset )
+    {
+        mY = offset;
+    }
+
+    /**
+     * {@inheritDoc }
+     */
+    public int getOffset()
+    {
+        return mY;
+    }
 }

@@ -12,37 +12,49 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.artags.android.app;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ImageView;
-import org.artags.android.app.credits.CreditsView;
+package org.artags.android.app.credits;
+
+import android.graphics.Paint;
 
 /**
  *
  * @author Pierre Levy
  */
-public class CreditsActivity  extends Activity
+public class Category  extends AbstractTextItem implements CreditsItem
 {
+    private static Paint mPaint;
+    private static int mBeforeSpacing;
+    private static int mAfterSpacing;
 
-    ImageView mImageView;
-
-    @Override
-    public void onCreate(Bundle icicle)
+    public Category( String name )
     {
-        super.onCreate(icicle);
-
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        View view = new CreditsView( this );
-        setContentView( view );
-
+        mText = name;
     }
 
+    public static void setPaint( Paint paint )
+    {
+        mPaint = paint;
+    }
+
+    public Paint getPaint()
+    {
+        return mPaint;
+    }
+
+    public static void setSpacings( int before , int after )
+    {
+        mBeforeSpacing = before;
+        mAfterSpacing = after;
+    }
+
+    public int getBeforeSpacing()
+    {
+        return mBeforeSpacing;
+    }
+
+    public int getAfterSpacing()
+    {
+        return mAfterSpacing;
+    }
 }
