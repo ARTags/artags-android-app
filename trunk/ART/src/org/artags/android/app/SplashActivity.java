@@ -26,7 +26,6 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -34,14 +33,14 @@ import org.artags.android.app.preferences.PreferencesService;
 
 /**
  *
- * @author Pierre Levy
+ * @author Pierre Levy, Pierre Gros
  */
 public class SplashActivity extends Activity implements OnClickListener
 {
 
     private static final String ASSET_EULA = "EULA";
-    private static final int WHATS_NEW_DIALOG = 0;
-    private static final int EULA_DIALOG = 1;
+    private static final int WHATS_NEW_DIALOG = 1;
+    private static final int EULA_DIALOG = 2;
     private ImageView mImageView;
     private int mResTitle;
     private int mResMessage;
@@ -63,8 +62,6 @@ public class SplashActivity extends Activity implements OnClickListener
 
         checkEulaAccepted();
         checkLastVersion();
-        //PreferencesService.instance().setDrawReadme(this, true);
-        //PreferencesService.instance().saveVersion(this, Constants.VERSION);
     }
 
     public void onClick(View view)

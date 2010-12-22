@@ -19,7 +19,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.location.Address;
-import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
@@ -138,18 +137,6 @@ public class MyLocationActivity extends Activity implements OnClickListener, Loc
     private void resetForm()
     {
         mLocation = LocationService.getLocation(this);
-        if (mLocation == null)
-        {
-            Criteria criteria = new Criteria();
-            criteria.setAccuracy(Criteria.ACCURACY_FINE);
-            criteria.setAltitudeRequired(false);
-            criteria.setBearingRequired(false);
-            criteria.setCostAllowed(true);
-            criteria.setPowerRequirement(Criteria.POWER_LOW);
-
-            String bestProvider = mLocationManager.getBestProvider(criteria, true);
-            mLocation = mLocationManager.getLastKnownLocation(bestProvider);
-        }
         if (mLocation != null)
         {
             displayLocation();
@@ -221,7 +208,7 @@ public class MyLocationActivity extends Activity implements OnClickListener, Loc
             }
         } catch (IOException e)
         {
-            e.printStackTrace();
+            Log.e("ARTags - MyLocation", "Error retreiving the address" + e.getMessage() );
             mAddress.setText("Error retreiving the address");
         }
         showProgress(false);

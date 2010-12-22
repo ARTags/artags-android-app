@@ -53,7 +53,21 @@ public class LocationService
         criteria.setPowerRequirement(Criteria.POWER_LOW);
 
         String bestProvider = manager.getBestProvider(criteria, true);
-        Location location = manager.getLastKnownLocation(bestProvider);
+        Location location = null;
+        if( bestProvider != null )
+        {
+            location = manager.getLastKnownLocation(bestProvider);
+        }
+        else
+        {
+            // Try with a coarse accuracy
+            criteria.setAccuracy(Criteria.ACCURACY_COARSE);
+            bestProvider = manager.getBestProvider(criteria, true);
+            if( bestProvider != null )
+            {
+                location = manager.getLastKnownLocation(bestProvider);
+            }
+        }
         return location;
 
     }

@@ -20,7 +20,6 @@ import java.net.URL;
 import java.util.List;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import org.artags.android.app.Constants;
 import org.artags.android.app.Security;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
