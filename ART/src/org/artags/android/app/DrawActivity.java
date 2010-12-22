@@ -54,6 +54,11 @@ import org.artags.android.app.preferences.PreferencesService;
 import org.artags.android.app.util.bitmap.BitmapUtil;
 import org.artags.android.app.util.twitter.TwitterUtil;
 
+/**
+ *
+ * @author Pierre Levy, Pierre Gros
+ */
+
 public class DrawActivity extends GraphicsActivity
         implements BrushDialog.OnBrushParametersChangedListener, SendDialog.OnSendListener
 {
@@ -166,15 +171,7 @@ public class DrawActivity extends GraphicsActivity
     public boolean onCreateOptionsMenu(Menu menu)
     {
         super.onCreateOptionsMenu(menu);
-        /*Resources res = getApplicationContext().getResources();
-
-        menu.add(0, COLOR_MENU_ID, 0, getString(R.string.menu_color)).setIcon(res.getDrawable(R.drawable.menu_color));
-        menu.add(0, ERASE_MENU_ID, 1, getString(R.string.menu_erase)).setIcon(res.getDrawable(R.drawable.menu_erase));
-        menu.add(0, EYEDROPPER_MENU_ID, 2, getString(R.string.menu_eyedropper)).setIcon(res.getDrawable(R.drawable.menu_eyedropper));
-        menu.add(0, UNDO_MENU_ID, 3, getString(R.string.menu_undo)).setIcon(res.getDrawable(R.drawable.menu_undo));
-        menu.add(0, RESET_MENU_ID, 4, getString(R.string.menu_reset)).setIcon(res.getDrawable(R.drawable.menu_reset));
-        menu.add(0, SEND_MENU_ID, 5, getString(R.string.menu_send)).setIcon(res.getDrawable(R.drawable.menu_send));
-*/
+ 
         return true;
     }
 

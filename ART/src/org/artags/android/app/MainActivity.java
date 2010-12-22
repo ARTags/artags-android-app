@@ -53,7 +53,6 @@ public class MainActivity extends Activity implements OnClickListener
     private static final int DIALOG_PROGRESS = 0;
     private static final int PREFERENCES_MENU_ID = 0;
     private static final int CREDITS_MENU_ID = 1;
-    private static final int MYLOCATION_MENU_ID = 2;
     private ImageButton mButtonDraw;
     private ImageButton mButtonDisplay;
     private ProgressThread progressThread;
