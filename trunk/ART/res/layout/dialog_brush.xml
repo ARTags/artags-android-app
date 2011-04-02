@@ -1,90 +1,89 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    android:orientation="vertical">
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
 
     <TableLayout
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:stretchColumns="1">
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="1">
 
         <TableRow>
             <TextView
-            android:layout_column="1"
-            android:text="@string/label_color_intensity" />
+                        android:layout_column="1"
+                        android:text="@string/label_color_intensity" />
             <TextView
-            android:id="@+id/color_intensity"
-            android:text="10"
-            android:gravity="right" />
+                        android:id="@+id/color_intensity"
+                        android:text="10"
+                        android:gravity="right" />
         </TableRow>
     </TableLayout>
     <SeekBar android:id="@+id/seek_intensity"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:max="100" />
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:max="100" />
     <TableLayout
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:stretchColumns="1">
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="1">
 
         <TableRow>
             <TextView
-            android:layout_column="1"
-            android:text="@string/label_opacity" />
+                        android:layout_column="1"
+                        android:text="@string/label_opacity" />
             <TextView
-            android:id="@+id/opacity"
-            android:text="10"
-            android:gravity="right" />
+                        android:id="@+id/opacity"
+                        android:text="10"
+                        android:gravity="right" />
         </TableRow>
     </TableLayout>
     <SeekBar android:id="@+id/seek_opacity"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:max="100" />
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:max="100" />
     <TableLayout
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:stretchColumns="1">
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="1">
 
         <TableRow>
             <TextView
-            android:layout_column="1"
-            android:text="@string/label_brush_size" />
+                        android:layout_column="1"
+                        android:text="@string/label_brush_size" />
             <TextView
-            android:id="@+id/brush_size"
-            android:text="10"
-            android:gravity="right" />
+                        android:id="@+id/brush_size"
+                        android:text="10"
+                        android:gravity="right" />
         </TableRow>
     </TableLayout>
     <SeekBar android:id="@+id/seek_brush_size"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:max="100" />
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:max="100" />
     <TableLayout
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:stretchColumns="1">
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="1">
 
         <TableRow>
             <TextView
-            android:layout_column="1"
-            android:text="@string/label_emboss" />
+                        android:layout_column="1"
+                        android:text="@string/label_emboss" />
             <CheckBox android:id="@+id/toggleEmboss"
-            android:gravity="right"/>
+                        android:gravity="right"/>
             <TextView
-            android:text="@string/label_blur" />
+                        android:text="@string/label_blur" />
             <CheckBox android:id="@+id/toggleBlur"
-            android:gravity="right"/>
+                        android:gravity="right"/>
         </TableRow>
     </TableLayout>
 
     <Button
-        android:id="@+id/button_ok"
-        android:text="@string/button_ok"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+                android:id="@+id/button_ok"
+                android:text="@string/button_ok"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
 
 </LinearLayout>

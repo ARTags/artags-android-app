@@ -28,6 +28,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import org.artags.android.app.R;
@@ -74,24 +75,35 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 
+        ScrollView scrollView = new ScrollView(mContext);
+        scrollView.setVerticalScrollBarEnabled(false);
+        layout.addView(scrollView);
+
+        LinearLayout dialogLayout = new LinearLayout(mContext);
+        dialogLayout.setOrientation(LinearLayout.VERTICAL);
+        dialogLayout.setLayoutParams(dialogParams);
+
+        scrollView.addView(dialogLayout);
+
+
         // Color picker
         TextView twColor = new TextView(mContext);
         twColor.setText(mContext.getString(R.string.label_color));
 
-        layout.addView(twColor);
+        dialogLayout.addView(twColor);
 
         mColorPickerView = new ColorPickerView(getContext(), mInitialColor);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.FILL_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         layoutParams.gravity = Gravity.CENTER;
-        layout.addView(mColorPickerView, layoutParams);
+        dialogLayout.addView(mColorPickerView, layoutParams);
 
 
         LayoutInflater factory = LayoutInflater.from(mContext);
         final View view = factory.inflate(R.layout.dialog_brush, null);
 
-        layout.addView(view);
+        dialogLayout.addView(view);
         // Color intensity seekbar
         mSeekBarIntensity = (SeekBar) view.findViewById(R.id.seek_intensity);
         mProgressTextIntensity = (TextView) view.findViewById(R.id.color_intensity);

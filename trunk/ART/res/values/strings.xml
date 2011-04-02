@@ -39,7 +39,7 @@
     <string name="send_button_send">Send</string>
     <string name="send_button_mylocation">My Location</string>
     <string name="dialog_progress">"Upload in progress..."</string>
-    <string name="upload_successful">Your tag has been uploaded successfully!</string>
+    <string name="upload_successful">Your tag has been uploaded successfully and saved on your SD card!</string>
     <string name="upload_failed">Sorry, upload failed!</string>
     <string name="dialog_loading">Loading Augmented Reality Viewer. Please Wait ..."</string>
     <string name="label_color_intensity">Color intensity :</string>
@@ -64,7 +64,8 @@
     </string>
     <string name="whats_new_dialog_title">What\'s new in ARTags</string>
     <string name="whats_new_dialog_message">Thanks for upgrading ARTags\n
-    <b>New in version 1.0.5:</b>\n
+    <b>New in version 1.0.6:</b>\n
+    \t• Scrolling enabled in brush dialog.\n
     \t• Minor bug-fixes.\n
     </string>
     <string name="draw_readme_title">Tips for drawing</string>
@@ -76,7 +77,7 @@
 
     <!-- Credits infos -->
     <string name="credits_app_name">ARTags for Android</string>
-    <string name="credits_current_version">Version 1.0.5</string>
+    <string name="credits_current_version">Version 1.0.6</string>
     <!-- Preferences strings -->
     <string name="activity_preferences">Preferences</string>
     <string name="menu_preferences">Preferences</string>
