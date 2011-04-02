@@ -440,7 +440,7 @@ is divided into following sections:
             <arg value="-S"/>
             <arg value="${resource.dir}"/>
             <arg value="-A"/>
-            <arg value="${assets.dir}"/>
+            <arg value="${asset.dir}"/>
             <arg value="-I"/>
             <arg value="${platform.bootcp0}"/>
             <arg value="-I"/>
