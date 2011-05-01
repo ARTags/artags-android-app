@@ -17,7 +17,11 @@ package org.artags.android.app;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -44,18 +48,21 @@ public class PreferencesActivity extends Activity implements OnClickListener
     {
         super.onCreate(savedInstanceState);
 
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
+        {
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
 
         setContentView(R.layout.preferences);
 
         mBrowser = (TextView) findViewById(R.id.preferences_browser);
         mButtonChangeBrowser = (Button) findViewById(R.id.preferences_button_change_browser);
-        mButtonClose = (Button) findViewById( R.id.preferences_button_close );
-        mCheckBoxMyLocation = (CheckBox) findViewById( R.id.preferences_checkbox_mylocation );
+        mButtonClose = (Button) findViewById(R.id.preferences_button_close);
+        mCheckBoxMyLocation = (CheckBox) findViewById(R.id.preferences_checkbox_mylocation);
 
-        mCheckBoxMyLocation.setChecked( PreferencesService.instance().getMyLocation(this));
+        mCheckBoxMyLocation.setChecked(PreferencesService.instance().getMyLocation(this));
 
         mButtonChangeBrowser.setOnClickListener(this);
         mButtonClose.setOnClickListener(this);
@@ -70,12 +77,10 @@ public class PreferencesActivity extends Activity implements OnClickListener
         if (button == mButtonChangeBrowser)
         {
             selectBrowser();
-        }
-        else if (button == mCheckBoxMyLocation )
+        } else if (button == mCheckBoxMyLocation)
         {
-            PreferencesService.instance().setMyLocation( this , mCheckBoxMyLocation.isChecked());
-        }
-        else if (button == mButtonClose )
+            PreferencesService.instance().setMyLocation(this, mCheckBoxMyLocation.isChecked());
+        } else if (button == mButtonClose)
         {
             finish();
         }
@@ -85,7 +90,7 @@ public class PreferencesActivity extends Activity implements OnClickListener
     {
         final String[] browsers =
         {
-            PreferencesService.LAYAR , PreferencesService.WIKITUDE, PreferencesService.JUNAIO
+            PreferencesService.LAYAR, PreferencesService.WIKITUDE, PreferencesService.JUNAIO
         };
 
         new AlertDialog.Builder(PreferencesActivity.this).setItems(browsers, new DialogInterface.OnClickListener()
@@ -99,6 +104,33 @@ public class PreferencesActivity extends Activity implements OnClickListener
 
             }
         }).create().show();
+    }
+    
+        /**
+     * {@inheritDoc }
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_close, menu);
+
+        return true;
+    }
+
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.menu_close:
+                this.finish();
+                return true;
+        }
+        return false;
     }
 
 }

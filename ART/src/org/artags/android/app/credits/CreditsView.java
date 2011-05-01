@@ -38,10 +38,6 @@ import org.artags.android.app.R;
  */
 public class CreditsView extends SurfaceView implements SurfaceHolder.Callback
 {
-
-    private static final int DY_BEFORE_CATEGORY = 50;
-    private static final int DY_AFTER_CATEGORY = 25;
-    private static final int DY_AFTER_PERSON = 25;
     private SurfaceHolder mHolder;
     private Bitmap mBackground;
     private Bitmap mBackgroundLandscape;
@@ -90,10 +86,6 @@ public class CreditsView extends SurfaceView implements SurfaceHolder.Callback
         credits.add(new Person( context.getString(R.string.credits_app_name)));
         credits.add(new Category(context.getString(R.string.credits_current_version)));
         loadFromResources(credits, R.array.credits);
-
-        mBackground = BitmapFactory.decodeResource(getResources(), R.drawable.background);
-        mBackgroundLandscape = BitmapFactory.decodeResource(getResources(), R.drawable.background_land);
-
     }
 
     private void calculatedItemSpacing(List<CreditsItem> list, int height)
@@ -130,7 +122,18 @@ public class CreditsView extends SurfaceView implements SurfaceHolder.Callback
         mHeight = height;
         mbgIn = null;
         calculatedItemSpacing(credits, mHeight);
-
+        
+        if( mWidth < mHeight )
+        {
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.background);
+            mBackground = Bitmap.createScaledBitmap(bitmap, mWidth, mHeight, true );
+        }
+        else
+        {
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.background_land);
+            mBackgroundLandscape = Bitmap.createScaledBitmap(bitmap, mWidth, mHeight, true );
+        }
+        
         mThread.alive = false;
         while (mThread.isAlive())
         {

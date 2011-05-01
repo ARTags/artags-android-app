@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_color"
+          android:icon="@drawable/menu_color_small"
+          android:title="@string/menu_color"
+          android:showAsAction="always" />
+    <item android:id="@+id/menu_erase"
+          android:icon="@drawable/menu_erase_small"
+          android:title="@string/menu_erase"
+          android:showAsAction="always" />
+    <item android:id="@+id/menu_eyedropper"
+          android:icon="@drawable/menu_eyedropper_small"
+          android:title="@string/menu_eyedropper"
+          android:showAsAction="always" />
+    <item android:id="@+id/menu_undo"
+          android:icon="@drawable/menu_undo_small"
+          android:title="@string/menu_undo"
+          android:showAsAction="always|withText" />
+    <item android:id="@+id/menu_send"
+          android:icon="@drawable/menu_send_small"
+          android:title="@string/menu_send"
+          android:showAsAction="always|withText" />
+    <item android:id="@+id/menu_reset"
+          android:icon="@drawable/menu_reset_small"
+          android:title="@string/menu_reset"
+          android:showAsAction="ifRoom|withText" />
+
+</menu>

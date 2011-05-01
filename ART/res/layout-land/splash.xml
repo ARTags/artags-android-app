@@ -9,8 +9,8 @@
     <ImageView
         android:id="@+id/splash"
         android:adjustViewBounds="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:src="@drawable/splash_land"
         android:layout_gravity="center"
         />

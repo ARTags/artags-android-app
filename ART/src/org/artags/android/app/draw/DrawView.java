@@ -19,10 +19,13 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.Rect;
+import android.os.Build;
 import android.util.DisplayMetrics;
 import android.util.FloatMath;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import org.artags.android.app.DrawActivity;
@@ -51,6 +54,7 @@ public class DrawView extends View
     private boolean mEyeDropper;
     private DrawActivity mActivity;
     private boolean haveMoved = false;//to draw only 1 point
+    private Point mGlobalOffset = new Point( 0 , 0 );
 
     //used in pinch
     private float oldDist;
@@ -69,11 +73,17 @@ public class DrawView extends View
     public DrawView( DrawActivity activity, DisplayMetrics dm )
     {
         super( activity );
-
+        
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB )
+        {
+            mGlobalOffset.y = 60; // ActionBar Height
+        }
+        
         mActivity = activity;
 
         mHeight = dm.heightPixels;
         mWidth = dm.widthPixels;
+        this.
 
 
         mBitmap = Bitmap.createBitmap( mWidth, mHeight, Bitmap.Config.ARGB_8888);
@@ -90,6 +100,8 @@ public class DrawView extends View
         super.onSizeChanged(w, h, oldw, oldh);
         mHeight = h;
         mWidth = w;
+        
+
     }
 
     @Override
@@ -103,6 +115,7 @@ public class DrawView extends View
             savedMatrix = canvas.getMatrix();
             matrix.reset();
         }
+       
         canvas.setMatrix(matrix);
         canvas.drawBitmap(mBitmap, 0, 0, mBitmapPaint);
         canvas.drawPath(mPath, mPaint);
@@ -152,7 +165,7 @@ public class DrawView extends View
     public boolean onTouchEvent(MotionEvent event)
     {
         float x = getNewX(event.getX());
-        float y = getNewY(event.getY());
+        float y = getNewY(event.getY() + (float) mGlobalOffset.y );
 
         if( ! mEyeDropper )
         {
@@ -215,6 +228,21 @@ public class DrawView extends View
     public void setBitmap(Bitmap bm)
     {
         mBitmap = bm.copy(Bitmap.Config.ARGB_8888, true);
+        Log.d( "ARTags" , " w " + mWidth + " h " + mHeight + " bmw " + bm.getWidth() + " bmh " + bm.getHeight() ); 
+        if( ( mHeight > mWidth ) && ( bm.getHeight() < bm.getWidth() ))
+        {
+            Matrix m = new Matrix();
+            m.postRotate(90);
+            mBitmap = Bitmap.createBitmap(mBitmap, 0, 0, mBitmap.getWidth(), mBitmap.getHeight(), m, true);
+            Log.d( "ARTAgs:Draw", "rotate +90");
+        }
+        if( ( mHeight < mWidth ) && ( bm.getHeight() > bm.getWidth() ) )
+        {
+            Matrix m = new Matrix();
+            m.postRotate(-90);
+            mBitmap = Bitmap.createBitmap(mBitmap, 0, 0, mBitmap.getWidth(), mBitmap.getHeight(), m, true);
+            Log.d( "ARTAgs:Draw", "rotate +90");
+        }
         mCanvas = new Canvas( mBitmap );
 
     }

@@ -18,6 +18,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -25,6 +26,8 @@ import android.os.Message;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -42,11 +45,9 @@ import org.artags.android.app.ar.BrowserService;
 public class MainActivity extends Activity implements OnClickListener
 {
 
-
     public static final String INTENT_PACKAGE = "org.artags.android.app";
     public static final String INTENT_MAIN_CLASS = INTENT_PACKAGE + ".MainActivity";
     public static final String INTENT_MYLOCATION_CLASS = INTENT_PACKAGE + ".MyLocationActivity";
-
     private static final String INTENT_DRAW_CLASS = INTENT_PACKAGE + ".DrawActivity";
     private static final String INTENT_PREFERENCES_CLASS = INTENT_PACKAGE + ".PreferencesActivity";
     private static final String INTENT_CREDITS_CLASS = INTENT_PACKAGE + ".CreditsActivity";
@@ -62,10 +63,13 @@ public class MainActivity extends Activity implements OnClickListener
     public void onCreate(Bundle icicle)
     {
         super.onCreate(icicle);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
+        {
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
 
         setContentView(R.layout.main);
         mButtonDraw = (ImageButton) findViewById(R.id.button_draw);
@@ -105,14 +109,19 @@ public class MainActivity extends Activity implements OnClickListener
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && isMenuVisible()) {
-        	showHideMenu();
-        	return true;
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
+        {
+
+            if ((keyCode == KeyEvent.KEYCODE_BACK) && isMenuVisible())
+            {
+                showHideMenu();
+                return true;
+            }
         }
         return super.onKeyDown(keyCode, event);
     }
-
 
     private boolean launchAugmentedReality()
     {
@@ -120,8 +129,6 @@ public class MainActivity extends Activity implements OnClickListener
 
         return true;
     }
-
- 
     final Handler handler = new Handler()
     {
 
@@ -162,109 +169,157 @@ public class MainActivity extends Activity implements OnClickListener
     public boolean onCreateOptionsMenu(Menu menu)
     {
         super.onCreateOptionsMenu(menu);
-        createMenu();
-        /*
-//        menu.add(0, MYLOCATION_MENU_ID, 0, getString(R.string.menu_mylocation)).setIcon(R.drawable.menu_mylocation);
-        menu.add(1, PREFERENCES_MENU_ID, 0, getString(R.string.menu_preferences)).setIcon(R.drawable.menu_preferences);
-        menu.add(2, CREDITS_MENU_ID, 0, getString(R.string.menu_credits)).setIcon(R.drawable.menu_credits);
-         * 
-         */
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
+        {
+            createMenu();
+        } else
+        {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.menu_main, menu);
+        }
         return true;
+    }
+
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.menu_preferences:
+                onPreferences();
+                return true;
+
+            case R.id.menu_credits:
+                onCredits();
+                return true;
+
+        }
+        return false;
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu)
     {
         super.onPrepareOptionsMenu(menu);
-        showHideMenu();
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
+        {
+            showHideMenu();
+        }
         return true;
     }
 
-    
+    private void onCredits()
+    {
+        Intent intentCredits = new Intent();
+        intentCredits.setClassName(INTENT_PACKAGE, INTENT_CREDITS_CLASS);
+        startActivity(intentCredits);
+    }
+
+    private void onPreferences()
+    {
+        Intent intent = new Intent();
+        intent.setClassName(INTENT_PACKAGE, INTENT_PREFERENCES_CLASS);
+        startActivity(intent);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // specific menu implementation before Honeycomb
     public void menuSelected(int item)
     {
 
         switch (item)
         {
             case PREFERENCES_MENU_ID:
-                Intent intent = new Intent();
-                intent.setClassName(INTENT_PACKAGE, INTENT_PREFERENCES_CLASS);
-                startActivity(intent);
+                onPreferences();
                 break;
 
             case CREDITS_MENU_ID:
-                Intent intentCredits = new Intent();
-                intentCredits.setClassName(INTENT_PACKAGE, INTENT_CREDITS_CLASS);
-                startActivity(intentCredits);
+                onCredits();
                 break;
 
-            /*case MYLOCATION_MENU_ID:
-                Intent intentMyLocation = new Intent();
-                intentMyLocation.setClassName(INTENT_PACKAGE, INTENT_MYLOCATION_CLASS);
-                startActivity(intentMyLocation );
-                return true;*/
         }
         hideMenu();
-        //return super.onOptionsItemSelected(item);
     }
 
     //create and populate the menu
     private void createMenu()
     {
-        LayoutInflater inflater = (LayoutInflater)getWindow().getLayoutInflater();
+        LayoutInflater inflater = (LayoutInflater) getWindow().getLayoutInflater();
         View menuView = inflater.inflate(R.layout.menu_main, null);
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT );
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         addContentView(menuView, layoutParams);
 
         Button undoButton = (Button) this.findViewById(R.id.button_config);
-        undoButton.setOnClickListener(new View.OnClickListener() {
+        undoButton.setOnClickListener(new View.OnClickListener()
+        {
             //@Override
-            public void onClick(View v) {
+
+            public void onClick(View v)
+            {
                 menuSelected(PREFERENCES_MENU_ID);
             }
         });
 
         Button sendButton = (Button) this.findViewById(R.id.button_credits);
-        sendButton.setOnClickListener(new View.OnClickListener() {
+        sendButton.setOnClickListener(new View.OnClickListener()
+        {
             //@Override
-            public void onClick(View v) {
+
+            public void onClick(View v)
+            {
                 menuSelected(CREDITS_MENU_ID);
             }
         });
     }
     //Call this to show the menu or hide it if already displayed
-    private void showHideMenu() {
-    	LinearLayout footer = (LinearLayout) this.findViewById(R.id.footer_organize);
-        if(footer == null) {
+
+    private void showHideMenu()
+    {
+        LinearLayout footer = (LinearLayout) this.findViewById(R.id.footer_organize);
+        if (footer == null)
+        {
             return;
         }
-    	if(isMenuVisible()) {
+        if (isMenuVisible())
+        {
             footer.setVisibility(View.GONE);
-        } else {
+        } else
+        {
             footer.setVisibility(View.VISIBLE);
         }
     }
-    private void hideMenu() {
+
+    private void hideMenu()
+    {
         LinearLayout footer = (LinearLayout) this.findViewById(R.id.footer_organize);
-        if(footer == null) {
+        if (footer == null)
+        {
             return;
         }
-    	footer.setVisibility(View.GONE);
+        footer.setVisibility(View.GONE);
 
     }
-    private boolean isMenuVisible() {
-    	LinearLayout footer = (LinearLayout) this.findViewById(R.id.footer_organize);
-        if(footer == null) {
+
+    private boolean isMenuVisible()
+    {
+        LinearLayout footer = (LinearLayout) this.findViewById(R.id.footer_organize);
+        if (footer == null)
+        {
             return false;
         }
-    	int visible = footer.getVisibility();
-    	switch (visible) {
-		case View.GONE:
-		case View.INVISIBLE:
-			return false;
-		case View.VISIBLE:
-		default:
-			return true;
-		}
+        int visible = footer.getVisibility();
+        switch (visible)
+        {
+            case View.GONE:
+            case View.INVISIBLE:
+                return false;
+            case View.VISIBLE:
+            default:
+                return true;
+        }
     }
 }
