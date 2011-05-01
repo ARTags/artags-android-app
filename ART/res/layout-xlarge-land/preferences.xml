@@ -60,22 +60,6 @@
                 android:layout_width="150dip" />
 
 
-        <TextView android:text="@string/preferences_location_title" style="@style/tagTextTitle"
-                  android:id="@+id/preferences_location_title"
-                  android:layout_below="@id/preferences_button_change_browser"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:gravity="left"
-                  android:layout_margin="10dip" />
-
-        <CheckBox android:id="@+id/preferences_checkbox_mylocation"
-                  style="@style/tagTextNormal"
-                  android:layout_below="@id/preferences_location_title"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_margin="10dip"
-                  android:text="@string/preference_mylocation" />
-                  
                 
     </RelativeLayout>
     

@@ -55,7 +55,6 @@ import org.artags.android.app.menu.ActionItem;
 import org.artags.android.app.menu.QuickAction;
 import org.artags.android.app.preferences.PreferencesService;
 import org.artags.android.app.util.bitmap.BitmapUtil;
-import org.artags.android.app.util.twitter.TwitterUtil;
 
 /**
  *
@@ -87,6 +86,7 @@ public class DrawActivity extends GraphicsActivity
     private BrushParameters mBP;
     private SendInfos mSendInfos;
     private SendDialog mDialogSend;
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -124,6 +124,10 @@ public class DrawActivity extends GraphicsActivity
         mPaint.setStrokeCap(Paint.Cap.ROUND);
 
         mView.setPaint(mPaint);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
+        {
+            createMenu();
+        }
         displayReadme();
     }
 
@@ -176,11 +180,7 @@ public class DrawActivity extends GraphicsActivity
     public boolean onCreateOptionsMenu(Menu menu)
     {
         super.onCreateOptionsMenu(menu);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
-        {
-            createMenu();
-        }
-        else
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
         {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_draw, menu);
@@ -252,8 +252,10 @@ public class DrawActivity extends GraphicsActivity
             if (bOk)
             {
                 Toast.makeText(getApplicationContext(), getString(R.string.upload_successful), Toast.LENGTH_LONG).show();
-//                tweet();
-                share();
+                if( mSendInfos.isShare() )
+                {
+                    share();
+                }
             } else
             {
                 Toast.makeText(getApplicationContext(), getString(R.string.upload_failed), Toast.LENGTH_LONG).show();
@@ -262,19 +264,6 @@ public class DrawActivity extends GraphicsActivity
         }
     };
 
-    private void tweet()
-    {
-        if (PreferencesService.instance().isTwitter(this))
-        {
-            Object[] args =
-            {
-                mSendInfos.getTitle()
-            };
-            String tweetPattern = getString(R.string.tweet_pattern);
-            String tweet = MessageFormat.format(tweetPattern, args);
-            TwitterUtil.send(this, tweet);
-        }
-    }
 
     private void share()
     {
@@ -450,14 +439,6 @@ public class DrawActivity extends GraphicsActivity
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        if (requestCode == INTENT_RESULT_MY_LOCATION)
-        {
-            mDialogSend.onMyLocationResult(resultCode == MyLocationActivity.MYLOCATION_VALIDATE);
-        }
-    }
     
     ////////////////////////////////////////////////////////////////////////////
     // Specific menu implementation < Honeycomb

@@ -26,6 +26,7 @@ public class SendInfos
     private double latitude;
     private double longitude;
     private long tagId;
+    private boolean share;
 
     /**
      * @return the title
@@ -106,4 +107,22 @@ public class SendInfos
     {
         this.tagId = tagId;
     }
+
+    /**
+     * @return the share
+     */
+    public boolean isShare()
+    {
+        return share;
+    }
+
+    /**
+     * @param share the share to set
+     */
+    public void setShare(boolean share)
+    {
+        this.share = share;
+    }
+    
+    
 }

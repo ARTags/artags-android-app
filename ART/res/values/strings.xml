@@ -28,14 +28,18 @@
     <string name="confirm_reset">Are you sure you want to start a new tag?</string>
     <string name="send">Send</string>
     <string name="cancel">Cancel</string>
-    <string name="dialog_enter_title">Enter a title for the tag : </string>
-    <string name="landscape"> Landscape orientation</string>
     <string name="dialog_send">Send your tag</string>
-    <string name="send_search_gps">Searching location by GPS ...</string>
+    <string name="dialog_send_search_location">Searching for your location </string>
+    <string name="send_search_gps">Searching using GPS ...</string>
     <string name="send_search_gps_found">GPS location found !</string>
-    <string name="send_search_gps_not_found">Can\'t get GPS location.\nThe tag can not be sent now.\nSee Prefs to change location options.\n</string>
-    <string name="send_search_gps_not_found_use_mylocation">Can\'t get GPS location.\nClick on MyLocation to define an approximate location.</string>
-    <string name="send_approximate_location_found">Your location has been defined approximatively!\nYou can now send your tag.</string>
+    <string name="send_search_gps_not_found">Can\'t get GPS location !</string>
+    <string name="send_search_gps_not_found_use_mylocation">Can\'t get GPS location !</string>
+    <string name="send_search_network">Searching now using network ...</string> 
+    <string name="send_search_network_not_found">Can\'t get either Network location !\nYou can\'t send your tag for the moment.\nPlease try later.</string>
+    <string name="send_search_network_found">Your location has been found approximatively!\nYou can now send your tag.</string>
+    <string name="dialog_send_enter_title">Enter a title for the tag : </string>
+    <string name="dialog_send_share">Share your tag </string>
+    <string name="dialog_send_share_checkbox">After sending, let me choose a sharing service such as email, social network, ...</string>
     <string name="send_button_send">Send</string>
     <string name="send_button_mylocation">My Location</string>
     <string name="dialog_progress">"Upload in progress..."</string>
@@ -66,6 +70,7 @@
     <string name="whats_new_dialog_message">Thanks for upgrading ARTags\n
     <b>New in version 1.1:</b>\n
     \t• Optimization for Honeycomb (Android 3.0).\n
+    \t• Tag sending enhancements.\n
     \t• Landscape mode available for any screen.\n
     \t• Minor bug-fixes.\n
     </string>

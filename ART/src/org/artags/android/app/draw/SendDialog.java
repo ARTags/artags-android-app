@@ -16,6 +16,8 @@ package org.artags.android.app.draw;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -31,10 +33,10 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import java.io.IOException;
+import java.util.List;
 import org.artags.android.app.DrawActivity;
 import org.artags.android.app.R;
-import org.artags.android.app.preferences.PreferencesService;
-import org.artags.android.app.util.location.LocationService;
 
 /**
  *
@@ -43,18 +45,26 @@ import org.artags.android.app.util.location.LocationService;
 public class SendDialog extends Dialog implements OnClickListener, LocationListener
 {
 
-    private static final int TIMEOUT = 15000;
+    private static final int SEARCH_GPS = 0;
+    private static final int SEARCH_NETWORK = 1;
+    private static final int TIMEOUT = 12000;
     private DrawActivity mActivity;
     private EditText mEditTitle;
-    private CheckBox mCheckBoxLandscape;
     private Button mButtonSend;
     private Button mButtonCancel;
     private OnSendListener mListener;
     private Location mLocation;
     private LocationManager mLocationManager;
-    private TextView mSeachTextView;
-    private ProgressBar mProgress;
-    public boolean mFound;
+    private TextView mSeachGpsTextView;
+    private TextView mSeachNetworkTextView;
+    private TextView mAddressTextView;
+    private CheckBox mShareCheckBox;
+
+    private ProgressBar mProgressGps;
+    private ProgressBar mProgressNetwork;
+    private boolean mFound;
+    private int mLocationSearch;
+    private boolean mShare;
 
     public interface OnSendListener
     {
@@ -72,21 +82,24 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        // setTitle(R.string.dialog_send);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_send);
 
-
         mEditTitle = (EditText) findViewById(R.id.edit_title);
-        mCheckBoxLandscape = (CheckBox) findViewById(R.id.checkbox_landscape);
+
         mButtonSend = (Button) findViewById(R.id.send_send_button);
         mButtonCancel = (Button) findViewById(R.id.send_cancel_button);
-        mSeachTextView = (TextView) findViewById(R.id.send_search_location);
-        mProgress = (ProgressBar) findViewById(R.id.send_search_location_progress);
+        mSeachGpsTextView = (TextView) findViewById(R.id.send_search_gps);
+        mSeachNetworkTextView = (TextView) findViewById(R.id.send_search_network);
+        mAddressTextView = (TextView) findViewById(R.id.send_search_address);
+        mProgressGps = (ProgressBar) findViewById(R.id.send_search_location_progress_gps );
+        mProgressNetwork = (ProgressBar) findViewById(R.id.send_search_location_progress_network );
+        mProgressNetwork.setVisibility(View.INVISIBLE);
+        mShareCheckBox = (CheckBox) findViewById(R.id.send_share_checkbox);
 
-        mCheckBoxLandscape.setOnClickListener(this);
         mButtonSend.setOnClickListener(this);
         mButtonCancel.setOnClickListener(this);
+        mShareCheckBox.setOnClickListener(this);
 
         mButtonSend.setEnabled(false);
 
@@ -94,6 +107,7 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
         mLocationManager = (LocationManager) mActivity.getSystemService(Context.LOCATION_SERVICE);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 60000, 0, this);
 
+        mLocationSearch = SEARCH_GPS;
         startTimeout();
 
 
@@ -109,38 +123,21 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
             } else
             {
                 hide();
-                mActivity.gotoMyLocation();
             }
-        } else if (view == mButtonCancel)
+        } else if (view == mShareCheckBox )
+        {
+            mShare = true;
+        }
+        else if (view == mButtonCancel)
         {
             dismiss();
         }
-    }
-
-    public void onMyLocationResult(boolean ok)
-    {
-        if (ok)
-        {
-            mSeachTextView.setText(mActivity.getString(R.string.send_approximate_location_found));
-            mButtonSend.setText(mActivity.getString(R.string.send_button_send));
-            mLocation = LocationService.getLocation(mActivity);
-            mFound = true;
-        } else
-        {
-            mSeachTextView.setText(mActivity.getString(R.string.send_search_gps_not_found));
-            mButtonSend.setText(mActivity.getString(R.string.send_button_send));
-            mButtonSend.setEnabled(false);
-            mFound = false;
-        }
-        show();
-
     }
 
     private void send()
     {
         SendInfos si = new SendInfos();
         si.setTitle(mEditTitle.getText().toString());
-        si.setLandscape(mCheckBoxLandscape.isChecked());
         if (mLocation != null)
         {
             si.setLatitude(mLocation.getLatitude());
@@ -150,6 +147,7 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
             si.setLatitude(48.0);
             si.setLongitude(2.0);
         }
+        si.setShare(mShare);
         mListener.setSendInfos(si);
         dismiss();
 
@@ -159,11 +157,18 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
     {
         Log.i("ARTags:SendDialog", "Location found (" + location.getLatitude() + "," + location.getLongitude() + ")");
         mLocation = location;
-        mSeachTextView.setText(mActivity.getString(R.string.send_search_gps_found));
-        mProgress.setVisibility(View.INVISIBLE);
+        if( mLocationSearch == SEARCH_GPS )
+        {
+            mSeachGpsTextView.setText(mActivity.getString(R.string.send_search_gps_found));
+        } else if( mLocationSearch == SEARCH_NETWORK )
+        {
+            mSeachGpsTextView.setText( mActivity.getString(R.string.send_search_network_found));
+        }
+        mProgressGps.setVisibility(View.INVISIBLE);
         mLocationManager.removeUpdates(this);
         mFound = true;
         mButtonSend.setEnabled(true);
+        getAddress();
     }
 
     public void onProviderDisabled(String provider)
@@ -181,6 +186,7 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
     {
         Log.i("ARTags:SendDialog", "Location Provider status changed.");
     }
+    //
     final Handler mHandler = new Handler();
     final Runnable mUpdateLocation = new Runnable()
     {
@@ -213,16 +219,49 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
     {
         if (!mFound)
         {
-            if (PreferencesService.instance().getMyLocation(mActivity))
+            if (mLocationSearch == SEARCH_GPS)
             {
-                mSeachTextView.setText(mActivity.getString(R.string.send_search_gps_not_found_use_mylocation));
-                mButtonSend.setText(mActivity.getString(R.string.send_button_mylocation));
-                mButtonSend.setEnabled(true);
-            } else
-            {
-                mSeachTextView.setText(mActivity.getString(R.string.send_search_gps_not_found));
+                mSeachGpsTextView.setText(mActivity.getString(R.string.send_search_gps_not_found_use_mylocation));
+                mSeachNetworkTextView.setText(mActivity.getString(R.string.send_search_network) );
+                mLocationSearch = SEARCH_NETWORK;
+                mLocationManager.removeUpdates(this);
+                mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 60000, 0, this);
+                startTimeout();
+                mProgressGps.setVisibility(View.INVISIBLE);
+                mProgressNetwork.setVisibility(View.VISIBLE);
             }
-            mProgress.setVisibility(View.INVISIBLE);
+            else if (mLocationSearch == SEARCH_NETWORK )
+            {
+                mSeachNetworkTextView.setText(mActivity.getString(R.string.send_search_network_not_found) );
+                mLocationManager.removeUpdates(this);
+                mProgressNetwork.setVisibility(View.INVISIBLE);
+            }
         }
     }
+    
+    private void getAddress()
+    {
+        Geocoder geo = new Geocoder(mActivity);
+        try
+        {
+            List<Address> adresses = geo.getFromLocation(mLocation.getLatitude(), mLocation.getLongitude(), 1);
+
+            if (adresses != null && adresses.size() == 1)
+            {
+                Address address = adresses.get(0);
+                mAddressTextView.setText(String.format("%s, %s %s",
+                        address.getAddressLine(0),
+                        address.getPostalCode(),
+                        address.getLocality()));
+            } else
+            {
+                mAddressTextView.setText("No address found");
+            }
+        } catch (IOException e)
+        {
+            Log.e("ARTags - MyLocation", "Error retreiving the address" + e.getMessage());
+            mAddressTextView.setText("Error retreiving the address");
+        }
+    }
+
 }
