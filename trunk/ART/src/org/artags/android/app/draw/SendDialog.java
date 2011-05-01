@@ -160,11 +160,12 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
         if( mLocationSearch == SEARCH_GPS )
         {
             mSeachGpsTextView.setText(mActivity.getString(R.string.send_search_gps_found));
+            mProgressGps.setVisibility(View.INVISIBLE);
         } else if( mLocationSearch == SEARCH_NETWORK )
         {
-            mSeachGpsTextView.setText( mActivity.getString(R.string.send_search_network_found));
+            mSeachNetworkTextView.setText( mActivity.getString(R.string.send_search_network_found));
+            mProgressNetwork.setVisibility(View.INVISIBLE);
         }
-        mProgressGps.setVisibility(View.INVISIBLE);
         mLocationManager.removeUpdates(this);
         mFound = true;
         mButtonSend.setEnabled(true);
