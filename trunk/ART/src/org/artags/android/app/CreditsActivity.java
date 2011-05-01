@@ -15,7 +15,11 @@
 package org.artags.android.app;
 
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -26,7 +30,7 @@ import org.artags.android.app.credits.CreditsView;
  *
  * @author Pierre Levy
  */
-public class CreditsActivity  extends Activity
+public class CreditsActivity extends Activity
 {
 
     ImageView mImageView;
@@ -36,13 +40,42 @@ public class CreditsActivity  extends Activity
     {
         super.onCreate(icicle);
 
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
+        {
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
 
-        View view = new CreditsView( this );
-        setContentView( view );
+        View view = new CreditsView(this);
+        setContentView(view);
 
     }
 
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_close, menu);
+
+        return true;
+    }
+
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.menu_close:
+                this.finish();
+                return true;
+        }
+        return false;
+    }
 }
