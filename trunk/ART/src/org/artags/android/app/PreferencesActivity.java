@@ -27,7 +27,6 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.TextView;
 import org.artags.android.app.preferences.PreferencesService;
 
@@ -41,7 +40,6 @@ public class PreferencesActivity extends Activity implements OnClickListener
     private TextView mBrowser;
     private Button mButtonChangeBrowser;
     private Button mButtonClose;
-    private CheckBox mCheckBoxMyLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -60,13 +58,9 @@ public class PreferencesActivity extends Activity implements OnClickListener
         mBrowser = (TextView) findViewById(R.id.preferences_browser);
         mButtonChangeBrowser = (Button) findViewById(R.id.preferences_button_change_browser);
         mButtonClose = (Button) findViewById(R.id.preferences_button_close);
-        mCheckBoxMyLocation = (CheckBox) findViewById(R.id.preferences_checkbox_mylocation);
-
-        mCheckBoxMyLocation.setChecked(PreferencesService.instance().getMyLocation(this));
 
         mButtonChangeBrowser.setOnClickListener(this);
         mButtonClose.setOnClickListener(this);
-        mCheckBoxMyLocation.setOnClickListener(this);
 
         mBrowser.setText(PreferencesService.instance().getAugmentedRealityBrowser(this));
 
@@ -77,9 +71,6 @@ public class PreferencesActivity extends Activity implements OnClickListener
         if (button == mButtonChangeBrowser)
         {
             selectBrowser();
-        } else if (button == mCheckBoxMyLocation)
-        {
-            PreferencesService.instance().setMyLocation(this, mCheckBoxMyLocation.isChecked());
         } else if (button == mButtonClose)
         {
             finish();
@@ -127,7 +118,7 @@ public class PreferencesActivity extends Activity implements OnClickListener
         switch (item.getItemId())
         {
             case R.id.menu_close:
-                this.finish();
+                finish();
                 return true;
         }
         return false;

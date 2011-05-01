@@ -38,7 +38,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- *
+ * @deprecated
  * @author Pierre Levy
  */
 public class MyLocationActivity extends Activity implements OnClickListener, LocationListener
