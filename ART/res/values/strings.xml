@@ -29,7 +29,7 @@
     <string name="send">Send</string>
     <string name="cancel">Cancel</string>
     <string name="dialog_send">Send your tag</string>
-    <string name="dialog_send_search_location">Searching for your location </string>
+    <string name="dialog_send_search_location">Searching for your location :</string>
     <string name="send_search_gps">Searching using GPS ...</string>
     <string name="send_search_gps_found">GPS location found !</string>
     <string name="send_search_gps_not_found">Can\'t get GPS location !</string>
@@ -38,8 +38,8 @@
     <string name="send_search_network_not_found">Can\'t get either Network location !\nYou can\'t send your tag for the moment.\nPlease try later.</string>
     <string name="send_search_network_found">Your location has been found approximatively!\nYou can now send your tag.</string>
     <string name="dialog_send_enter_title">Enter a title for the tag : </string>
-    <string name="dialog_send_share">Share your tag </string>
-    <string name="dialog_send_share_checkbox">After sending, let me choose a sharing service such as email, social network, ...</string>
+    <string name="dialog_send_share">Share your tag :</string>
+    <string name="dialog_send_share_checkbox">After sending my tag, let me share it using service such as email, social network, ...</string>
     <string name="send_button_send">Send</string>
     <string name="send_button_mylocation">My Location</string>
     <string name="dialog_progress">"Upload in progress..."</string>
