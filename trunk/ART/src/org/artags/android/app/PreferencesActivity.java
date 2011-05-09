@@ -39,7 +39,6 @@ public class PreferencesActivity extends Activity implements OnClickListener
 
     private TextView mBrowser;
     private Button mButtonChangeBrowser;
-    private Button mButtonClose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -57,10 +56,8 @@ public class PreferencesActivity extends Activity implements OnClickListener
 
         mBrowser = (TextView) findViewById(R.id.preferences_browser);
         mButtonChangeBrowser = (Button) findViewById(R.id.preferences_button_change_browser);
-        mButtonClose = (Button) findViewById(R.id.preferences_button_close);
 
         mButtonChangeBrowser.setOnClickListener(this);
-        mButtonClose.setOnClickListener(this);
 
         mBrowser.setText(PreferencesService.instance().getAugmentedRealityBrowser(this));
 
@@ -71,9 +68,6 @@ public class PreferencesActivity extends Activity implements OnClickListener
         if (button == mButtonChangeBrowser)
         {
             selectBrowser();
-        } else if (button == mButtonClose)
-        {
-            finish();
         }
     }
 

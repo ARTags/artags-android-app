@@ -60,7 +60,6 @@ import org.artags.android.app.util.bitmap.BitmapUtil;
  *
  * @author Pierre Levy, Pierre Gros
  */
-
 public class DrawActivity extends GraphicsActivity
         implements BrushDialog.OnBrushParametersChangedListener, SendDialog.OnSendListener
 {
@@ -86,7 +85,6 @@ public class DrawActivity extends GraphicsActivity
     private BrushParameters mBP;
     private SendInfos mSendInfos;
     private SendDialog mDialogSend;
-    
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -99,7 +97,7 @@ public class DrawActivity extends GraphicsActivity
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
-        
+
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         mView = new DrawView(this, dm);
@@ -199,8 +197,8 @@ public class DrawActivity extends GraphicsActivity
         }
         return true;
     }
- 
-     /**
+
+    /**
      * {@inheritDoc }
      */
     @Override
@@ -235,11 +233,10 @@ public class DrawActivity extends GraphicsActivity
                 Log.i("ARTags", "Menu Send selected");
                 send();
                 return true;
- 
+
         }
         return false;
     }
-   
     final Handler handler = new Handler()
     {
 
@@ -252,7 +249,7 @@ public class DrawActivity extends GraphicsActivity
             if (bOk)
             {
                 Toast.makeText(getApplicationContext(), getString(R.string.upload_successful), Toast.LENGTH_LONG).show();
-                if( mSendInfos.isShare() )
+                if (mSendInfos.isShare())
                 {
                     share();
                 }
@@ -263,7 +260,6 @@ public class DrawActivity extends GraphicsActivity
 
         }
     };
-
 
     private void share()
     {
@@ -429,142 +425,175 @@ public class DrawActivity extends GraphicsActivity
         intentMyLocation.setClassName(MainActivity.INTENT_PACKAGE, MainActivity.INTENT_MYLOCATION_CLASS);
         startActivityForResult(intentMyLocation, INTENT_RESULT_MY_LOCATION);
     }
-    
+
     private void displayReadme()
     {
-        if(PreferencesService.instance().isDrawReadme(this))
+        if (PreferencesService.instance().isDrawReadme(this))
         {
             showDialog(DIALOG_README);
             PreferencesService.instance().setDrawReadme(this, false);
         }
     }
 
-    
     ////////////////////////////////////////////////////////////////////////////
     // Specific menu implementation < Honeycomb
-    
-        //create and populate the menu
+    //create and populate the menu
     private void createMenu()
     {
-        LayoutInflater inflater = (LayoutInflater)getWindow().getLayoutInflater();
+        LayoutInflater inflater = (LayoutInflater) getWindow().getLayoutInflater();
         View menuView = inflater.inflate(R.layout.menu_draw, null);
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT );
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         addContentView(menuView, layoutParams);
 
         Button toolsButton = (Button) this.findViewById(R.id.button_tools);
 
-        toolsButton.setOnClickListener(new View.OnClickListener() {
-                //@Override
-                public void onClick(View v) {
-                        final QuickAction qa = new QuickAction(v);
-                        //tools
-                        qa.addActionItem(new ActionItem(getString(R.string.menu_color),
-                                getResources().getDrawable(R.drawable.menu_color_small),
-                                new OnClickListener() {
-                                    //@Override
-                                    public void onClick(View v) { qa.dismiss(); menuSelected(COLOR_MENU_ID);}
-                                }
-                        ));
+        toolsButton.setOnClickListener(new View.OnClickListener()
+        {
+            //@Override
 
-                        //eraser
-                        qa.addActionItem(new ActionItem(getString(R.string.menu_erase),
-                                getResources().getDrawable(R.drawable.menu_erase_small),
-                                new OnClickListener() {
-                                    //@Override
-                                    public void onClick(View v) { qa.dismiss(); menuSelected(ERASE_MENU_ID);}
-                                }
-                        ));
+            public void onClick(View v)
+            {
+                final QuickAction qa = new QuickAction(v);
+                //tools
+                qa.addActionItem(new ActionItem(getString(R.string.menu_color),
+                        getResources().getDrawable(R.drawable.menu_color_small),
+                        new OnClickListener()
+                        {
+                            //@Override
 
-                        //eyedropper
-                        qa.addActionItem(new ActionItem(getString(R.string.menu_eyedropper),
-                                getResources().getDrawable(R.drawable.menu_eyedropper_small),
-                                new OnClickListener() {
-                                    //@Override
-                                    public void onClick(View v) { qa.dismiss(); menuSelected(EYEDROPPER_MENU_ID);}
-                                }
-                        ));
+                            public void onClick(View v)
+                            {
+                                qa.dismiss();
+                                menuSelected(COLOR_MENU_ID);
+                            }
+                        }));
 
-                        //reset
-                        qa.addActionItem(new ActionItem(getString(R.string.menu_reset),
-                                getResources().getDrawable(R.drawable.menu_reset_small),
-                                new OnClickListener() {
-                                    //@Override
-                                    public void onClick(View v) { qa.dismiss(); menuSelected(RESET_MENU_ID);}
-                                }
-                        ));
-                        qa.show();
-                }
+                //eraser
+                qa.addActionItem(new ActionItem(getString(R.string.menu_erase),
+                        getResources().getDrawable(R.drawable.menu_erase_small),
+                        new OnClickListener()
+                        {
+                            //@Override
+
+                            public void onClick(View v)
+                            {
+                                qa.dismiss();
+                                menuSelected(ERASE_MENU_ID);
+                            }
+                        }));
+
+                //eyedropper
+                qa.addActionItem(new ActionItem(getString(R.string.menu_eyedropper),
+                        getResources().getDrawable(R.drawable.menu_eyedropper_small),
+                        new OnClickListener()
+                        {
+                            //@Override
+
+                            public void onClick(View v)
+                            {
+                                qa.dismiss();
+                                menuSelected(EYEDROPPER_MENU_ID);
+                            }
+                        }));
+
+                //reset
+                qa.addActionItem(new ActionItem(getString(R.string.menu_reset),
+                        getResources().getDrawable(R.drawable.menu_reset_small),
+                        new OnClickListener()
+                        {
+                            //@Override
+
+                            public void onClick(View v)
+                            {
+                                qa.dismiss();
+                                menuSelected(RESET_MENU_ID);
+                            }
+                        }));
+                qa.show();
+            }
         });
 
         Button undoButton = (Button) this.findViewById(R.id.button_undo);
-        undoButton.setOnClickListener(new View.OnClickListener() {
+        undoButton.setOnClickListener(new View.OnClickListener()
+        {
             //@Override
-            public void onClick(View v) {
+
+            public void onClick(View v)
+            {
                 menuSelected(UNDO_MENU_ID);
             }
         });
 
         Button sendButton = (Button) this.findViewById(R.id.button_send);
-        sendButton.setOnClickListener(new View.OnClickListener() {
+        sendButton.setOnClickListener(new View.OnClickListener()
+        {
             //@Override
-            public void onClick(View v) {
+
+            public void onClick(View v)
+            {
                 menuSelected(SEND_MENU_ID);
             }
         });
     }
 
     //Call this to show the menu or hide it if already displayed
-    private void showHideMenu() {
-    	LinearLayout footer = (LinearLayout) this.findViewById(R.id.footer_organize);
-        if(footer == null) {
+    private void showHideMenu()
+    {
+        LinearLayout footer = (LinearLayout) this.findViewById(R.id.footer_organize);
+        if (footer == null)
+        {
             return;
         }
-    	if(isMenuVisible()) {
+        if (isMenuVisible())
+        {
             footer.setVisibility(View.GONE);
-        } else {
+        } else
+        {
             footer.setVisibility(View.VISIBLE);
         }
     }
-    private void showMenu() {
+
+    private void hideMenu()
+    {
         LinearLayout footer = (LinearLayout) this.findViewById(R.id.footer_organize);
-        if(footer == null) {
+        if (footer == null)
+        {
             return;
         }
-    	footer.setVisibility(View.VISIBLE);
+        footer.setVisibility(View.GONE);
 
     }
-    private void hideMenu() {
+
+    private boolean isMenuVisible()
+    {
         LinearLayout footer = (LinearLayout) this.findViewById(R.id.footer_organize);
-        if(footer == null) {
-            return;
-        }
-    	footer.setVisibility(View.GONE);
-
-    }
-    private boolean isMenuVisible() {
-    	LinearLayout footer = (LinearLayout) this.findViewById(R.id.footer_organize);
-        if(footer == null) {
+        if (footer == null)
+        {
             return false;
         }
-    	int visible = footer.getVisibility();
-    	switch (visible) {
-		case View.GONE:
-		case View.INVISIBLE:
-			return false;
-		case View.VISIBLE:
-		default:
-			return true;
-		}
+        int visible = footer.getVisibility();
+        switch (visible)
+        {
+            case View.GONE:
+            case View.INVISIBLE:
+                return false;
+            case View.VISIBLE:
+            default:
+                return true;
+        }
     }
+
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && isMenuVisible()) {
-        	hideMenu();
-        	return true;
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && isMenuVisible())
+        {
+            hideMenu();
+            return true;
         }
         return super.onKeyDown(keyCode, event);
     }
-    
+
     public void menuSelected(int item)
     {
         mPaint.setXfermode(null);
@@ -599,5 +628,4 @@ public class DrawActivity extends GraphicsActivity
         }
         //hideMenu();
     }
-   
 }

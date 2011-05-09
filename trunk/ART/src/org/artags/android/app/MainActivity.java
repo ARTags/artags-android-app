@@ -77,6 +77,7 @@ public class MainActivity extends Activity implements OnClickListener
 
         mButtonDraw.setOnClickListener(this);
         mButtonDisplay.setOnClickListener(this);
+        
     }
 
     @Override
@@ -173,7 +174,8 @@ public class MainActivity extends Activity implements OnClickListener
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
         {
             createMenu();
-        } else
+        }
+        else
         {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_main, menu);
