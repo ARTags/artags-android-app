@@ -43,9 +43,14 @@ public class SplashActivity extends Activity implements OnClickListener
     private static final int WHATS_NEW_DIALOG = 1;
     private static final int EULA_DIALOG = 2;
     private ImageView mImageView;
-    private int mResTitle;
-    private int mResMessage;
-
+    private static int mResTitle;
+    private static int mResMessage;
+    private static boolean mIsDialogWhatsNew;
+    private static int mVersion;
+    private Dialog mDialogWhatsNew;
+    private static boolean mIsDialogEula;
+    private Dialog mDialogEula;
+    
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle icicle)
@@ -95,7 +100,18 @@ public class SplashActivity extends Activity implements OnClickListener
             builder.setTitle(mResTitle);
             builder.setPositiveButton(R.string.button_ok, null);
             builder.setMessage(mResMessage);
+            builder.setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener()
+            {
+
+                public void onClick(DialogInterface dialog, int which)
+                {
+                    PreferencesService.instance().saveVersion( SplashActivity.this, mVersion);
+                    mIsDialogWhatsNew = false;
+                }
+            });
             dialog = builder.create();
+            mDialogWhatsNew = dialog;
+            mIsDialogWhatsNew = true;
         } else if ( id == EULA_DIALOG )
         {
              final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -107,6 +123,7 @@ public class SplashActivity extends Activity implements OnClickListener
                 public void onClick(DialogInterface dialog, int which)
                 {
                     PreferencesService.instance().setEulaAccepted(SplashActivity.this);
+                    mIsDialogEula = false;
                 }
             });
             builder.setNegativeButton(R.string.eula_button_refuse, new DialogInterface.OnClickListener()
@@ -127,6 +144,8 @@ public class SplashActivity extends Activity implements OnClickListener
             });
             builder.setMessage(readEula());
             dialog = builder.create();
+            mDialogEula = dialog;
+            mIsDialogEula = true;
 
         }
         else
@@ -135,12 +154,29 @@ public class SplashActivity extends Activity implements OnClickListener
         }
         return dialog;
     }
+    
+    
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+        if( mIsDialogEula )
+        {
+            mDialogEula.dismiss();
+        }    
+        if( mIsDialogWhatsNew )
+        {
+            mDialogWhatsNew.dismiss();
+        }
+    }
+
 
     private void checkLastVersion()
     {
         final int lastVersion = PreferencesService.instance().getVersion(this);
-        final int version = PreferencesService.instance().getVersionNumber(this);
-        if (lastVersion < version)
+        mVersion = PreferencesService.instance().getVersionNumber(this);
+        if (lastVersion < mVersion)
         {
             if (lastVersion == 0)
             {
@@ -159,7 +195,6 @@ public class SplashActivity extends Activity implements OnClickListener
                 PreferencesService.instance().setDrawReadme(this, true);
             }
             // show what's new message
-            PreferencesService.instance().saveVersion(this, version);
             showDialog(WHATS_NEW_DIALOG);
         }
     }
