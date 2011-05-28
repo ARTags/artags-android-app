@@ -68,10 +68,8 @@
     </string>
     <string name="whats_new_dialog_title">What\'s new in ARTags</string>
     <string name="whats_new_dialog_message">Thanks for upgrading ARTags\n
-    <b>New in version 1.1:</b>\n
-    \t• Optimization for Honeycomb (Android 3.0).\n
-    \t• Tag sending enhancements.\n
-    \t• Landscape mode available for any screen.\n
+    <b>New in version 1.2:</b>\n
+    \t• 2 Widgets to display best and latest tags.\n
     \t• Minor bug-fixes.\n
     </string>
     <string name="draw_readme_title">Tips for drawing</string>
@@ -83,7 +81,7 @@
 
     <!-- Credits infos -->
     <string name="credits_app_name">ARTags for Android</string>
-    <string name="credits_current_version">Version 1.1.2</string>
+    <string name="credits_current_version">Version 1.2.0</string>
     <!-- Preferences strings -->
     <string name="activity_preferences">Preferences</string>
     <string name="menu_preferences">Preferences</string>
@@ -120,4 +118,9 @@
     <string name="tweet_pattern">#ARTags New tag : {0}</string> 
     <string name="share_pattern">New tag : {0} - http://new.artags.net/{1} @ARtagsnews #ARTags</string>
     <string name="share_chooser_title">Share with</string>
+    
+    <!-- Widgets -->
+    <string name="widget_latest_tags_name">ARTags Widget (latest tags)</string>
+    <string name="widget_best_tags_name">ARTags Widget (best tags)</string>
+
 </resources>

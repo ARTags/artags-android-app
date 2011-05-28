@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="120dp"
+    android:layout_height="140dp"
+    android:background="@drawable/filled_box"
+    >
+<ImageView android:id="@+id/widget_thumbnail"
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    android:src="@drawable/icon"
+    android:gravity="center" 
+ />
+ <TextView  android:id="@+id/widget_text"
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:gravity="center" 
+    android:text="ARTags Widget"
+    android:textSize="10sp"
+ />
+    
+
+</LinearLayout>
+

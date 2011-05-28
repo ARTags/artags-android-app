@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          android:versionCode="11"
-          android:versionName="1.1.2"
+          android:versionCode="12"
+          android:versionName="1.2"
           android:installLocation="auto"
           package="org.artags.android.app">
 
@@ -71,6 +71,25 @@
             </intent-filter>
         </activity>
 
+        <!-- Widgets -->
+        <receiver android:name=".widget.LatestTagsWidget" android:label="@string/widget_latest_tags_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+		<action android:name="org.artags.android.widget.SHOW_TAG" />
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/artags_widget" />
+        </receiver>
+        <receiver android:name=".widget.BestTagsWidget" android:label="@string/widget_best_tags_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+		<action android:name="org.artags.android.widget.SHOW_TAG" />
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/artags_widget" />
+        </receiver>
 
     </application>
 
