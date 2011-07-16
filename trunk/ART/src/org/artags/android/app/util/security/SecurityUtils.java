@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARTags Project owners (see http://www.artags.org)
+/* Copyright (c) 2010-2011 ARTags Project owners (see http://www.artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -25,6 +25,11 @@ import java.security.NoSuchAlgorithmException;
 public class SecurityUtils
 {
 
+    /**
+     * Create a hash using SHA1 algoritmm
+     * @param data The data
+     * @return The hash
+     */
     public static String sha1(String data)
     {
         try

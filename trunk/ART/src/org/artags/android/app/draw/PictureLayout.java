@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARTags Project owners (see http://www.artags.org)
+/* Copyright (c) 2010-2011 ARTags Project owners (see http://www.artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -24,21 +24,38 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
+/**
+ * 
+ * @author pierre
+ */
 public class PictureLayout extends ViewGroup
 {
 
     private final Picture mPicture = new Picture();
 
+    /**
+     * 
+     * @param context
+     */
     public PictureLayout(Context context)
     {
         super(context);
     }
 
+    /**
+     * 
+     * @param context
+     * @param attrs
+     */
     public PictureLayout(Context context, AttributeSet attrs)
     {
         super(context, attrs);
     }
 
+    /**
+     * 
+     * @param child
+     */
     @Override
     public void addView(View child)
     {
@@ -50,6 +67,11 @@ public class PictureLayout extends ViewGroup
         super.addView(child);
     }
 
+    /**
+     * 
+     * @param child
+     * @param index
+     */
     @Override
     public void addView(View child, int index)
     {
@@ -61,6 +83,11 @@ public class PictureLayout extends ViewGroup
         super.addView(child, index);
     }
 
+    /**
+     * 
+     * @param child
+     * @param params
+     */
     @Override
     public void addView(View child, LayoutParams params)
     {
@@ -72,6 +99,12 @@ public class PictureLayout extends ViewGroup
         super.addView(child, params);
     }
 
+    /**
+     * 
+     * @param child
+     * @param index
+     * @param params
+     */
     @Override
     public void addView(View child, int index, LayoutParams params)
     {
@@ -83,12 +116,21 @@ public class PictureLayout extends ViewGroup
         super.addView(child, index, params);
     }
 
+    /**
+     * 
+     * @return
+     */
     @Override
     protected LayoutParams generateDefaultLayoutParams()
     {
         return new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
     }
 
+    /**
+     * 
+     * @param widthMeasureSpec
+     * @param heightMeasureSpec
+     */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
@@ -132,6 +174,10 @@ public class PictureLayout extends ViewGroup
         canvas.restore();
     }
 
+    /**
+     * 
+     * @param canvas
+     */
     @Override
     protected void dispatchDraw(Canvas canvas)
     {
@@ -153,6 +199,12 @@ public class PictureLayout extends ViewGroup
         }
     }
 
+    /**
+     * 
+     * @param location
+     * @param dirty
+     * @return
+     */
     @Override
     public ViewParent invalidateChildInParent(int[] location, Rect dirty)
     {
@@ -162,6 +214,14 @@ public class PictureLayout extends ViewGroup
         return getParent();
     }
 
+    /**
+     * 
+     * @param changed
+     * @param l
+     * @param t
+     * @param r
+     * @param b
+     */
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b)
     {

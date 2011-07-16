@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARTags Project owners (see http://www.artags.org)
+/* Copyright (c) 2010-2011 ARTags Project owners (see http://www.artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -34,10 +34,24 @@ public class BitmapUtil
 
     private static final String ROOT_DIRECTORY = "/ARTags";
 
+    /**
+     * Save the image as file
+     * @param filename The file
+     * @param bm The bitmap
+     * @return The file path
+     */
     public static String saveImage(String filename, Bitmap bm)
     {
         return BitmapUtil.saveImage(filename, bm, false);
     }
+
+    /**
+     * Save the image as file
+     * @param filename The file
+     * @param bm The bitmap
+     * @param landscape The orientation
+     * @return The file path
+     */
     public static String saveImage(String filename, Bitmap bm, boolean landscape)
     {
         File root = Environment.getExternalStorageDirectory();
@@ -78,6 +92,11 @@ public class BitmapUtil
 
     }
 
+    /**
+     * Load an image
+     * @param filename The filename
+     * @return The bitmap
+     */
     public static Bitmap loadImage(String filename)
     {
         File root = Environment.getExternalStorageDirectory();

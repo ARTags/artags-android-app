@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARTags Project owners (see http://www.artags.org)
+/* Copyright (c) 2010-2011 ARTags Project owners (see http://www.artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -47,7 +47,7 @@ public class MainActivity extends Activity implements OnClickListener
 
     public static final String INTENT_PACKAGE = "org.artags.android.app";
     public static final String INTENT_MAIN_CLASS = INTENT_PACKAGE + ".MainActivity";
-    public static final String INTENT_MYLOCATION_CLASS = INTENT_PACKAGE + ".MyLocationActivity";
+
     private static final String INTENT_DRAW_CLASS = INTENT_PACKAGE + ".DrawActivity";
     private static final String INTENT_PREFERENCES_CLASS = INTENT_PACKAGE + ".PreferencesActivity";
     private static final String INTENT_CREDITS_CLASS = INTENT_PACKAGE + ".CreditsActivity";
@@ -59,6 +59,9 @@ public class MainActivity extends Activity implements OnClickListener
     private ProgressThread progressThread;
     private ProgressDialog progressDialog;
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void onCreate(Bundle icicle)
     {
@@ -80,6 +83,9 @@ public class MainActivity extends Activity implements OnClickListener
         
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     protected Dialog onCreateDialog(int id)
     {
@@ -96,6 +102,9 @@ public class MainActivity extends Activity implements OnClickListener
         return null;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     public void onClick(View view)
     {
         if (view == mButtonDraw)
@@ -109,6 +118,9 @@ public class MainActivity extends Activity implements OnClickListener
         }
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)
     {
@@ -166,6 +178,9 @@ public class MainActivity extends Activity implements OnClickListener
         }
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -203,6 +218,9 @@ public class MainActivity extends Activity implements OnClickListener
         return false;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu)
     {
@@ -230,6 +248,10 @@ public class MainActivity extends Activity implements OnClickListener
 
     ////////////////////////////////////////////////////////////////////////////
     // specific menu implementation before Honeycomb
+    /**
+     * Handle menu selection
+     * @param item The menu item
+     */
     public void menuSelected(int item)
     {
 

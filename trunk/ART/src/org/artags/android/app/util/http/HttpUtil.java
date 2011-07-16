@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARTags Project owners (see http://www.artags.org)
+/* Copyright (c) 2010-2011 ARTags Project owners (see http://www.artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -36,6 +36,14 @@ import org.apache.http.util.EntityUtils;
 public class HttpUtil
 {
 
+    /**
+     * 
+     * @param sUrl
+     * @param params
+     * @param files
+     * @return
+     * @throws HttpException
+     */
     public static String post(String sUrl, HashMap<String, String> params, HashMap<String, File> files) throws HttpException
     {
         String ret = "";

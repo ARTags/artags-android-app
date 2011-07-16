@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARTags Project owners (see http://www.artags.org)
+/* Copyright (c) 2010-2011 ARTags Project owners (see http://www.artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -27,6 +27,7 @@ import org.artags.android.app.R;
 import org.artags.android.app.ar.junaio.JunaioBrowserHandler;
 import org.artags.android.app.ar.layar.LayarBrowserHandler;
 import org.artags.android.app.ar.wikitude.WikitudeBrowserHandler;
+import org.artags.android.app.ar.mixare.MixareBrowserHandler;
 import org.artags.android.app.preferences.PreferencesService;
 
 /**
@@ -44,17 +45,27 @@ public class BrowserService
         BrowserHandler layar = new LayarBrowserHandler();
         BrowserHandler wikitude = new WikitudeBrowserHandler();
         BrowserHandler junaio = new JunaioBrowserHandler();
+        BrowserHandler mixare = new MixareBrowserHandler();
 
         registry.put(layar.getBrowserKey(), layar);
         registry.put(wikitude.getBrowserKey(), wikitude);
         registry.put(junaio.getBrowserKey(), junaio);
+        registry.put(mixare.getBrowserKey(), mixare);
     }
 
+    /**
+     * Returns the unique instance
+     * @return The instance
+     */
     public static BrowserService instance()
     {
         return singleton;
     }
 
+    /**
+     * Start the AR browser
+     * @param activity The calling activity
+     */
     public void startBrowser(final Activity activity)
     {
         String ARBrowser = PreferencesService.instance().getAugmentedRealityBrowser(activity);

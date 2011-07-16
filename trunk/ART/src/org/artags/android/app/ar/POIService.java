@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARTags Project owners (see http://www.artags.org)
+/* Copyright (c) 2010-2011 ARTags Project owners (see http://www.artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -33,6 +33,13 @@ public class POIService
 
     
 
+    /**
+     * Gets a list of POI
+     * @param lat The latitude
+     * @param lon The longitude
+     * @param maxPOIs Max POI
+     * @return The list
+     */
     public static List<GenericPOI> getPOIs(double lat, double lon, int maxPOIs )
     {
         List<GenericPOI> list = null;
@@ -63,6 +70,13 @@ public class POIService
         return list;
     }
 
+    /**
+     * Build the url
+     * @param lat The latitude
+     * @param lon The longitude
+     * @param maxPOIs Max POI
+     * @return The url
+     */
     public static String buildUrl(double lat, double lon, int maxPOIs )
     {
         String url = Security.URL_TAGS;

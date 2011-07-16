@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARTags Project owners (see http://www.artags.org)
+/* Copyright (c) 2010-2011 ARTags Project owners (see http://www.artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -50,8 +50,10 @@ public class SplashActivity extends Activity implements OnClickListener
     private Dialog mDialogWhatsNew;
     private static boolean mIsDialogEula;
     private Dialog mDialogEula;
-    
-    /** Called when the activity is first created. */
+
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void onCreate(Bundle icicle)
     {
@@ -74,22 +76,31 @@ public class SplashActivity extends Activity implements OnClickListener
         checkLastVersion();
     }
 
+    /**
+     * {@inheritDoc }
+     */
     public void onClick(View view)
     {
         if (view == mImageView)
         {
             Intent intent = new Intent();
             intent.setClassName(MainActivity.INTENT_PACKAGE, MainActivity.INTENT_MAIN_CLASS);
-            startActivityForResult(intent,0);
+            startActivityForResult(intent, 0);
         }
     }
 
-    //when we get back there, just finish.
+    /**
+     * {@inheritDoc }
+     */
     @Override
-    protected void onActivityResult (int requestCode, int resultCode, Intent data)
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.finish();
     }
+
+    /**
+     * {@inheritDoc }
+     */
     @Override
     protected Dialog onCreateDialog(int id)
     {
@@ -105,16 +116,16 @@ public class SplashActivity extends Activity implements OnClickListener
 
                 public void onClick(DialogInterface dialog, int which)
                 {
-                    PreferencesService.instance().saveVersion( SplashActivity.this, mVersion);
+                    PreferencesService.instance().saveVersion(SplashActivity.this, mVersion);
                     mIsDialogWhatsNew = false;
                 }
             });
             dialog = builder.create();
             mDialogWhatsNew = dialog;
             mIsDialogWhatsNew = true;
-        } else if ( id == EULA_DIALOG )
+        } else if (id == EULA_DIALOG)
         {
-             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.eula_title);
             builder.setCancelable(true);
             builder.setPositiveButton(R.string.eula_button_accept, new DialogInterface.OnClickListener()
@@ -147,30 +158,29 @@ public class SplashActivity extends Activity implements OnClickListener
             mDialogEula = dialog;
             mIsDialogEula = true;
 
-        }
-        else
+        } else
         {
             dialog = super.onCreateDialog(id);
         }
         return dialog;
     }
-    
-    
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     protected void onSaveInstanceState(Bundle outState)
     {
         super.onSaveInstanceState(outState);
-        if( mIsDialogEula )
+        if (mIsDialogEula)
         {
             mDialogEula.dismiss();
-        }    
-        if( mIsDialogWhatsNew )
+        }
+        if (mIsDialogWhatsNew)
         {
             mDialogWhatsNew.dismiss();
         }
     }
-
 
     private void checkLastVersion()
     {
@@ -190,7 +200,7 @@ public class SplashActivity extends Activity implements OnClickListener
                 mResMessage = R.string.whats_new_dialog_message;
             }
             //if update, then check if the readme has change. if yes, display it.
-            if(lastVersion < PreferencesService.instance().getLastReadMeChangeVersion())
+            if (lastVersion < PreferencesService.instance().getLastReadMeChangeVersion())
             {
                 PreferencesService.instance().setDrawReadme(this, true);
             }
@@ -237,5 +247,4 @@ public class SplashActivity extends Activity implements OnClickListener
             }
         }
     }
-
- }
+}

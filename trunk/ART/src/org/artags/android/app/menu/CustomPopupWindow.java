@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARTags Project owners (see http://www.artags.org)
+/* Copyright (c) 2010-2011 ARTags Project owners (see http://www.artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -31,13 +31,26 @@ import android.view.WindowManager;
 import android.widget.PopupWindow;
 import org.artags.android.app.R;
 
+/**
+ * 
+ * @author pierre
+ */
 public class CustomPopupWindow
 {
 
+    /**
+     * 
+     */
     protected final View anchor;
+    /**
+     * 
+     */
     protected final PopupWindow window;
     private View root;
     private Drawable background = null;
+    /**
+     * 
+     */
     protected final WindowManager windowManager;
 
     /**
@@ -90,6 +103,9 @@ public class CustomPopupWindow
     {
     }
 
+    /**
+     * 
+     */
     protected void preShow()
     {
         if (root == null)
@@ -120,6 +136,10 @@ public class CustomPopupWindow
         window.setContentView(root);
     }
 
+    /**
+     * 
+     * @param background
+     */
     public void setBackgroundDrawable(Drawable background)
     {
         this.background = background;
@@ -238,6 +258,9 @@ public class CustomPopupWindow
         window.showAtLocation(anchor, Gravity.NO_GRAVITY, xPos, yPos);
     }
 
+    /**
+     * 
+     */
     public void dismiss()
     {
         window.dismiss();

@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARTags Project owners (see http://www.artags.org)
+/* Copyright (c) 2010-2011 ARTags Project owners (see http://www.artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -27,32 +27,55 @@ public class Person extends AbstractTextItem implements CreditsItem
     private static int mBeforeSpacing;
     private static int mAfterSpacing;
 
+    /**
+     * Constructor
+     * @param name The name
+     */
     public Person( String name )
     {
         mText = name;
     }
 
+    /**
+     * Sets the painter to draw text
+     * @param paint The painter
+     */
     public static void setPaint( Paint paint )
     {
         mPaint = paint;
     }
 
+    /**
+     * Gets the painter
+     * @return The painter
+     */
     public Paint getPaint()
     {
         return mPaint;
     }
 
+    /**
+     * Sets the spacing
+     * @param before before spacing
+     * @param after after spacing
+     */
     public static void setSpacings( int before , int after )
     {
         mBeforeSpacing = before;
         mAfterSpacing = after;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     public int getBeforeSpacing()
     {
         return mBeforeSpacing;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     public int getAfterSpacing()
     {
         return mAfterSpacing;

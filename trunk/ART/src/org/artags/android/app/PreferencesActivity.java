@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARTags Project owners (see http://www.artags.org)
+/* Copyright (c) 2010-2011 ARTags Project owners (see http://www.artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -40,6 +40,9 @@ public class PreferencesActivity extends Activity implements OnClickListener
     private TextView mBrowser;
     private Button mButtonChangeBrowser;
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -63,6 +66,9 @@ public class PreferencesActivity extends Activity implements OnClickListener
 
     }
 
+    /**
+     * {@inheritDoc }
+     */
     public void onClick(View button)
     {
         if (button == mButtonChangeBrowser)
@@ -75,7 +81,7 @@ public class PreferencesActivity extends Activity implements OnClickListener
     {
         final String[] browsers =
         {
-            PreferencesService.LAYAR, PreferencesService.WIKITUDE, PreferencesService.JUNAIO
+            PreferencesService.LAYAR, PreferencesService.WIKITUDE, PreferencesService.JUNAIO, PreferencesService.MIXARE
         };
 
         new AlertDialog.Builder(PreferencesActivity.this).setItems(browsers, new DialogInterface.OnClickListener()
@@ -91,7 +97,7 @@ public class PreferencesActivity extends Activity implements OnClickListener
         }).create().show();
     }
     
-        /**
+    /**
      * {@inheritDoc }
      */
     @Override

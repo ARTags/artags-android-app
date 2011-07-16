@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARTags Project owners (see http://www.artags.org)
+/* Copyright (c) 2010-2011 ARTags Project owners (see http://www.artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -53,6 +53,10 @@ public class CreditsView extends SurfaceView implements SurfaceHolder.Callback
     private int mDY;
     private boolean mTouch;
 
+    /**
+     * 
+     * @param context
+     */
     public CreditsView(Context context)
     {
         super(context);
@@ -107,6 +111,10 @@ public class CreditsView extends SurfaceView implements SurfaceHolder.Callback
         }
     };
 
+    /**
+     * 
+     * @param holder
+     */
     public void surfaceCreated(SurfaceHolder holder)
     {
         Log.d("ARTags", "Surface created");
@@ -114,6 +122,13 @@ public class CreditsView extends SurfaceView implements SurfaceHolder.Callback
         mThread.start();
     }
 
+    /**
+     * 
+     * @param holder
+     * @param format
+     * @param width
+     * @param height
+     */
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height)
     {
         Log.d("ARTags", "Surface changed");
@@ -149,6 +164,10 @@ public class CreditsView extends SurfaceView implements SurfaceHolder.Callback
         mThread.start();
     }
 
+    /**
+     * 
+     * @param holder
+     */
     public void surfaceDestroyed(SurfaceHolder holder)
     {
         Log.d("ARTags", "Surface destroyed");
@@ -220,9 +239,6 @@ public class CreditsView extends SurfaceView implements SurfaceHolder.Callback
         }
     }
 
-    public void onSurfaceChanged()
-    {
-    }
 
     private synchronized void prepareFrame(long ellapsed)
     {
@@ -296,6 +312,11 @@ public class CreditsView extends SurfaceView implements SurfaceHolder.Callback
         }
     }
 
+    /**
+     * 
+     * @param e
+     * @return
+     */
     @Override
     public boolean onTouchEvent(MotionEvent e)
     {

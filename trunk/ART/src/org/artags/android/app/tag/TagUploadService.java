@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARTags Project owners (see http://www.artags.org)
+/* Copyright (c) 2010-2011 ARTags Project owners (see http://www.artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -39,6 +39,12 @@ public class TagUploadService
     private static final String PARAMETER_KEY = "key";
     
 
+    /**
+     * 
+     * @param tag
+     * @return
+     * @throws HttpException
+     */
     public static String upload(Tag tag) throws HttpException
     {
         HashMap<String, String> mapParams = new HashMap<String, String>();

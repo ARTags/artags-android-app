@@ -55,6 +55,9 @@ public abstract class AbstractWidgetProvider extends AppWidgetProvider
 
     abstract Tag getCurrentTag();
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds)
     {
@@ -65,6 +68,9 @@ public abstract class AbstractWidgetProvider extends AppWidgetProvider
         mFetchingTask.execute();
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void onReceive(Context context, Intent intent)
     {
@@ -80,11 +86,14 @@ public abstract class AbstractWidgetProvider extends AppWidgetProvider
     private void showTag(Context context)
     {
         Tag tag = getCurrentTag();
-        String url = Constants.URL_JSP_TAG + tag.getId();
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse(url));
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+        if (tag != null)
+        {
+            String url = Constants.URL_JSP_TAG + tag.getId();
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        }
     }
 
     private void updateTag(Tag tag)
@@ -97,8 +106,11 @@ public abstract class AbstractWidgetProvider extends AppWidgetProvider
         active.setAction(Constants.ACTION_SHOW_TAG);
         PendingIntent actionPendingIntent = PendingIntent.getBroadcast(mContext, 0, active, 0);
         remoteViews.setOnClickPendingIntent(R.id.widget_thumbnail, actionPendingIntent);
-        mAppWidgetManager.updateAppWidget(mAppWidgetIds, remoteViews);
-        Log.d(Constants.LOG_TAG, "Widget updated");
+        if( ( tag != null ) && ( remoteViews != null ))
+        {
+            mAppWidgetManager.updateAppWidget(mAppWidgetIds, remoteViews);
+            Log.d(Constants.LOG_TAG, "Widget updated");
+        }
     }
     private AsyncTask<Void, Void, Void> mFetchingTask = new AsyncTask<Void, Void, Void>()
     {

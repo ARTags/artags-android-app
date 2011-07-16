@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARTags Project owners (see http://www.artags.org)
+/* Copyright (c) 2010-2011 ARTags Project owners (see http://www.artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -33,6 +33,10 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import org.artags.android.app.R;
 
+/**
+ * 
+ * @author pierre
+ */
 public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListener, OnClickListener
 {
 
@@ -58,6 +62,10 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
     private CheckBox mToggleEmboss;
     private CheckBox mToggleBlur;
 
+    /**
+     * 
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -142,6 +150,10 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
 
     }
 
+    /**
+     * 
+     * @param view
+     */
     public void onClick(View view)
     {
         if (view == mButtonOK)
@@ -167,6 +179,12 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
         mColorPickerView.invalidate();
     }
 
+    /**
+     * 
+     * @param seekbar
+     * @param progress
+     * @param arg2
+     */
     public void onProgressChanged(SeekBar seekbar, int progress, boolean arg2)
     {
         if (seekbar == mSeekBarSize)
@@ -191,20 +209,38 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
 
     }
 
+    /**
+     * 
+     * @param arg0
+     */
     public void onStartTrackingTouch(SeekBar arg0)
     {
     }
 
+    /**
+     * 
+     * @param arg0
+     */
     public void onStopTrackingTouch(SeekBar arg0)
     {
     }
 
+    /**
+     * 
+     */
     public interface OnBrushParametersChangedListener
     {
 
+        /**
+         * 
+         * @param bp
+         */
         void setBrushParameter(BrushParameters bp);
     }
 
+    /**
+     * 
+     */
     public class ColorPickerView extends View
     {
 
@@ -234,6 +270,10 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
             mCenterPaint.setStrokeWidth(5);
         }
 
+        /**
+         * 
+         * @param canvas
+         */
         @Override
         protected void onDraw(Canvas canvas)
         {
@@ -284,6 +324,11 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
             mSeekBarSize.setBackgroundColor( getColor());
         }
 
+        /**
+         * 
+         * @param widthMeasureSpec
+         * @param heightMeasureSpec
+         */
         @Override
         protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
         {
@@ -369,6 +414,11 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
         }
         private static final float PI = 3.1415926f;
 
+        /**
+         * 
+         * @param event
+         * @return
+         */
         @Override
         public boolean onTouchEvent(MotionEvent event)
         {
@@ -429,6 +479,12 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
         }
     }
 
+    /**
+     * 
+     * @param context
+     * @param listener
+     * @param bp
+     */
     public BrushDialog(Context context, OnBrushParametersChangedListener listener, BrushParameters bp)
     {
         super(context);

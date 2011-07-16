@@ -12,41 +12,55 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.artags.android.app.widget;
+package org.artags.android.app.ar.mixare;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
+import org.artags.android.app.ar.BrowserHandler;
 
 /**
  *
  * @author Pierre Levy
  */
-public class LatestTagsWidget extends AbstractWidgetProvider
+public class MixareBrowserHandler implements BrowserHandler
 {
-    private static Tag mTag;
+
+    private static final String URL_MIXARE_JSON_ENDPOINT = "http://art-server.appspot.com/mixare";
+    private static final String MIME_TYPE = "application/mixare-json";
 
     /**
      * {@inheritDoc }
      */
-    @Override
-    String getTagListUrl()
+    public String getBrowserKey()
     {
-        return Constants.URL_LATEST_TAGS;
+        return "mixare";
     }
 
     /**
      * {@inheritDoc }
      */
-    @Override
-    void setCurrentTag(Tag tag)
+    public String getBrowserDescription()
     {
-        mTag = tag;
+        return "Mixare";
     }
 
     /**
      * {@inheritDoc }
      */
-    @Override
-    Tag getCurrentTag()
+    public void startBrowser(Activity activity)
     {
-        return mTag;
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.parse(URL_MIXARE_JSON_ENDPOINT), MIME_TYPE);
+        activity.startActivity(intent);
     }
- 
+
+    /**
+     * {@inheritDoc }
+     */
+    public String getPackageName()
+    {
+        return "org.mixare";
+    }
 }
