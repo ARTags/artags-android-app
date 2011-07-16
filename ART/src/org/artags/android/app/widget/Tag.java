@@ -29,16 +29,25 @@ public class Tag
     private Bitmap bitmap;
     private String rating;
 
+    /**
+     * Constructor
+     */
     public Tag()
     {
         
     }
     
+    /**
+     * Constructor
+     * @param id The ID
+     * @param text The text
+     */
     public Tag( int id , String text)
     {
         this.thumbnailId = id;
         this.text = text;
     }
+    
     /**
      * @return the text
      */

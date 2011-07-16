@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARTags Project owners (see http://www.artags.org)
+/* Copyright (c) 2010-2011 ARTags Project owners (see http://www.artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -86,6 +86,9 @@ public class DrawActivity extends GraphicsActivity
     private SendInfos mSendInfos;
     private SendDialog mDialogSend;
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -129,6 +132,9 @@ public class DrawActivity extends GraphicsActivity
         displayReadme();
     }
 
+    /**
+     * {@inheritDoc }
+     */
     public void setBrushParameter(BrushParameters bp)
     {
         mBP = bp;
@@ -150,6 +156,9 @@ public class DrawActivity extends GraphicsActivity
         }
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     protected Dialog onCreateDialog(int id)
     {
@@ -174,6 +183,9 @@ public class DrawActivity extends GraphicsActivity
 
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -187,6 +199,9 @@ public class DrawActivity extends GraphicsActivity
         return true;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu)
     {
@@ -240,6 +255,9 @@ public class DrawActivity extends GraphicsActivity
     final Handler handler = new Handler()
     {
 
+        /**
+         * {@inheritDoc }
+         */
         @Override
         public void handleMessage(Message msg)
         {
@@ -276,6 +294,9 @@ public class DrawActivity extends GraphicsActivity
         startActivity(Intent.createChooser(intent, getString(R.string.share_chooser_title)));
     }
 
+    /**
+     * {@inheritDoc }
+     */
     public void setSendInfos(SendInfos si)
     {
         mSendInfos = si;
@@ -327,6 +348,10 @@ public class DrawActivity extends GraphicsActivity
         dialogBrushSize.show();
     }
 
+    /**
+     * Display brush dialog
+     * @param color The current color
+     */
     public void showBrushDialog(int color)
     {
         mBP.setColor(color);
@@ -345,6 +370,9 @@ public class DrawActivity extends GraphicsActivity
             mHandler = h;
         }
 
+        /**
+        * {@inheritDoc }
+        */
         @Override
         public void run()
         {
@@ -396,6 +424,9 @@ public class DrawActivity extends GraphicsActivity
         }
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void onPause()
     {
@@ -404,6 +435,9 @@ public class DrawActivity extends GraphicsActivity
         BitmapUtil.saveImage(IMAGE_FILE_BACKUP, mView.getBitmap());
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void onResume()
     {
@@ -419,12 +453,6 @@ public class DrawActivity extends GraphicsActivity
 
     }
 
-    public void gotoMyLocation()
-    {
-        Intent intentMyLocation = new Intent();
-        intentMyLocation.setClassName(MainActivity.INTENT_PACKAGE, MainActivity.INTENT_MYLOCATION_CLASS);
-        startActivityForResult(intentMyLocation, INTENT_RESULT_MY_LOCATION);
-    }
 
     private void displayReadme()
     {
@@ -583,6 +611,12 @@ public class DrawActivity extends GraphicsActivity
         }
     }
 
+    /**
+     * 
+     * @param keyCode
+     * @param event
+     * @return
+     */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)
     {
@@ -594,6 +628,10 @@ public class DrawActivity extends GraphicsActivity
         return super.onKeyDown(keyCode, event);
     }
 
+    /**
+     * 
+     * @param item
+     */
     public void menuSelected(int item)
     {
         mPaint.setXfermode(null);

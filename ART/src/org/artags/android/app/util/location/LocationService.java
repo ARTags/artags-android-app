@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARTags Project owners (see http://www.artags.org)
+/* Copyright (c) 2010-2011 ARTags Project owners (see http://www.artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -28,6 +28,11 @@ public class LocationService
 
     private static Location mLocation;
 
+    /**
+     * Gets the location
+     * @param context The context
+     * @return The location
+     */
     public static Location getLocation(Context context)
     {
         if (mLocation == null)
@@ -37,6 +42,10 @@ public class LocationService
         return mLocation;
     }
 
+    /**
+     * Sets the location
+     * @param location The location
+     */
     public static void setLocation(Location location)
     {
         mLocation = location;

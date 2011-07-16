@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARTags Project owners (see http://www.artags.org)
+/* Copyright (c) 2010-2011 ARTags Project owners (see http://www.artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -47,10 +47,25 @@ public class QuickAction extends CustomPopupWindow
     private final ImageView mArrowDown;
     private final LayoutInflater inflater;
     private final Context context;
+    /**
+     * 
+     */
     protected static final int ANIM_GROW_FROM_LEFT = 1;
+    /**
+     * 
+     */
     protected static final int ANIM_GROW_FROM_RIGHT = 2;
+    /**
+     * 
+     */
     protected static final int ANIM_GROW_FROM_CENTER = 3;
+    /**
+     * 
+     */
     protected static final int ANIM_REFLECT = 4;
+    /**
+     * 
+     */
     protected static final int ANIM_AUTO = 5;
     private int animStyle;
     private ViewGroup mTrack;

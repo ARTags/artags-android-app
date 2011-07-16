@@ -52,6 +52,11 @@ public class HttpUtils
     private static final String ENCODING_GZIP = "gzip";
     private static final int TIMEOUT_IN_MILLIS = 20000;
     
+    /**
+     * Gets an url content
+     * @param url The url
+     * @return The content
+     */
     public static String getUrl(String url)
     {
         String result = "";
@@ -107,6 +112,11 @@ public class HttpUtils
     }
 
 
+    /**
+     * Load a bitmap
+     * @param url The URL
+     * @return The bitmap
+     */
     public static Bitmap loadBitmap(String url)
     {
         try
@@ -137,6 +147,7 @@ public class HttpUtils
     /**
      * Generate and return a {@link HttpClient} configured for general use,
      * including setting an application-specific user-agent string.
+     * @return 
      */
     public static HttpClient getHttpClient()
     {

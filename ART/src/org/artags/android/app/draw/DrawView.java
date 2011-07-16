@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARTags Project owners (see http://www.artags.org)
+/* Copyright (c) 2010-2011 ARTags Project owners (see http://www.artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -66,6 +66,11 @@ public class DrawView extends View
     private final int ZOOM = 1;
     private final int DRAW = 2;
 
+    /**
+     * 
+     * @param activity
+     * @param dm
+     */
     public DrawView(DrawActivity activity, DisplayMetrics dm)
     {
         super(activity);
@@ -87,6 +92,13 @@ public class DrawView extends View
         newMid = new PointF();
     }
 
+    /**
+     * 
+     * @param w
+     * @param h
+     * @param oldw
+     * @param oldh
+     */
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh)
     {
@@ -97,6 +109,10 @@ public class DrawView extends View
 
     }
 
+    /**
+     * 
+     * @param canvas
+     */
     @Override
     protected void onDraw(Canvas canvas)
     {
@@ -156,6 +172,11 @@ public class DrawView extends View
         this.touchMode = NONE;
     }
 
+    /**
+     * 
+     * @param event
+     * @return
+     */
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
@@ -210,16 +231,28 @@ public class DrawView extends View
         return true;
     }
 
+    /**
+     * 
+     * @return
+     */
     public Bitmap getBitmap()
     {
         return mBitmap;
     }
 
+    /**
+     * 
+     * @param paint
+     */
     public void setPaint(Paint paint)
     {
         mPaint = paint;
     }
 
+    /**
+     * 
+     * @param bm
+     */
     public void setBitmap(Bitmap bm)
     {
         mBitmap = bm.copy(Bitmap.Config.ARGB_8888, true);
@@ -247,6 +280,9 @@ public class DrawView extends View
         mBitmapUndo = Bitmap.createBitmap(mBitmap);
     }
 
+    /**
+     * 
+     */
     public void restore()
     {
         if (mBitmapUndo != null)
@@ -257,6 +293,9 @@ public class DrawView extends View
         }
     }
 
+    /**
+     * 
+     */
     public void reset()
     {
         save();
@@ -265,12 +304,19 @@ public class DrawView extends View
         invalidate();
     }
 
+    /**
+     * 
+     */
     public void setEyeDropperMode()
     {
         mEyeDropper = true;
 
     }
 
+    /**
+     * 
+     * @return
+     */
     public Bitmap getThumbnail()
     {
         Bitmap thumbnail = Bitmap.createBitmap(THUMBNAIL_SIZE, THUMBNAIL_SIZE, Bitmap.Config.ARGB_8888);

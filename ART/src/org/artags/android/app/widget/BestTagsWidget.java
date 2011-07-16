@@ -22,18 +22,27 @@ public class BestTagsWidget extends AbstractWidgetProvider
 {
     private static Tag mTag;
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     String getTagListUrl()
     {
         return Constants.URL_BEST_TAGS;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     void setCurrentTag(Tag tag)
     {
         mTag = tag;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     Tag getCurrentTag()
     {

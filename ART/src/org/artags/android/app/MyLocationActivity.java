@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARTags Project owners (see http://www.artags.org)
+/* Copyright (c) 2010-2011 ARTags Project owners (see http://www.artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -43,7 +43,13 @@ import java.util.List;
  */
 public class MyLocationActivity extends Activity implements OnClickListener, LocationListener
 {
+    /**
+     * 
+     */
     public static final int MYLOCATION_VALIDATE = 0;
+    /**
+     * 
+     */
     public static final int MYLOCATION_CANCEL = 1;
     private LocationManager mLocationManager;
     private Location mLocation;
@@ -60,6 +66,10 @@ public class MyLocationActivity extends Activity implements OnClickListener, Loc
 //    private Button mDefineAddressButton;
     private ProgressBar mProgressBar;
 
+    /**
+     * 
+     * @param icicle
+     */
     @Override
     public void onCreate(Bundle icicle)
     {
@@ -97,6 +107,10 @@ public class MyLocationActivity extends Activity implements OnClickListener, Loc
 
     }
 
+    /**
+     * 
+     * @param view
+     */
     public void onClick(View view)
     {
         switch (view.getId())
@@ -214,6 +228,10 @@ public class MyLocationActivity extends Activity implements OnClickListener, Loc
         showProgress(false);
     }
 
+    /**
+     * 
+     * @param location
+     */
     public void onLocationChanged(Location location)
     {
         Log.i("ARTags - MyLocation", "Location changed");
@@ -225,6 +243,10 @@ public class MyLocationActivity extends Activity implements OnClickListener, Loc
         getAddress();
     }
 
+    /**
+     * 
+     * @param provider
+     */
     public void onProviderDisabled(String provider)
     {
         Log.i("ARTags - MyLocation", "Location Provider disabled");
@@ -235,11 +257,21 @@ public class MyLocationActivity extends Activity implements OnClickListener, Loc
         showProgress(false);
     }
 
+    /**
+     * 
+     * @param provider
+     */
     public void onProviderEnabled(String provider)
     {
         Log.i("ARTags - MyLocation", "Location Provider enabled.");
     }
 
+    /**
+     * 
+     * @param provider
+     * @param status
+     * @param extras
+     */
     public void onStatusChanged(String provider, int status, Bundle extras)
     {
         Log.i("ARTags - MyLocation", "Location Provider status changed.");

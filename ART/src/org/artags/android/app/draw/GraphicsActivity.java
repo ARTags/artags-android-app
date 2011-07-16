@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARTags Project owners (see http://www.artags.org)
+/* Copyright (c) 2010-2011 ARTags Project owners (see http://www.artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -19,15 +19,27 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
+/**
+ * 
+ * @author pierre
+ */
 public class GraphicsActivity extends Activity
 {
 
+    /**
+     * 
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * 
+     * @param view
+     */
     @Override
     public void setContentView(View view)
     {

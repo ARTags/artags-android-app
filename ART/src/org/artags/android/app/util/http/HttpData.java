@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARTags Project owners (see http://www.artags.org)
+/* Copyright (c) 2010-2011 ARTags Project owners (see http://www.artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -16,8 +16,21 @@ package org.artags.android.app.util.http;
 
 import java.util.Hashtable;
 
+/**
+ * 
+ * @author pierre
+ */
 public class HttpData {
-      public String content;
-      public Hashtable cookies = new Hashtable();
+    /**
+     * 
+     */
+    public String content;
+    /**
+     * 
+     */
+    public Hashtable cookies = new Hashtable();
+      /**
+       * 
+       */
       public Hashtable headers = new Hashtable();
 }

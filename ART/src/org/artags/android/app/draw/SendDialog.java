@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARTags Project owners (see http://www.artags.org)
+/* Copyright (c) 2010-2011 ARTags Project owners (see http://www.artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -66,12 +66,24 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
     private int mLocationSearch;
     private boolean mShare;
 
+    /**
+     * Interface for listeners
+     */
     public interface OnSendListener
     {
 
+        /**
+         * Set send infos
+         * @param si The send infos
+         */
         void setSendInfos(SendInfos si);
     }
 
+    /**
+     * Constructor
+     * @param context The context
+     * @param listener The listener
+     */
     public SendDialog(DrawActivity context, OnSendListener listener)
     {
         super(context);
@@ -79,6 +91,9 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
         mListener = listener;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -113,6 +128,9 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
 
     }
 
+    /**
+     * {@inheritDoc }
+     */
     public void onClick(View view)
     {
         if (view == mButtonSend)
@@ -153,6 +171,9 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
 
     }
 
+    /**
+     * {@inheritDoc }
+     */
     public void onLocationChanged(Location location)
     {
         Log.i("ARTags:SendDialog", "Location found (" + location.getLatitude() + "," + location.getLongitude() + ")");
@@ -172,17 +193,31 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
         getAddress();
     }
 
+    /**
+     * 
+     * @param provider
+     */
     public void onProviderDisabled(String provider)
     {
         Log.i("ARTags:SendDialog", "Location Provider disabled");
         mLocationManager.removeUpdates(this);
     }
 
+    /**
+     * 
+     * @param provider
+     */
     public void onProviderEnabled(String provider)
     {
         Log.i("ARTags:SendDialog", "Location Provider enabled.");
     }
 
+    /**
+     * 
+     * @param provider
+     * @param status
+     * @param extras
+     */
     public void onStatusChanged(String provider, int status, Bundle extras)
     {
         Log.i("ARTags:SendDialog", "Location Provider status changed.");
@@ -198,6 +233,9 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
         }
     };
 
+    /**
+     * Starts the timeout thread
+     */
     protected void startTimeout()
     {
 

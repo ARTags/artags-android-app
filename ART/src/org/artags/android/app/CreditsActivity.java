@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARTags Project owners (see http://www.artags.org)
+/* Copyright (c) 2010-2011 ARTags Project owners (see http://www.artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -35,6 +35,9 @@ public class CreditsActivity extends Activity
 
     ImageView mImageView;
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void onCreate(Bundle icicle)
     {

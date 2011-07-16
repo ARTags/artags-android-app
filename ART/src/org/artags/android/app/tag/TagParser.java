@@ -1,4 +1,4 @@
-/* Copyright (c) 2010 ARTags Project owners (see http://www.artags.org)
+/* Copyright (c) 2010-2011 ARTags Project owners (see http://www.artags.org)
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -42,9 +42,20 @@ public class TagParser extends DefaultHandler
     private GenericPOI currentGenericPOI;
     private StringBuilder builder;
 
+    /**
+     * 
+     * @return
+     */
     public List<GenericPOI> getGenericPOIs(){
         return this.GenericPOIs;
     }
+    /**
+     * 
+     * @param ch
+     * @param start
+     * @param length
+     * @throws SAXException
+     */
     @Override
     public void characters(char[] ch, int start, int length)
             throws SAXException {
@@ -52,6 +63,13 @@ public class TagParser extends DefaultHandler
         builder.append(ch, start, length);
     }
 
+    /**
+     * 
+     * @param uri
+     * @param localName
+     * @param name
+     * @throws SAXException
+     */
     @Override
     public void endElement(String uri, String localName, String name)
             throws SAXException {
@@ -81,6 +99,10 @@ public class TagParser extends DefaultHandler
         }
     }
 
+    /**
+     * 
+     * @throws SAXException
+     */
     @Override
     public void startDocument() throws SAXException {
         super.startDocument();
@@ -88,6 +110,14 @@ public class TagParser extends DefaultHandler
         builder = new StringBuilder();
     }
 
+    /**
+     * 
+     * @param uri
+     * @param localName
+     * @param name
+     * @param attributes
+     * @throws SAXException
+     */
     @Override
     public void startElement(String uri, String localName, String name,
             Attributes attributes) throws SAXException {

@@ -32,6 +32,12 @@ public class TwitterUtil
     private static final String TWITTER_POST_ACTIVITY = "com.twitter.android.PostActivity";
     private static final String CONTENT_TYPE_TEXT = "text/plain";
 
+    /**
+     * 
+     * @param context
+     * @param message
+     * @return
+     */
     public static boolean send(Context context, String message)
     {
         Intent intent = new Intent(Intent.ACTION_SEND);
