@@ -24,10 +24,11 @@ import org.xml.sax.helpers.DefaultHandler;
 
 /**
  *
- * @author Pierre Levy@androidsoft.org
+ * @author Pierre Levy
  */
 public class TagParser extends DefaultHandler
 {
+
     private static final String TAG = "tag";
     private static final String ID = "id";
     private static final String TITLE = "name";
@@ -37,62 +38,67 @@ public class TagParser extends DefaultHandler
     private static final String THUMBNAIL = "thumbnail-id";
     private static final String DATE = "date";
     private static final String RATING = "rating";
-
     private List<GenericPOI> GenericPOIs;
     private GenericPOI currentGenericPOI;
     private StringBuilder builder;
 
     /**
-     * 
-     * @return
+     * Gest the list of POI
+     * @return The list
      */
-    public List<GenericPOI> getGenericPOIs(){
+    public List<GenericPOI> getGenericPOIs()
+    {
         return this.GenericPOIs;
     }
+
     /**
-     * 
-     * @param ch
-     * @param start
-     * @param length
-     * @throws SAXException
+     * {@inheritDoc }
      */
     @Override
     public void characters(char[] ch, int start, int length)
-            throws SAXException {
+            throws SAXException
+    {
         super.characters(ch, start, length);
         builder.append(ch, start, length);
     }
 
     /**
-     * 
-     * @param uri
-     * @param localName
-     * @param name
-     * @throws SAXException
+     * {@inheritDoc }
      */
     @Override
     public void endElement(String uri, String localName, String name)
-            throws SAXException {
+            throws SAXException
+    {
         super.endElement(uri, localName, name);
-        if (this.currentGenericPOI != null){
-            if (localName.equalsIgnoreCase(ID)){
+        if (this.currentGenericPOI != null)
+        {
+            if (localName.equalsIgnoreCase(ID))
+            {
                 String id = builder.toString();
-                currentGenericPOI.setUrl( Security.URL_TAG + id );
-                currentGenericPOI.setImageUrl(Security.URL_IMAGE + id );
-            } else if (localName.equalsIgnoreCase(TITLE)){
+                currentGenericPOI.setUrl(Security.URL_TAG + id);
+                currentGenericPOI.setImageUrl(Security.URL_IMAGE + id);
+            } else if (localName.equalsIgnoreCase(TITLE))
+            {
                 currentGenericPOI.setName(builder.toString());
-            } else if (localName.equalsIgnoreCase(DATE)){
+            } else if (localName.equalsIgnoreCase(DATE))
+            {
                 currentGenericPOI.setDate(builder.toString());
-            } else if (localName.equalsIgnoreCase(RATING)){
+            } else if (localName.equalsIgnoreCase(RATING))
+            {
                 currentGenericPOI.setRating(builder.toString());
-            } else if (localName.equalsIgnoreCase(LATITUDE)){
-                currentGenericPOI.setLatitude( Double.parseDouble(builder.toString()));
-            } else if (localName.equalsIgnoreCase(LONGITUDE)){
+            } else if (localName.equalsIgnoreCase(LATITUDE))
+            {
+                currentGenericPOI.setLatitude(Double.parseDouble(builder.toString()));
+            } else if (localName.equalsIgnoreCase(LONGITUDE))
+            {
                 currentGenericPOI.setLongitude(Double.parseDouble(builder.toString()));
-            } else if (localName.equalsIgnoreCase(IMAGE)){
-            } else if (localName.equalsIgnoreCase(THUMBNAIL)){
-                currentGenericPOI.setIconUrl( Security.URL_ICON + builder.toString());
-            } else if (localName.equalsIgnoreCase(TAG)){
+            } else if (localName.equalsIgnoreCase(IMAGE))
+            {
+            } else if (localName.equalsIgnoreCase(THUMBNAIL))
+            {
+                currentGenericPOI.setIconUrl(Security.URL_ICON + builder.toString());
+            } else if (localName.equalsIgnoreCase(TAG))
+            {
                 GenericPOIs.add(currentGenericPOI);
             }
             builder.setLength(0);
@@ -100,32 +106,27 @@ public class TagParser extends DefaultHandler
     }
 
     /**
-     * 
-     * @throws SAXException
+     * {@inheritDoc }
      */
     @Override
-    public void startDocument() throws SAXException {
+    public void startDocument() throws SAXException
+    {
         super.startDocument();
         GenericPOIs = new ArrayList<GenericPOI>();
         builder = new StringBuilder();
     }
 
     /**
-     * 
-     * @param uri
-     * @param localName
-     * @param name
-     * @param attributes
-     * @throws SAXException
+     * {@inheritDoc }
      */
     @Override
     public void startElement(String uri, String localName, String name,
-            Attributes attributes) throws SAXException {
+            Attributes attributes) throws SAXException
+    {
         super.startElement(uri, localName, name, attributes);
-        if (localName.equalsIgnoreCase(TAG)){
+        if (localName.equalsIgnoreCase(TAG))
+        {
             this.currentGenericPOI = new GenericPOI();
         }
     }
 }
-
-

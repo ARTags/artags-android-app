@@ -21,14 +21,13 @@ import android.view.ViewGroup;
 
 /**
  * 
- * @author pierre
+ * @author Pierre Levy
  */
 public class GraphicsActivity extends Activity
 {
 
     /**
-     * 
-     * @param savedInstanceState
+     * {@inheritDoc }
      */
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -37,8 +36,7 @@ public class GraphicsActivity extends Activity
     }
 
     /**
-     * 
-     * @param view
+     * {@inheritDoc }
      */
     @Override
     public void setContentView(View view)

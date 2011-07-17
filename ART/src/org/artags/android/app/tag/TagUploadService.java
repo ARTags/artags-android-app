@@ -40,10 +40,10 @@ public class TagUploadService
     
 
     /**
-     * 
-     * @param tag
-     * @return
-     * @throws HttpException
+     * Upload a Tag
+     * @param tag The tag
+     * @return The post return value
+     * @throws HttpException If an error occurs
      */
     public static String upload(Tag tag) throws HttpException
     {

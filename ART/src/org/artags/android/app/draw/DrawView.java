@@ -67,9 +67,9 @@ public class DrawView extends View
     private final int DRAW = 2;
 
     /**
-     * 
-     * @param activity
-     * @param dm
+     * Constructor
+     * @param activity The activity
+     * @param dm Display metrics
      */
     public DrawView(DrawActivity activity, DisplayMetrics dm)
     {
@@ -93,11 +93,7 @@ public class DrawView extends View
     }
 
     /**
-     * 
-     * @param w
-     * @param h
-     * @param oldw
-     * @param oldh
+     * {@inheritDoc }
      */
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh)
@@ -110,8 +106,7 @@ public class DrawView extends View
     }
 
     /**
-     * 
-     * @param canvas
+     * {@inheritDoc }
      */
     @Override
     protected void onDraw(Canvas canvas)
@@ -173,9 +168,7 @@ public class DrawView extends View
     }
 
     /**
-     * 
-     * @param event
-     * @return
+     * {@inheritDoc }
      */
     @Override
     public boolean onTouchEvent(MotionEvent event)
@@ -232,8 +225,8 @@ public class DrawView extends View
     }
 
     /**
-     * 
-     * @return
+     * Gets the bitmap
+     * @return The bitmap
      */
     public Bitmap getBitmap()
     {
@@ -241,8 +234,8 @@ public class DrawView extends View
     }
 
     /**
-     * 
-     * @param paint
+     * Sets the painter
+     * @param paint The painter
      */
     public void setPaint(Paint paint)
     {
@@ -250,8 +243,8 @@ public class DrawView extends View
     }
 
     /**
-     * 
-     * @param bm
+     * Sets the bitmap
+     * @param bm The bitmap
      */
     public void setBitmap(Bitmap bm)
     {
@@ -281,7 +274,7 @@ public class DrawView extends View
     }
 
     /**
-     * 
+     * Restore the drawing
      */
     public void restore()
     {
@@ -294,7 +287,7 @@ public class DrawView extends View
     }
 
     /**
-     * 
+     * Create a new drawing
      */
     public void reset()
     {
@@ -305,7 +298,7 @@ public class DrawView extends View
     }
 
     /**
-     * 
+     * Sets the Eyedropper mode
      */
     public void setEyeDropperMode()
     {
@@ -314,8 +307,8 @@ public class DrawView extends View
     }
 
     /**
-     * 
-     * @return
+     * Create a thumbnail 
+     * @return The thumbnail
      */
     public Bitmap getThumbnail()
     {
@@ -422,12 +415,6 @@ public class DrawView extends View
         }
         point.set(x / 2, y / 2);
     }
-    /*private float angle(MotionEvent event) {
-    float x = event.getX(0) - event.getX(1);
-    float y = event.getY(0) - event.getY(1);
-    Double angle = Math.toDegrees(Math.atan2(y, x));
-    return angle.floatValue();
-    }*/
 
     private float getNewX(float x)
     {

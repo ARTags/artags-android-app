@@ -37,21 +37,21 @@ public class HttpUtil
 {
 
     /**
-     * 
-     * @param sUrl
-     * @param params
-     * @param files
-     * @return
-     * @throws HttpException
+     * Post data and attachements
+     * @param url The POST url
+     * @param params Parameters
+     * @param files Files
+     * @return The return value
+     * @throws HttpException If an error occurs
      */
-    public static String post(String sUrl, HashMap<String, String> params, HashMap<String, File> files) throws HttpException
+    public static String post(String url, HashMap<String, String> params, HashMap<String, File> files) throws HttpException
     {
         String ret = "";
         try
         {
             HttpClient client = new DefaultHttpClient();
 
-            HttpPost post = new HttpPost(sUrl);
+            HttpPost post = new HttpPost(url);
 
 
             MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE );
