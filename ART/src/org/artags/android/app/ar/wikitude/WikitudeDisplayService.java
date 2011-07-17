@@ -74,13 +74,9 @@ public class WikitudeDisplayService
             String desc = "Date : " + poi.getDate() + " -Rating : " + poi.getRating();
             double lat = poi.getLatitude();
             double lon = poi.getLongitude();
-            double alt = poi.getAltitude();
-            String url = poi.getUrl();
-            String iconUrl = poi.getIconUrl();
             Log.d("Wikitude ", "Adding POI : " + lat + ", " + lon + ", 10, \"" + name + "\", \"" + desc + "\"");
             WikitudePOI wpoi = new WikitudePOI(lat, lon, 10, name, desc);
             wpoi.setLink(poi.getUrl());
-//            wpoi.setIconuri(iconUrl);
             wpoi.setIconresource(mActivity.getResources().getResourceName(R.drawable.marker));
             wpoi.setDetailAction( WikitudeDisplayService.CALLBACK_INTENT);
             list.add(wpoi);

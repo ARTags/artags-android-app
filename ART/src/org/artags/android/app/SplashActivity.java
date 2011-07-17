@@ -22,6 +22,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -242,7 +243,7 @@ public class SplashActivity extends Activity implements OnClickListener
                     in.close();
                 } catch (IOException e)
                 {
-                    // Ignore
+                    Log.e("ARTags", "Error closing input stream while reading asset", e );
                 }
             }
         }
