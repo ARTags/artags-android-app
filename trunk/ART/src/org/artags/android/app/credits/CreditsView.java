@@ -48,14 +48,13 @@ public class CreditsView extends SurfaceView implements SurfaceHolder.Callback
     private CreditsThread mThread;
     private Handler mHandler = new Handler();
     private List<CreditsItem> credits = new ArrayList<CreditsItem>();
-    private float mPreviousX;
     private float mPreviousY;
     private int mDY;
     private boolean mTouch;
 
     /**
-     * 
-     * @param context
+     * Constructor
+     * @param context The context
      */
     public CreditsView(Context context)
     {
@@ -112,8 +111,7 @@ public class CreditsView extends SurfaceView implements SurfaceHolder.Callback
     };
 
     /**
-     * 
-     * @param holder
+     * {@inheritDoc }
      */
     public void surfaceCreated(SurfaceHolder holder)
     {
@@ -123,11 +121,7 @@ public class CreditsView extends SurfaceView implements SurfaceHolder.Callback
     }
 
     /**
-     * 
-     * @param holder
-     * @param format
-     * @param width
-     * @param height
+     * {@inheritDoc }
      */
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height)
     {
@@ -165,8 +159,7 @@ public class CreditsView extends SurfaceView implements SurfaceHolder.Callback
     }
 
     /**
-     * 
-     * @param holder
+     * {@inheritDoc }
      */
     public void surfaceDestroyed(SurfaceHolder holder)
     {
@@ -313,28 +306,22 @@ public class CreditsView extends SurfaceView implements SurfaceHolder.Callback
     }
 
     /**
-     * 
-     * @param e
-     * @return
+     * {@inheritDoc }
      */
     @Override
     public boolean onTouchEvent(MotionEvent e)
     {
-        float x = e.getX();
         float y = e.getY();
         switch (e.getAction())
         {
             case MotionEvent.ACTION_DOWN:
-                mPreviousX = x;
                 mPreviousY = y;
                 mTouch = true;
                 break;
 
             case MotionEvent.ACTION_MOVE:
-                float dx = x - mPreviousX;
                 float dy = y - mPreviousY;
                 mDY = (int) dy;
-                mPreviousX = x;
                 mPreviousY = y;
 
             case MotionEvent.ACTION_UP:

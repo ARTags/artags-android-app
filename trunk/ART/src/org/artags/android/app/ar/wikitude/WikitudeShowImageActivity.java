@@ -35,8 +35,6 @@ import org.openintents.intents.WikitudePOI;
 public class WikitudeShowImageActivity extends Activity
 {
 
-    private WebView mWebView;
-
     /**
      * 
      * @param icicle

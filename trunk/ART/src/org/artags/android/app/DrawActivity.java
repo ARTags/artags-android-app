@@ -14,13 +14,13 @@
  */
 package org.artags.android.app;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import org.artags.android.app.draw.BrushParameters;
 import org.artags.android.app.draw.SendInfos;
 import org.artags.android.app.tag.TagUploadService;
 import org.artags.android.app.tag.Tag;
-import org.artags.android.app.draw.GraphicsActivity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -60,11 +60,10 @@ import org.artags.android.app.util.bitmap.BitmapUtil;
  *
  * @author Pierre Levy, Pierre Gros
  */
-public class DrawActivity extends GraphicsActivity
+public class DrawActivity extends Activity
         implements BrushDialog.OnBrushParametersChangedListener, SendDialog.OnSendListener
 {
 
-    private static final int INTENT_RESULT_MY_LOCATION = 0;
     private static final String IMAGE_FILE = "last_sent_image.png";
     private static final String THUMBNAIL_FILE = "last_sent_thumbnail.png";
     private static final String IMAGE_FILE_BACKUP = "backup.png";

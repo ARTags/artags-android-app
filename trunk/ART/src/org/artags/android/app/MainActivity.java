@@ -47,7 +47,6 @@ public class MainActivity extends Activity implements OnClickListener
 
     public static final String INTENT_PACKAGE = "org.artags.android.app";
     public static final String INTENT_MAIN_CLASS = INTENT_PACKAGE + ".MainActivity";
-
     private static final String INTENT_DRAW_CLASS = INTENT_PACKAGE + ".DrawActivity";
     private static final String INTENT_PREFERENCES_CLASS = INTENT_PACKAGE + ".PreferencesActivity";
     private static final String INTENT_CREDITS_CLASS = INTENT_PACKAGE + ".CreditsActivity";
@@ -80,7 +79,7 @@ public class MainActivity extends Activity implements OnClickListener
 
         mButtonDraw.setOnClickListener(this);
         mButtonDisplay.setOnClickListener(this);
-        
+
     }
 
     /**
@@ -124,15 +123,13 @@ public class MainActivity extends Activity implements OnClickListener
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)
     {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
+        if ((Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
+                && (keyCode == KeyEvent.KEYCODE_BACK) && isMenuVisible())
         {
-
-            if ((keyCode == KeyEvent.KEYCODE_BACK) && isMenuVisible())
-            {
-                showHideMenu();
-                return true;
-            }
+            showHideMenu();
+            return true;
         }
+
         return super.onKeyDown(keyCode, event);
     }
 
@@ -148,7 +145,7 @@ public class MainActivity extends Activity implements OnClickListener
         @Override
         public void handleMessage(Message msg)
         {
-            boolean bOk = msg.getData().getBoolean("completed");
+            msg.getData().getBoolean("completed");
             dismissDialog(DIALOG_PROGRESS);
             removeDialog(DIALOG_PROGRESS);
         }
@@ -189,8 +186,7 @@ public class MainActivity extends Activity implements OnClickListener
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
         {
             createMenu();
-        }
-        else
+        } else
         {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_main, menu);

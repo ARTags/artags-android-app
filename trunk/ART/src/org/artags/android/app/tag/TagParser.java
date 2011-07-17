@@ -34,7 +34,6 @@ public class TagParser extends DefaultHandler
     private static final String TITLE = "name";
     private static final String LATITUDE = "lat";
     private static final String LONGITUDE = "lon";
-    private static final String IMAGE = "image-id";
     private static final String THUMBNAIL = "thumbnail-id";
     private static final String DATE = "date";
     private static final String RATING = "rating";
@@ -92,8 +91,6 @@ public class TagParser extends DefaultHandler
             } else if (localName.equalsIgnoreCase(LONGITUDE))
             {
                 currentGenericPOI.setLongitude(Double.parseDouble(builder.toString()));
-            } else if (localName.equalsIgnoreCase(IMAGE))
-            {
             } else if (localName.equalsIgnoreCase(THUMBNAIL))
             {
                 currentGenericPOI.setIconUrl(Security.URL_ICON + builder.toString());
