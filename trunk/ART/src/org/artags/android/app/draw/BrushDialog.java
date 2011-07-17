@@ -35,7 +35,7 @@ import org.artags.android.app.R;
 
 /**
  * 
- * @author pierre
+ * @author Pierre Levy, Pierre Gros
  */
 public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListener, OnClickListener
 {
@@ -70,7 +70,7 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
     protected void onCreate(Bundle savedInstanceState)
     {
         LinearLayout layout = new LinearLayout(mContext);
-        layout.setBackgroundColor( Color.parseColor( DIALOG_BACKGROUND ) );
+        layout.setBackgroundColor(Color.parseColor(DIALOG_BACKGROUND));
 
         layout.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams dialogParams = new LinearLayout.LayoutParams(
@@ -122,7 +122,7 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
         mSeekBarOpacity = (SeekBar) view.findViewById(R.id.seek_opacity);
         mProgressTextOpacity = (TextView) view.findViewById(R.id.opacity);
         mSeekBarOpacity.setOnSeekBarChangeListener(this);
-        mSeekBarOpacity.setProgress( (int) ( (float) (mOpacity + 1) / 2.55));
+        mSeekBarOpacity.setProgress((int) ((float) (mOpacity + 1) / 2.55));
 
         // Brush size seekbar
         mSeekBarSize = (SeekBar) view.findViewById(R.id.seek_brush_size);
@@ -142,17 +142,16 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
         mButtonOK = (Button) view.findViewById(R.id.button_ok);
         mButtonOK.setOnClickListener(this);
 
-        mSeekBarIntensity.setProgressDrawable( getContext().getResources().getDrawable(R.drawable.progress) );
-        mSeekBarOpacity.setProgressDrawable( getContext().getResources().getDrawable(R.drawable.progress) );
-        mSeekBarSize.setProgressDrawable( getContext().getResources().getDrawable(R.drawable.progress) );
+        mSeekBarIntensity.setProgressDrawable(getContext().getResources().getDrawable(R.drawable.progress));
+        mSeekBarOpacity.setProgressDrawable(getContext().getResources().getDrawable(R.drawable.progress));
+        mSeekBarSize.setProgressDrawable(getContext().getResources().getDrawable(R.drawable.progress));
 
         setContentView(layout);
 
     }
 
     /**
-     * 
-     * @param view
+     * {@inheritDoc }
      */
     public void onClick(View view)
     {
@@ -180,10 +179,7 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
     }
 
     /**
-     * 
-     * @param seekbar
-     * @param progress
-     * @param arg2
+     * {@inheritDoc }
      */
     public void onProgressChanged(SeekBar seekbar, int progress, boolean arg2)
     {
@@ -197,7 +193,7 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
         } else if (seekbar == mSeekBarOpacity)
         {
             mProgressTextOpacity.setText("" + progress);
-            mOpacity = (int) ( 2.55 * (float) progress);
+            mOpacity = (int) (2.55 * (float) progress);
 
         } else if (seekbar == mSeekBarIntensity)
         {
@@ -210,36 +206,34 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
     }
 
     /**
-     * 
-     * @param arg0
+     * {@inheritDoc }
      */
     public void onStartTrackingTouch(SeekBar arg0)
     {
     }
 
     /**
-     * 
-     * @param arg0
+     * {@inheritDoc }
      */
     public void onStopTrackingTouch(SeekBar arg0)
     {
     }
 
     /**
-     * 
+     * {@inheritDoc }
      */
     public interface OnBrushParametersChangedListener
     {
 
         /**
-         * 
-         * @param bp
+         * Sets the brush parameters
+         * @param bp Brush Parameters
          */
         void setBrushParameter(BrushParameters bp);
     }
 
     /**
-     * 
+     * Class ColorPickerView 
      */
     public class ColorPickerView extends View
     {
@@ -254,10 +248,10 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
         {
             super(c);
             mColors = new int[]
-                    {
-                        0xFFFF0000, 0xFFFF00FF, 0xFF0000FF, 0xFF00FFFF, 0xFF00FF00,
-                        0xFFFFFF00, 0xFFFF0000, 0xFF000000, 0xFFFFFFFF, 0xFFFF0000
-                    };
+            {
+                0xFFFF0000, 0xFFFF00FF, 0xFF0000FF, 0xFF00FFFF, 0xFF00FF00,
+                0xFFFFFF00, 0xFFFF0000, 0xFF000000, 0xFFFFFFFF, 0xFFFF0000
+            };
             Shader s = new SweepGradient(0, 0, mColors, null);
 
             mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -271,8 +265,7 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
         }
 
         /**
-         * 
-         * @param canvas
+         * {@inheritDoc }
          */
         @Override
         protected void onDraw(Canvas canvas)
@@ -296,38 +289,15 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
 
             canvas.drawOval(new RectF(-r, -r, r, r), mPaint);
             mCenterPaint.setColor(getColor());
-            mCenterPaint.setAlpha( mOpacity );
+            mCenterPaint.setAlpha(mOpacity);
             canvas.drawCircle(0, 0, mBrushSize / 2, mCenterPaint);
-/*
-            if (mTrackingCenter)
-            {
-                int c = mCenterPaint.getColor();
-                mCenterPaint.setStyle(Paint.Style.STROKE);
-
-                if (mHighlightCenter)
-                {
-                    mCenterPaint.setAlpha(0xFF);
-                } else
-                {
-                    mCenterPaint.setAlpha(0x80);
-                }
-                canvas.drawCircle(0, 0,
-                        CENTER_RADIUS + mCenterPaint.getStrokeWidth(),
-                        mCenterPaint);
-
-                mCenterPaint.setStyle(Paint.Style.FILL);
-                mCenterPaint.setColor(c);
-            }
-*/
-            mSeekBarIntensity.setBackgroundColor( getColor());
-            mSeekBarOpacity.setBackgroundColor( getColor());
-            mSeekBarSize.setBackgroundColor( getColor());
+            mSeekBarIntensity.setBackgroundColor(getColor());
+            mSeekBarOpacity.setBackgroundColor(getColor());
+            mSeekBarSize.setBackgroundColor(getColor());
         }
 
         /**
-         * 
-         * @param widthMeasureSpec
-         * @param heightMeasureSpec
+         * {@inheritDoc }
          */
         @Override
         protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
@@ -415,9 +385,7 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
         private static final float PI = 3.1415926f;
 
         /**
-         * 
-         * @param event
-         * @return
+         * {@inheritDoc }
          */
         @Override
         public boolean onTouchEvent(MotionEvent event)
@@ -456,7 +424,7 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
                         mColorBase = interpColor(mColors, unit);
                         mCenterPaint.setColor(getColor());
                         invalidate();
-                  }
+                    }
                     break;
                 case MotionEvent.ACTION_UP:
                     if (mTrackingCenter)
@@ -480,10 +448,10 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
     }
 
     /**
-     * 
-     * @param context
-     * @param listener
-     * @param bp
+     * Constructor
+     * @param context The context
+     * @param listener A Listener
+     * @param bp Brush parameters
      */
     public BrushDialog(Context context, OnBrushParametersChangedListener listener, BrushParameters bp)
     {
@@ -500,5 +468,4 @@ public class BrushDialog extends Dialog implements SeekBar.OnSeekBarChangeListen
         mContext = context;
         mBP = bp;
     }
-
 }

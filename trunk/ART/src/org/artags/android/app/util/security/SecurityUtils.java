@@ -20,7 +20,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  *
- * @author pierre
+ * @author Pierre Levy
  */
 public class SecurityUtils
 {

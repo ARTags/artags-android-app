@@ -25,6 +25,7 @@ import java.util.List;
 /**
  * Start the Twitter Application to send a tweet.
  * @author Pierre Levy
+ * @deprecated 
  */
 public class TwitterUtil
 {
@@ -33,10 +34,10 @@ public class TwitterUtil
     private static final String CONTENT_TYPE_TEXT = "text/plain";
 
     /**
-     * 
-     * @param context
-     * @param message
-     * @return
+     * Send a tweet to the Twitter application
+     * @param context The context
+     * @param message The message
+     * @return True if OK otherwise false
      */
     public static boolean send(Context context, String message)
     {

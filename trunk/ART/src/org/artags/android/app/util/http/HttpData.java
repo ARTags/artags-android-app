@@ -20,17 +20,19 @@ import java.util.Hashtable;
  * 
  * @author pierre
  */
-public class HttpData {
+public class HttpData
+{
+
     /**
-     * 
+     * The content
      */
     public String content;
     /**
-     * 
+     * Cookies
      */
     public Hashtable cookies = new Hashtable();
-      /**
-       * 
-       */
-      public Hashtable headers = new Hashtable();
+    /**
+     * Headers
+     */
+    public Hashtable headers = new Hashtable();
 }

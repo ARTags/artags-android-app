@@ -194,8 +194,7 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
     }
 
     /**
-     * 
-     * @param provider
+     * {@inheritDoc }
      */
     public void onProviderDisabled(String provider)
     {
@@ -204,8 +203,7 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
     }
 
     /**
-     * 
-     * @param provider
+     * {@inheritDoc }
      */
     public void onProviderEnabled(String provider)
     {
@@ -213,16 +211,13 @@ public class SendDialog extends Dialog implements OnClickListener, LocationListe
     }
 
     /**
-     * 
-     * @param provider
-     * @param status
-     * @param extras
+     * {@inheritDoc }
      */
     public void onStatusChanged(String provider, int status, Bundle extras)
     {
         Log.i("ARTags:SendDialog", "Location Provider status changed.");
     }
-    //
+
     final Handler mHandler = new Handler();
     final Runnable mUpdateLocation = new Runnable()
     {

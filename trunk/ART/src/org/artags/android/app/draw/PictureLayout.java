@@ -26,7 +26,7 @@ import android.view.ViewParent;
 
 /**
  * 
- * @author pierre
+ * @author Pierre Levy
  */
 public class PictureLayout extends ViewGroup
 {
@@ -34,8 +34,8 @@ public class PictureLayout extends ViewGroup
     private final Picture mPicture = new Picture();
 
     /**
-     * 
-     * @param context
+     * Constructor
+     * @param context The context
      */
     public PictureLayout(Context context)
     {
@@ -43,9 +43,9 @@ public class PictureLayout extends ViewGroup
     }
 
     /**
-     * 
-     * @param context
-     * @param attrs
+     * Constructor
+     * @param context The context
+     * @param attrs Attributes
      */
     public PictureLayout(Context context, AttributeSet attrs)
     {
@@ -53,8 +53,7 @@ public class PictureLayout extends ViewGroup
     }
 
     /**
-     * 
-     * @param child
+     * {@inheritDoc }
      */
     @Override
     public void addView(View child)
@@ -68,9 +67,7 @@ public class PictureLayout extends ViewGroup
     }
 
     /**
-     * 
-     * @param child
-     * @param index
+     * {@inheritDoc }
      */
     @Override
     public void addView(View child, int index)
@@ -84,9 +81,7 @@ public class PictureLayout extends ViewGroup
     }
 
     /**
-     * 
-     * @param child
-     * @param params
+     * {@inheritDoc }
      */
     @Override
     public void addView(View child, LayoutParams params)
@@ -100,10 +95,7 @@ public class PictureLayout extends ViewGroup
     }
 
     /**
-     * 
-     * @param child
-     * @param index
-     * @param params
+     * {@inheritDoc }
      */
     @Override
     public void addView(View child, int index, LayoutParams params)
@@ -117,8 +109,7 @@ public class PictureLayout extends ViewGroup
     }
 
     /**
-     * 
-     * @return
+     * {@inheritDoc }
      */
     @Override
     protected LayoutParams generateDefaultLayoutParams()
@@ -127,9 +118,7 @@ public class PictureLayout extends ViewGroup
     }
 
     /**
-     * 
-     * @param widthMeasureSpec
-     * @param heightMeasureSpec
+     * {@inheritDoc }
      */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
@@ -175,8 +164,7 @@ public class PictureLayout extends ViewGroup
     }
 
     /**
-     * 
-     * @param canvas
+     * {@inheritDoc }
      */
     @Override
     protected void dispatchDraw(Canvas canvas)
@@ -200,10 +188,7 @@ public class PictureLayout extends ViewGroup
     }
 
     /**
-     * 
-     * @param location
-     * @param dirty
-     * @return
+     * {@inheritDoc }
      */
     @Override
     public ViewParent invalidateChildInParent(int[] location, Rect dirty)
@@ -215,12 +200,7 @@ public class PictureLayout extends ViewGroup
     }
 
     /**
-     * 
-     * @param changed
-     * @param l
-     * @param t
-     * @param r
-     * @param b
+     * {@inheritDoc }
      */
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b)
