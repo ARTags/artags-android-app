@@ -15,9 +15,12 @@
 package org.artags.android.app.ar.mixare;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.net.Uri;
 import org.artags.android.app.ar.BrowserHandler;
+import org.artags.android.app.util.location.LocationService;
 
 /**
  *
@@ -52,7 +55,7 @@ public class MixareBrowserHandler implements BrowserHandler
     {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.parse(URL_MIXARE_JSON_ENDPOINT), MIME_TYPE);
+        intent.setDataAndType(Uri.parse(getUrl(activity)), MIME_TYPE);
         activity.startActivity(intent);
     }
 
@@ -62,5 +65,14 @@ public class MixareBrowserHandler implements BrowserHandler
     public String getPackageName()
     {
         return "org.mixare";
+    }
+
+    private String getUrl(Context context)
+    {
+        Location location = LocationService.getLocation(context);
+        StringBuilder url = new StringBuilder(URL_MIXARE_JSON_ENDPOINT);
+        url.append("?latitude=").append(location.getLatitude());
+        url.append("&longitude=").append(location.getLongitude());
+        return url.toString();
     }
 }
