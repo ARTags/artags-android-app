@@ -396,7 +396,7 @@ public class DrawView extends View
     {
         float x = 0;
         float y = 0;
-        if (ApiLevels.getApiLevel() >= 5)
+        if (ApiLevels.getApiLevel() >= 5 && (event.getPointerCount() > 1))
         {
             x = ApiLevel5.getX(event, 0) - ApiLevel5.getX(event, 1);
             y = ApiLevel5.getY(event, 0) - ApiLevel5.getY(event, 1);
@@ -408,7 +408,7 @@ public class DrawView extends View
     {
         float x = 0;
         float y = 0;
-        if (ApiLevels.getApiLevel() >= 5)
+        if (ApiLevels.getApiLevel() >= 5 && (event.getPointerCount() > 1))
         {
             x = ApiLevel5.getX(event, 0) + ApiLevel5.getX(event, 1);
             y = ApiLevel5.getY(event, 0) + ApiLevel5.getY(event, 1);

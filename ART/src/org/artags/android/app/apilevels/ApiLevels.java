@@ -28,6 +28,6 @@ public class ApiLevels {
      */
     public static int getApiLevel()
     {
-        return Integer.parseInt(Build.VERSION.SDK);
+        return Build.VERSION.SDK_INT;
     }
 }
