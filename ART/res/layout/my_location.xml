@@ -72,7 +72,7 @@
               android:gravity="center"
               android:layout_marginLeft="10dip" />
 
-    <EditText android:text="0.0"  style="@style/tagEditText"
+    <EditText style="@style/tagEditText"
               android:id="@+id/mylocation_latitude"
               android:layout_height="wrap_content"
               android:layout_alignParentRight="true"
@@ -92,7 +92,7 @@
               android:gravity="center"
               android:layout_marginLeft="10dip" />
 
-    <EditText android:text="0.0" style="@style/tagEditText"
+    <EditText style="@style/tagEditText"
               android:id="@+id/mylocation_longitude"
               android:layout_height="wrap_content"
               android:layout_alignParentRight="true"
@@ -124,37 +124,5 @@
 
     </LinearLayout>
 
-
-
-    <!--
-    <TextView android:text="@string/mylocation_enter_location_title" style="@style/tagTextTitle"
-              android:id="@+id/mylocation_enter_location_title"
-              android:layout_below="@id/mylocation_form"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:gravity="left"
-              android:textStyle="bold"
-              android:textSize="18sp"
-              android:layout_margin="10dip" />
-
-    <LinearLayout android:id="@+id/mylocation_enter"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_below="@id/mylocation_enter_location_title"
-                  android:layout_centerHorizontal="true"
-                  android:layout_marginTop="10dip">
-
-        <Button android:layout_height="wrap_content"
-                android:id="@+id/mylocation_select_on_map_button"
-                android:text="@string/mylocation_select_on_map"
-                android:layout_width="150dip" />
-
-        <Button android:layout_height="wrap_content"
-                android:id="@+id/mylocation_enter_position_button"
-                android:text="@string/mylocation_enter_position"
-                android:layout_width="150dip" />
-
-    </LinearLayout>
--->
 
 </RelativeLayout>

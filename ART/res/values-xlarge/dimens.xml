@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- DIMENSIONS FOR TABLETS -->
+<resources>
+    <dimen name="padding">100dp</dimen>
+    <dimen name="main_button_size">300dp</dimen>
+    <dimen name="main_button_margin">40dp</dimen>
+</resources>
+

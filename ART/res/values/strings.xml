@@ -4,8 +4,37 @@
     <string name="eula_title">End User License Agreement</string>
     <string name="eula_button_accept">Accept</string>
     <string name="eula_button_refuse">Refuse</string>
+<!--
     <string name="button_draw">Draw</string>
     <string name="button_view">View existing ARTags near you</string>
+    <string name="menu_emboss">Emboss</string>
+    <string name="menu_blur">Blur</string>
+    <string name="menu_brush_size">Brush size</string>
+
+    <string name="mylocation_get_address">Get address</string>
+    <string name="mylocation_select_on_map">Select on map</string>
+
+    <string name="mylocation_enter_location_title">Define my location manually</string>
+    <string name="mylocation_enter_position">Enter address</string>
+
+    <string name="preference_mylocation">Use an approximate location using wireless networks where the GPS does not work. \nIf not checked, tags cannot be sent if the GPS location is not found.</string>
+    <string name="preferences_location_title">Location Options</string>
+    <string name="send_search_gps_not_found">Can\'t get GPS location !</string>
+
+    <string name="send_button_send">Send</string>
+    <string name="send_button_mylocation">My Location</string>
+
+    <string name="menu_mylocation">My location</string>
+
+    <string name="tweet_pattern">#ARTags New tag : {0}</string> 
+
+    <string name="ar_browser_preferences">Augmented Reality Preferences</string>
+    <string name="title_ar_browser_list">AR Browser</string>
+    <string name="summary_ar_browser_list">Choose Augmented Reality Browser</string>
+    <string name="dialog_ar_browser_list">Choose AR Browser</string>
+
+
+-->
     <string name="title_browser_not_found">{0} not found!</string>
     <string name="message_browser_not_found">The current selected augmented reality browser \"{0}\" hasn\'t been found! \n\nPlease download it from the Android Market or choose another browser in the Preferences screen that may be installed.</string>
     <string name="button_download">Download</string>
@@ -13,15 +42,11 @@
     <string name="activity_ShowImage">Detail</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_color">Colors</string>
-    <string name="menu_emboss">Emboss</string>
-    <string name="menu_blur">Blur</string>
     <string name="menu_erase">Erase</string>
-    <string name="menu_brush_size">Brush size</string>
     <string name="menu_eyedropper">Eyedropper</string>
     <string name="menu_reset">Reset</string>
     <string name="menu_undo">Undo</string>
     <string name="menu_send">Send</string>
-    <string name="ok">OK</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="close">Close</string>
@@ -30,22 +55,19 @@
     <string name="cancel">Cancel</string>
     <string name="dialog_send">Send your tag</string>
     <string name="dialog_send_search_location">Searching for your location :</string>
-    <string name="send_search_gps">Searching using GPS ...</string>
+    <string name="send_search_gps">Searching using GPS &#8230;</string>
     <string name="send_search_gps_found">GPS location found !</string>
-    <string name="send_search_gps_not_found">Can\'t get GPS location !</string>
     <string name="send_search_gps_not_found_use_mylocation">Can\'t get GPS location !</string>
-    <string name="send_search_network">Searching now using network ...</string> 
+    <string name="send_search_network">Searching now using network &#8230;</string> 
     <string name="send_search_network_not_found">Can\'t get either Network location !\nYou can\'t send your tag for the moment.\nPlease try later.</string>
     <string name="send_search_network_found">Your location has been found approximatively!\nYou can now send your tag.</string>
     <string name="dialog_send_enter_title">Enter a title for the tag : </string>
     <string name="dialog_send_share">Share your tag :</string>
-    <string name="dialog_send_share_checkbox">After sending my tag, let me share it using service such as email, social network, ...</string>
-    <string name="send_button_send">Send</string>
-    <string name="send_button_mylocation">My Location</string>
-    <string name="dialog_progress">"Upload in progress..."</string>
+    <string name="dialog_send_share_checkbox">After sending my tag, let me share it using service such as email, social network, &#8230;</string>
+    <string name="dialog_progress">"Upload in progress&#8230;"</string>
     <string name="upload_successful">Your tag has been uploaded successfully and saved on your SD card!</string>
     <string name="upload_failed">Sorry, upload failed!</string>
-    <string name="dialog_loading">Loading Augmented Reality Viewer. Please Wait ..."</string>
+    <string name="dialog_loading">Loading Augmented Reality Viewer. Please Wait &#8230;"</string>
     <string name="label_color_intensity">Color intensity :</string>
     <string name="label_brush_size">Brush size :</string>
     <string name="label_opacity">Opacity :</string>
@@ -86,17 +108,11 @@
     <string name="activity_preferences">Preferences</string>
     <string name="menu_preferences">Preferences</string>
     <string name="menu_credits">Credits</string>
-    <string name="ar_browser_preferences">Augmented Reality Preferences</string>
-    <string name="title_ar_browser_list">AR Browser</string>
-    <string name="summary_ar_browser_list">Choose Augmented Reality Browser</string>
-    <string name="dialog_ar_browser_list">Choose AR Browser</string>
 
     <string name="preferences_title">Preferences</string>
     <string name="preferences_browser_title">Augmented Reality Browser</string>
-    <string name="preferences_location_title">Location Options</string>
     <string name="preferences_browser">Selected browser</string>
     <string name="preferences_change_browser">Change</string>
-    <string name="preference_mylocation">Use an approximate location using wireless networks where the GPS does not work. \nIf not checked, tags cannot be sent if the GPS location is not found.</string>
 
 
     <!-- My Location strings -->
@@ -104,22 +120,19 @@
     <string name="mylocation_address_title">Corresponding address</string>
     <string name="mylocation_detect_title">Detect my location</string>
     <string name="activity_mylocation">My location</string>
-    <string name="menu_mylocation">My location</string>
     <string name="mylocation_latitude">Latitude</string>
     <string name="mylocation_longitude">Longitude</string>
     <string name="mylocation_validate">Validate this location</string>
     <string name="mylocation_select_source">Select source</string>
     <string name="mylocation_get_position">Get position</string>
-    <string name="mylocation_get_address">Get address</string>
-    <string name="mylocation_enter_location_title">Define my location manually</string>
-    <string name="mylocation_select_on_map">Select on map</string>
-    <string name="mylocation_enter_position">Enter address</string>
 
-    <string name="tweet_pattern">#ARTags New tag : {0}</string> 
+
+
     <string name="share_pattern">New tag : {0} - http://new.artags.net/{1} @ARtagsnews #ARTags</string>
     <string name="share_chooser_title">Share with</string>
     
     <!-- Widgets -->
+    <string name="widget_text">ARTags Widget</string>
     <string name="widget_latest_tags_name">ARTags Widget (latest tags)</string>
     <string name="widget_best_tags_name">ARTags Widget (best tags)</string>
 
