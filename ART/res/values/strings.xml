@@ -4,37 +4,6 @@
     <string name="eula_title">End User License Agreement</string>
     <string name="eula_button_accept">Accept</string>
     <string name="eula_button_refuse">Refuse</string>
-<!--
-    <string name="button_draw">Draw</string>
-    <string name="button_view">View existing ARTags near you</string>
-    <string name="menu_emboss">Emboss</string>
-    <string name="menu_blur">Blur</string>
-    <string name="menu_brush_size">Brush size</string>
-
-    <string name="mylocation_get_address">Get address</string>
-    <string name="mylocation_select_on_map">Select on map</string>
-
-    <string name="mylocation_enter_location_title">Define my location manually</string>
-    <string name="mylocation_enter_position">Enter address</string>
-
-    <string name="preference_mylocation">Use an approximate location using wireless networks where the GPS does not work. \nIf not checked, tags cannot be sent if the GPS location is not found.</string>
-    <string name="preferences_location_title">Location Options</string>
-    <string name="send_search_gps_not_found">Can\'t get GPS location !</string>
-
-    <string name="send_button_send">Send</string>
-    <string name="send_button_mylocation">My Location</string>
-
-    <string name="menu_mylocation">My location</string>
-
-    <string name="tweet_pattern">#ARTags New tag : {0}</string> 
-
-    <string name="ar_browser_preferences">Augmented Reality Preferences</string>
-    <string name="title_ar_browser_list">AR Browser</string>
-    <string name="summary_ar_browser_list">Choose Augmented Reality Browser</string>
-    <string name="dialog_ar_browser_list">Choose AR Browser</string>
-
-
--->
     <string name="title_browser_not_found">{0} not found!</string>
     <string name="message_browser_not_found">The current selected augmented reality browser \"{0}\" hasn\'t been found! \n\nPlease download it from the Android Market or choose another browser in the Preferences screen that may be installed.</string>
     <string name="button_download">Download</string>
@@ -90,7 +59,7 @@
     </string>
     <string name="whats_new_dialog_title">What\'s new in ARTags</string>
     <string name="whats_new_dialog_message">Thanks for upgrading ARTags\n
-    <b>New in version 1.3:</b>\n
+    <b>New in version 1.4:</b>\n
     \t• New AR browser added : Mixare.\n
     \t• Minor bug-fixes.\n
     </string>
@@ -103,7 +72,7 @@
 
     <!-- Credits infos -->
     <string name="credits_app_name">ARTags for Android</string>
-    <string name="credits_current_version">Version 1.3.2</string>
+    <string name="credits_current_version">Version 1.4.0</string>
     <!-- Preferences strings -->
     <string name="activity_preferences">Preferences</string>
     <string name="menu_preferences">Preferences</string>
