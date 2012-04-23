@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- DIMENSIONS FOR PHONES -->
+<resources>
+    <dimen name="padding">50dp</dimen>
+    <dimen name="main_button_size">180dp</dimen>
+    <dimen name="main_button_margin">20dp</dimen>
+</resources>
