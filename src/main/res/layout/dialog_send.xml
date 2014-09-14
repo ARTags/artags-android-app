@@ -117,15 +117,17 @@
                   android:layout_height="wrap_content"
                   android:layout_margin="10dip">
 
-            <Button android:layout_height="wrap_content"
-                android:id="@+id/send_send_button"
-                android:text="@string/send"
-                android:layout_width="120dip" />
+            <Button style="?android:attr/buttonBarButtonStyle"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/send_send_button"
+                    android:text="@string/send"
+                    android:layout_width="120dip" />
 
-            <Button android:layout_height="wrap_content"
-                android:id="@+id/send_cancel_button"
-                android:text="@string/cancel"
-                android:layout_width="120dip" />
+            <Button style="?android:attr/buttonBarButtonStyle"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/send_cancel_button"
+                    android:text="@string/cancel"
+                    android:layout_width="120dip" />
 
         </LinearLayout>
 

@@ -33,7 +33,7 @@ android {
     buildToolsVersion "19.1.0"
 
     tasks.withType(JavaCompile) {
-        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+//        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
     }
 
     packagingOptions {

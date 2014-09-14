@@ -188,6 +188,7 @@ public class CreditsView extends SurfaceView implements SurfaceHolder.Callback
             }
             list.add(item);
         }
+        entries.recycle();
     }
 
     private class CreditsThread extends Thread

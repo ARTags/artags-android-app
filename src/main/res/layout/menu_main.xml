@@ -11,24 +11,26 @@
             android:layout_alignParentBottom="true"
             android:baselineAligned="false" android:visibility="gone">
 
-        <Button android:id="@+id/button_config"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:text="@string/menu_preferences"
-            android:background="@drawable/ic_menu_button"
-            android:drawableLeft="@drawable/menu_preferences_small"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"/>
+        <Button style="?android:attr/buttonBarButtonStyle"
+                android:id="@+id/button_config"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="@string/menu_preferences"
+                android:background="@drawable/ic_menu_button"
+                android:drawableLeft="@drawable/menu_preferences_small"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"/>
 
-        <Button android:id="@+id/button_credits"
+        <Button style="?android:attr/buttonBarButtonStyle"
+                android:id="@+id/button_credits"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:text="@string/menu_credits"
-            android:background="@drawable/ic_menu_button"
-            android:drawableLeft="@drawable/menu_credits_small"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"/>
+                android:background="@drawable/ic_menu_button"
+                android:drawableLeft="@drawable/menu_credits_small"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"/>
     </LinearLayout>
 </RelativeLayout>

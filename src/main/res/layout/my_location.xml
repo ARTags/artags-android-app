@@ -36,12 +36,14 @@
                   android:layout_centerHorizontal="true"
                   android:layout_marginTop="10dip">
 
-        <Button android:layout_height="wrap_content"
+        <Button style="?android:attr/buttonBarButtonStyle"
+                android:layout_height="wrap_content"
                 android:id="@+id/mylocation_select_source_button"
                 android:text="@string/mylocation_select_source"
                 android:layout_width="150dip" />
 
-        <Button android:layout_height="wrap_content"
+        <Button style="?android:attr/buttonBarButtonStyle"
+                android:layout_height="wrap_content"
                 android:id="@+id/mylocation_get_position_button"
                 android:text="@string/mylocation_get_position"
                 android:layout_width="150dip" />
@@ -108,12 +110,14 @@
                   android:layout_centerHorizontal="true"
                   android:layout_marginTop="10dip">
 
-        <Button android:id="@+id/mylocation_validate_button"
+        <Button style="?android:attr/buttonBarButtonStyle"
+                android:id="@+id/mylocation_validate_button"
                 android:layout_height="wrap_content"
                 android:text="@string/mylocation_validate"
                 android:layout_width="150dip" />
 
-        <Button android:id="@+id/mylocation_cancel_button"
+        <Button style="?android:attr/buttonBarButtonStyle"
+                android:id="@+id/mylocation_cancel_button"
                 android:layout_height="wrap_content"
                 android:text="@string/cancel"
                 android:layout_width="150dip" />
